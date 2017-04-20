@@ -6,14 +6,14 @@ class JsonWebToken
                algorithm: 'RS256',
                iss: Rails.application.secrets.auth0_domain,
                verify_iss: true,
-               aud: Rails.application.secrets.auth0_api_audience,
+               aud: Rails.application.secrets.client_id,
                verify_aud: true) do |header|
       jwks_hash[header['kid']]
     end
   end
 
   def self.jwks_hash
-    uri = URI("#{Rails.application.secrets.auth0_domain}/.well-known/jwks.json")
+    uri = URI("https://#{Rails.application.secrets.auth0_domain}/.well-known/jwks.json")
     jwks_raw = Net::HTTP.get(uri)
     jwks_keys = Array(JSON.parse(jwks_raw)['keys'])
     Hash[

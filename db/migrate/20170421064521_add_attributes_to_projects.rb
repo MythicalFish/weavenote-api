@@ -8,8 +8,8 @@ class AddAttributesToProjects < ActiveRecord::Migration[5.0]
     add_index :projects, :name
     change_column :projects, :name, :string, null: false
 
-    add_column :projects, :development_stage, :string
-    add_index :projects, :development_stage
+    add_column :projects, :development_stage_id, :integer
+    add_index :projects, :development_stage_id
     add_column :projects, :type, :string
     add_index :projects, :type
     add_column :projects, :identifier, :string, null: false

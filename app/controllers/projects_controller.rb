@@ -3,7 +3,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
-    @projects = Project.all
+    
+    @projects = @user.projects
 
     render json: @projects
   end

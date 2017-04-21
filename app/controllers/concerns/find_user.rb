@@ -12,37 +12,64 @@ module FindUser
   private
 
   def find_user!
-
-    auth0 = Auth0Client.new(
-      :client_id => Rails.application.secrets.auth0_client_id,
-      :token => http_token,
-      :domain => Rails.application.secrets.auth0_domain,
-      :api_version => 2
-    )
-
-    user_info = auth0.user_info
-    user = User.find_by_email(user_info['email'])
-
-    unless user
-      user = User.create({
+    unless @user = fetch_user
+      @user = User.create({
         name: user_info['name'],
-        email: user_info['email']
+        email: user_info['email'],
+        avatar: user_info['picture'],
+        auth0_id: auth0_id
       })
     end
-
-    user
-    
   rescue
     render json: { errors: ['Not Authenticated'] }, status: :unauthorized
   end
 
-  def http_token
-    if request.headers['Authorization'].present?
-      request.headers['Authorization'].split(' ').last
+  def fetch_user
+    key = cache_key_for_user
+    options = cache_options
+    Rails.cache.fetch( key, options ) do
+      User.find_by_auth0_id(auth0_id)
     end
   end
 
-  def auth_token
-    JsonWebToken.decode(http_token)
+  def auth0_id
+    key = cache_key_for_auth0_id
+    options = cache_options
+    Rails.cache.fetch( key, options ) do
+      user_info['user_id']
+    end
   end
+
+  def user_info
+    secrets = Rails.application.secrets
+    auth0 = Auth0Client.new(
+      :client_id => secrets.auth0_client_id,
+      :token => token,
+      :domain => secrets.auth0_domain,
+      :api_version => 2
+    )
+    auth0.user_info
+  end
+
+  def token
+    header = request.headers['Authorization']
+    token = header.split(' ').last if header
+    raise "No token found" unless token
+    token
+  end
+
+  def cache_key_for_auth0_id
+    "auth0_id_from_token___#{token}"
+  end
+
+  def cache_key_for_user
+    "user_from_token___#{token}"
+  end
+
+  def cache_options
+    {
+      expires_in: 30.minutes
+    }
+  end
+
 end

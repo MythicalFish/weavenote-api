@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170421110930) do
+ActiveRecord::Schema.define(version: 20170421123802) do
 
   create_table "development_stage", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "label", null: false
@@ -63,6 +63,9 @@ ActiveRecord::Schema.define(version: 20170421110930) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "auth0_id",   null: false
+    t.string   "avatar"
+    t.index ["auth0_id"], name: "index_users_on_auth0_id", using: :btree
   end
 
 end

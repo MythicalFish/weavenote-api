@@ -3,5 +3,5 @@ class Project < ApplicationRecord
   has_many :materials, through: :users
   has_many :images, as: :imageable
   has_one :development_stage
-  accept_nested_attributes_for :images
+  accepts_nested_attributes_for :images
 end

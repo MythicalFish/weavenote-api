@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20170421160924) do
 
-  create_table "development_stage", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "development_stages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "label", null: false
   end
 
@@ -32,9 +32,9 @@ ActiveRecord::Schema.define(version: 20170421160924) do
     t.integer  "price"
     t.integer  "quantity"
     t.string   "color"
+    t.integer  "user_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "user_id",    null: false
     t.index ["color"], name: "index_materials_on_color", using: :btree
     t.index ["identifier"], name: "index_materials_on_identifier", using: :btree
     t.index ["name"], name: "index_materials_on_name", using: :btree

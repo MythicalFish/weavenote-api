@@ -14,9 +14,9 @@ module FindUser
   def find_user!
     unless @user = fetch_user
       @user = User.create({
-        name: user_info['name'],
+        name: user_info['nickname'],
         email: user_info['email'],
-        avatar: user_info['picture'],
+        avatar: user_info['picture_large'],
         auth0_id: auth0_id
       })
     end

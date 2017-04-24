@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
   
-  include FindUser
+  include SetUser
 
   def root
     render json: {}

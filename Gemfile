@@ -33,6 +33,7 @@ gem 'rack-cors'
 gem 'jwt'
 gem 'auth0'
 gem 'mysql2'
+gem 'active_model_serializers', '~> 0.10.5'
 
 group :development, :test do
   gem 'byebug', platform: :mri

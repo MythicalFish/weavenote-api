@@ -1,17 +1,17 @@
 # frozen_string_literal: true
-module FindUser
+module SetUser
   
   extend ActiveSupport::Concern
   
   require 'auth0'
 
   included do
-    before_action :find_user!
+    before_action :set_user!
   end
 
   private
 
-  def find_user!
+  def set_user!
     unless @user = fetch_user
       @user = User.create({
         name: user_info['nickname'],

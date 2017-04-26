@@ -24,8 +24,7 @@ test:
 
 production:
   <<: *default
-  database: <%= ENV['RDS_DB'] %>
-  username: <%= ENV['RDS_USER'] %>
-  password: <%= ENV['RDS_PASSWORD'] %>
-  host:     <%= ENV['RDS_ENDPOINT'] %>
-  port:     <%= ENV['RDS_PORT'] %>
+  database: seamless
+  username: root
+  password: Boobies!111
+  socket: /run/mysqld/mysqld.sock

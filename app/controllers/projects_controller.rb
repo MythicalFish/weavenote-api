@@ -4,6 +4,9 @@ class ProjectsController < ApplicationController
   # GET /projects
   def index
     @projects = @user.projects
+    if params[:archived]
+      @projects = @projects.where(archived: true)
+    end
     render json: @projects
   end
 

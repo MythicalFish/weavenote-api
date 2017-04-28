@@ -3,10 +3,10 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
+    archived = params[:archived] == "true" ? true : false
     @projects = @user.projects
-    if params[:archived]
-      @projects = @projects.where(archived: true)
-    end
+      .order('created_at DESC')
+      .where(archived: archived)
     render json: @projects
   end
 
@@ -17,19 +17,23 @@ class ProjectsController < ApplicationController
 
   # POST /projects
   def create
-    @project = Project.new(project_params)
-
+    @project = @user.projects.new(project_params)
     if @project.save
-      render json: @project, status: :created, location: @project
+      #render json: @project, status: :created, location: @project
+      index
     else
-      render json: @project.errors, status: :unprocessable_entity
+      render json: @project.errors.full_messages.join(', '), status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /projects/1
   def update
     if @project.update(project_params)
-      render json: @project
+      if params[:index_after_update]
+        index
+      else 
+        render json: @project
+      end
     else
       render json: @project.errors, status: :unprocessable_entity
     end
@@ -48,6 +52,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def project_params
-      params.require(:project).permit(:name)
+      params.require(:project).permit(:name, :identifier, :archived, :images, :development_stage_id, :category)
     end
 end

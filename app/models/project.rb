@@ -8,8 +8,18 @@ class Project < ApplicationRecord
 
   alias_attribute :stage, :development_stage
 
+  before_create :set_identifier
+
   def thumbnail_url
     images.first.url
+  end
+
+  private
+
+  def set_identifier
+    if self.identifier.blank?
+      self.identifier = rand(36**4).to_s(36).upcase
+    end
   end
 
 end

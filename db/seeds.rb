@@ -14,6 +14,7 @@ unless User.find_by_email('jake@mythical.fish')
   })
 end
 
+DevelopmentStage.all.destroy_all
 DevelopmentStage.create([
   { label: 'Sample' },
   { label: 'Production' },

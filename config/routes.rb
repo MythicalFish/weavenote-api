@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-  resources :projects
   root to: 'application#root'
+  resources :projects
+  get 'stats', to: 'application#stats'
 end

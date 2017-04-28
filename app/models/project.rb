@@ -10,6 +10,9 @@ class Project < ApplicationRecord
 
   before_create :set_identifier
 
+  scope :active, -> { where(archived: false) }
+  scope :archived, -> { where(archived: true) }
+
   def thumbnail_url
     images.first.url
   end

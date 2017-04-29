@@ -8,7 +8,7 @@ class Project < ApplicationRecord
 
   alias_attribute :stage, :development_stage
 
-  before_create :set_identifier
+  before_validation :set_defaults
 
   scope :active, -> { where(archived: false) }
   scope :archived, -> { where(archived: true) }
@@ -19,9 +19,12 @@ class Project < ApplicationRecord
 
   private
 
-  def set_identifier
+  def set_defaults
     if self.identifier.blank?
       self.identifier = rand(36**4).to_s(36).upcase
+    end
+    if self.development_stage_id.blank?
+      self.development_stage = DevelopmentStage.first
     end
   end
 

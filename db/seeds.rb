@@ -15,6 +15,7 @@ unless User.find_by_email('jake@mythical.fish')
 end
 
 DevelopmentStage.all.destroy_all
+ActiveRecord::Base.connection.execute("ALTER TABLE development_stages AUTO_INCREMENT = 1;")
 DevelopmentStage.create([
   { label: 'Sample' },
   { label: 'Production' },

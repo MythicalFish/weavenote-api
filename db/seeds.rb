@@ -71,10 +71,11 @@ project_data = [
 User.all.each do |user|
   user.projects.destroy_all
   project_data.each do |d|
-    img_url = d[:img_url]
-    d.delete(:img_url)
-    project = user.projects.create(d)
+    data = d.dup
+    img_url = data[:img_url]
+    data.delete(:img_url)
+    project = user.projects.create(data)
     project.images.create({ url: img_url })
-    puts "Created project: #{d[:name]}"
+    puts "Created project: #{data[:name]}"
   end
 end

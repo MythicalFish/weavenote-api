@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update, :destroy]
+  before_action :set_project, only: [:show, :update, :destroy, :get_upload_url]
 
   # GET /projects
   def index
@@ -44,10 +44,24 @@ class ProjectsController < ApplicationController
     @project.destroy
   end
 
+
+  # GET /projects/1/get_upload_url
+  def get_upload_url
+
+    storage = Fog::Storage.new( Rails.configuration.fog )
+    options = { path_style: true }
+    headers = { "Content-Type" => params[:contentType], "x-amz-acl" => "public-read", "Origin" => "http://localhost:3000" }
+    
+    url = storage.put_object_url('content.mythical.fish', "seamless/projects/#{@project.id}/#{params[:objectName]}", 15.minutes.from_now.to_time.to_i, headers, options)
+    
+    render json: { signedUrl: url }
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = Project.find(params[:id])
+      @project = @user.projects.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

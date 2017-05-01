@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update, :destroy, :get_upload_url, :add_image]
+  before_action :set_project, only: [:show, :update, :destroy, :get_upload_url, :create_image]
 
   # GET /projects
   def index
@@ -63,11 +63,11 @@ class ProjectsController < ApplicationController
 
   end
 
-  # POST /projects/1/add_image
-  def add_image
+  # POST /projects/1/create_image
+  def create_image
     image = @project.images.create(url:params['url'])
     render json: {
-      images: @project.images
+      image: image
     }
   end
 

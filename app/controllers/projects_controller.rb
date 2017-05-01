@@ -50,7 +50,7 @@ class ProjectsController < ApplicationController
 
     storage = Fog::Storage.new( Rails.configuration.fog )
     options = { path_style: true }
-    headers = { "Content-Type" => params[:contentType], "x-amz-acl" => "public-read", "Origin" => "http://localhost:3000" }
+    headers = { "Content-Type" => params[:contentType], "x-amz-acl" => "public-read" }
     
     url = storage.put_object_url('content.mythical.fish', "seamless/projects/#{@project.id}/#{params[:objectName]}", 15.minutes.from_now.to_time.to_i, headers, options)
     

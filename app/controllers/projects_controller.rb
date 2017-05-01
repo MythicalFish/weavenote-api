@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update, :destroy, :get_upload_url]
+  before_action :set_project, only: [:show, :update, :destroy, :get_upload_url, :add_image]
 
   # GET /projects
   def index
@@ -51,11 +51,24 @@ class ProjectsController < ApplicationController
     storage = Fog::Storage.new( Rails.configuration.fog )
     options = { path_style: true }
     headers = { "Content-Type" => params[:contentType], "x-amz-acl" => "public-read" }
+    path = "seamless/projects/#{@project.id}/#{params[:objectName]}"
     
-    url = storage.put_object_url('content.mythical.fish', "seamless/projects/#{@project.id}/#{params[:objectName]}", 15.minutes.from_now.to_time.to_i, headers, options)
+    url = storage.put_object_url('content.mythical.fish', path, 15.minutes.from_now.to_time.to_i, headers, options)
     
-    render json: { signedUrl: url }
+    render json: { 
+      signedUrl: url,
+      imageURL: url.split('?')[0],
+      projectID: @project.id
+    }
 
+  end
+
+  # POST /projects/1/add_image
+  def add_image
+    image = @project.images.create(url:params['url'])
+    render json: {
+      images: @project.images
+    }
   end
 
   private

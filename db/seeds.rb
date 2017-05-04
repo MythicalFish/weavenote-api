@@ -1,10 +1,5 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+
+puts ""
 
 unless User.find_by_email('jake@mythical.fish')
   User.create({
@@ -47,6 +42,8 @@ ActiveRecord::Base.connection.execute("ALTER TABLE colors AUTO_INCREMENT = 1;")
   { name: 'gray', hex_code: '#aaa' },
   { name: 'black', hex_code: '#111' },
 ])
+
+puts ""
 
 @colors.each do |c|
   puts "Created color: #{c.name}"
@@ -142,49 +139,49 @@ material_types = [
 
 materials = [
   {
-    type_index: 1,
+    type_index: 0,
     name: 'Drape',
     identifier: '100-99',
     color: @colors[17],
     price: 36,
   },{
-    type_index: 2,
+    type_index: 1,
     name: 'Heavy fusing',
     identifier: '201-01',
     color: @colors[14],
     price: 0.10,
   },{
-    type_index: 1,
+    type_index: 0,
     name: 'Georgia',
     identifier: '100-50',
     color: @colors[3],
     price: 5,
   },{
-    type_index: 3,
+    type_index: 2,
     name: 'RIRI',
     identifier: '500-12',
     color: @colors[15],
     price: 3,
   },{
-    type_index: 4,
+    type_index: 3,
     name: 'String',
     identifier: '605-80',
     color: @colors[16],
     price: 3,
   },{
-    type_index: 5,
+    type_index: 4,
     name: 'Cupro',
     identifier: '150-01',
     color: @colors[10],
     price: 2,
   },{
-    type_index: 6,
+    type_index: 5,
     name: 'Shirt standard',
     identifier: '100-99',
     color: @colors[15],
     price: 0.2,
   },{
-    type_index: 7,
+    type_index: 6,
     name: 'Exotic',
     identifier: '900-60',
     color: @colors[13],
@@ -203,12 +200,14 @@ ActiveRecord::Base.connection.execute("ALTER TABLE materials AUTO_INCREMENT = 1;
 
 User.all.each do |user|
   
-  puts "\nFor user: #{user.name}"
+  puts "\nFor user: #{user.name}\n\n"
 
   types = user.material_types.create(material_types)
   types.each do |t|
-    puts "Created material type: #{t.name}"
+    puts " - Created material type: #{t.name}"
   end
+
+  puts ""
 
   materials.each do |m|
     data = m.dup
@@ -216,16 +215,21 @@ User.all.each do |user|
     data.delete(:type_index)
     data[:material_type_id] = user.material_types[type_index].id
     user.materials.create(data)
-    puts "Created material: #{data[:name]}"
+    puts " - Created material: #{data[:name]}"
   end
+
+  puts ""
 
   project_data.each do |d|
     data = d.dup
     img_url = data[:img_url]
     data.delete(:img_url)
+    components = data[:components]
+    data.delete(:components)
     project = user.projects.create(data)
     project.images.create({ url: img_url })
-    puts "Created project: #{data[:name]}"
+    project.components.create(components)
+    puts " - Created project: #{data[:name]}"
   end
   
 

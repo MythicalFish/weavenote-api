@@ -2,7 +2,8 @@ class Project < ApplicationRecord
 
   belongs_to :user
   belongs_to :development_stage
-  has_many :materials, through: :users
+  has_many :components
+  has_many :materials, through: :components
   has_many :images, as: :imageable
   accepts_nested_attributes_for :images
 

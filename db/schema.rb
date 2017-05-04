@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428113629) do
+ActiveRecord::Schema.define(version: 20170504115557) do
+
+  create_table "colors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name",     null: false
+    t.string "hex_code", null: false
+  end
+
+  create_table "components", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "project_id",  null: false
+    t.integer "material_id", null: false
+    t.integer "quantity"
+    t.index ["material_id"], name: "index_components_on_material_id", using: :btree
+    t.index ["project_id"], name: "index_components_on_project_id", using: :btree
+  end
 
   create_table "development_stages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "label", null: false
@@ -25,30 +38,28 @@ ActiveRecord::Schema.define(version: 20170428113629) do
     t.index ["imageable_id"], name: "index_images_on_imageable_id", using: :btree
   end
 
-  create_table "materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "type",       null: false
-    t.string   "name",       null: false
-    t.string   "identifier", null: false
-    t.integer  "price"
-    t.integer  "quantity"
-    t.string   "color"
-    t.integer  "user_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["color"], name: "index_materials_on_color", using: :btree
-    t.index ["identifier"], name: "index_materials_on_identifier", using: :btree
-    t.index ["name"], name: "index_materials_on_name", using: :btree
-    t.index ["price"], name: "index_materials_on_price", using: :btree
-    t.index ["quantity"], name: "index_materials_on_quantity", using: :btree
-    t.index ["type"], name: "index_materials_on_type", using: :btree
-    t.index ["user_id"], name: "index_materials_on_user_id", using: :btree
+  create_table "material_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string  "name",    null: false
+    t.integer "user_id", null: false
+    t.index ["name"], name: "index_material_types_on_name", using: :btree
+    t.index ["user_id"], name: "index_material_types_on_user_id", using: :btree
   end
 
-  create_table "materials_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "materials_id"
-    t.integer "projects_id"
-    t.index ["materials_id"], name: "index_materials_projects_on_materials_id", using: :btree
-    t.index ["projects_id"], name: "index_materials_projects_on_projects_id", using: :btree
+  create_table "materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "material_type_id", null: false
+    t.string   "name",             null: false
+    t.string   "identifier",       null: false
+    t.integer  "price"
+    t.string   "color"
+    t.integer  "user_id",          null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["color"], name: "index_materials_on_color", using: :btree
+    t.index ["identifier"], name: "index_materials_on_identifier", using: :btree
+    t.index ["material_type_id"], name: "index_materials_on_material_type_id", using: :btree
+    t.index ["name"], name: "index_materials_on_name", using: :btree
+    t.index ["price"], name: "index_materials_on_price", using: :btree
+    t.index ["user_id"], name: "index_materials_on_user_id", using: :btree
   end
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

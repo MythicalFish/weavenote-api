@@ -6,9 +6,7 @@ class ComponentsController < ApplicationController
   # GET /projects/:project_id/components
   def index
     archived = params[:archived] == "true" ? true : false
-    @components = @user.components
-      .order('created_at DESC')
-      .where(archived: archived)
+    @components = @project.components.order('id DESC')
     render json: @components
   end
 

@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
     render json: @projects
   end
 
-  # GET /projects/1
+  # GET /projects/:id
   def show
     render json: @project
   end
@@ -26,7 +26,7 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /projects/1
+  # PATCH/PUT /projects/:id
   def update
     if @project.update(project_params)
       if params[:index_after_update]
@@ -39,13 +39,13 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1
+  # DELETE /projects/:id
   def destroy
     @project.destroy
   end
 
 
-  # GET /projects/1/get_upload_url
+  # GET /projects/:id/get_upload_url
   def get_upload_url
 
     storage = Fog::Storage.new( Rails.configuration.fog )
@@ -63,7 +63,7 @@ class ProjectsController < ApplicationController
 
   end
 
-  # POST /projects/1/create_image
+  # POST /projects/:id/create_image
   def create_image
     image = @project.images.create(url:params['url'])
     render json: {

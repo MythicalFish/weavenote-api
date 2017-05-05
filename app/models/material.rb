@@ -1,4 +1,7 @@
 class Material < ApplicationRecord
   belongs_to :user
-  has_one :material_type
+  belongs_to :material_type
+
+  alias_attribute :type, :material_type
+
 end

@@ -40,6 +40,7 @@ class ComponentsController < ApplicationController
   # DELETE /projects/:project_id/components/:id
   def destroy
     @component.destroy
+    index
   end
 
   private

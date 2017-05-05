@@ -40,6 +40,7 @@ class ImagesController < ApplicationController
   # DELETE /projects/:project_id/images/:id
   def destroy
     @image.destroy
+    index
   end
 
   # GET /projects/:project_id/images/get_upload_url

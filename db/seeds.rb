@@ -192,11 +192,17 @@ materials = [
 Project.all.destroy_all
 ActiveRecord::Base.connection.execute("ALTER TABLE projects AUTO_INCREMENT = 1;")
 
+Image.all.destroy_all
+ActiveRecord::Base.connection.execute("ALTER TABLE images AUTO_INCREMENT = 1;")
+
 MaterialType.all.destroy_all
 ActiveRecord::Base.connection.execute("ALTER TABLE material_types AUTO_INCREMENT = 1;")
 
 Material.all.destroy_all
 ActiveRecord::Base.connection.execute("ALTER TABLE materials AUTO_INCREMENT = 1;")
+
+Component.all.destroy_all
+ActiveRecord::Base.connection.execute("ALTER TABLE components AUTO_INCREMENT = 1;")
 
 User.all.each do |user|
   

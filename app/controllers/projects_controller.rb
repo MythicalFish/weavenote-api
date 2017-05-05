@@ -44,33 +44,6 @@ class ProjectsController < ApplicationController
     @project.destroy
   end
 
-
-  # GET /projects/:id/get_upload_url
-  def get_upload_url
-
-    storage = Fog::Storage.new( Rails.configuration.fog )
-    options = { path_style: true }
-    headers = { "Content-Type" => params[:contentType], "x-amz-acl" => "public-read" }
-    path = "seamless/projects/#{@project.id}/#{params[:objectName]}"
-    
-    url = storage.put_object_url('content.mythical.fish', path, 15.minutes.from_now.to_time.to_i, headers, options)
-    
-    render json: { 
-      signedUrl: url,
-      imageURL: url.split('?')[0],
-      projectID: @project.id
-    }
-
-  end
-
-  # POST /projects/:id/create_image
-  def create_image
-    image = @project.images.create(url:params['url'])
-    render json: {
-      image: image
-    }
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project

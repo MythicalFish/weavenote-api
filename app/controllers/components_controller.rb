@@ -5,7 +5,6 @@ class ComponentsController < ApplicationController
 
   # GET /projects/:project_id/components
   def index
-    archived = params[:archived] == "true" ? true : false
     @components = @project.components.order('id DESC')
     render json: @components
   end
@@ -17,10 +16,9 @@ class ComponentsController < ApplicationController
 
   # POST /projects/:project_id/components
   def create
-    @component = @user.components.new(component_params)
+    @component = @project.components.new(component_params)
     if @component.save
-      #render json: @component, status: :created, location: @component
-      index
+      render json: @component, status: :created
     else
       render json: @component.errors.full_messages.join(', '), status: :unprocessable_entity
     end

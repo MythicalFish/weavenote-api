@@ -4,9 +4,9 @@ Rails.application.routes.draw do
 
   # Projects
   resources :projects do
+    get '/images/get_upload_url', to: 'images#get_upload_url'
+    resources :images
     resources :components
   end
-  get '/projects/:id/get_upload_url', to: 'projects#get_upload_url'
-  post '/projects/:id/create_image', to: 'projects#create_image'
 
 end

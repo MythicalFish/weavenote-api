@@ -15,7 +15,7 @@ class Project < ApplicationRecord
   scope :archived, -> { where(archived: true) }
 
   def thumbnail_url
-    images.first.url
+    images.order('id DESC').first.try(:url)
   end
 
   private

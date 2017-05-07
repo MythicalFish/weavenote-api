@@ -55,8 +55,10 @@ class ImagesController < ApplicationController
     
     render json: { 
       signedUrl: url,
-      imageURL: url.split('?')[0],
-      projectID: @project.id
+      image: {
+        url: url.split('?')[0],
+        project_id: @project.id,
+      },
     }
 
   end

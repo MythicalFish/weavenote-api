@@ -49,6 +49,26 @@ puts ""
   puts "Created color: #{c.name}"
 end
 
+material_types = [
+  { name: 'Fabric' },
+  { name: 'Fusing' },
+  { name: 'Zip' },
+  { name: 'Trim' },
+  { name: 'Lining' },
+  { name: 'Button' },
+  { name: 'Leather' },
+]
+
+puts ""
+
+MaterialType.all.destroy_all
+ActiveRecord::Base.connection.execute("ALTER TABLE material_types AUTO_INCREMENT = 1;")
+types = MaterialType.create(material_types)
+
+types.each do |t|
+  puts "Created material type: #{t.name}"
+end
+
 project_data = [
   {
     name: 'Oversized T white',
@@ -127,61 +147,51 @@ project_data = [
   }
 ]
 
-material_types = [
-  { name: 'Fabric' },
-  { name: 'Fusing' },
-  { name: 'Zip' },
-  { name: 'Trim' },
-  { name: 'Lining' },
-  { name: 'Button' },
-  { name: 'Leather' },
-]
-
 materials = [
   {
-    type_index: 0,
+    material_type_id: 0,
     name: 'Drape',
     identifier: '100-99',
     color_id: @colors[16].id,
     price: 36,
   },{
-    type_index: 1,
+    material_type_id: 2,
     name: 'Heavy fusing',
     identifier: '201-01',
     color_id: @colors[13].id,
     price: 0.10,
   },{
-    type_index: 0,
+    material_type_id: 1,
     name: 'Georgia',
     identifier: '100-50',
     color_id: @colors[2].id,
     price: 5,
   },{
-    type_index: 2,
+    material_type_id: 3,
     name: 'RIRI',
     identifier: '500-12',
     color_id: @colors[14].id,
     price: 3,
   },{
-    type_index: 3,
+    material_type_id: 4,
     name: 'String',
     identifier: '605-80',
     color_id: @colors[15].id,
     price: 3,
   },{
-    type_index: 4,
+    material_type_id: 5,
     name: 'Cupro',
     identifier: '150-01',
     color_id: @colors[9].id,
     price: 2,
   },{
-    type_index: 5,
+    material_type_id: 6,
     name: 'Shirt standard',
     identifier: '100-99',
     color_id: @colors[14].id,
     price: 0.2,
   },{
-    type_index: 6,
+    material_type_id: 7,
     name: 'Exotic',
     identifier: '900-60',
     color_id: @colors[12].id,
@@ -195,9 +205,6 @@ ActiveRecord::Base.connection.execute("ALTER TABLE projects AUTO_INCREMENT = 1;"
 Image.all.destroy_all
 ActiveRecord::Base.connection.execute("ALTER TABLE images AUTO_INCREMENT = 1;")
 
-MaterialType.all.destroy_all
-ActiveRecord::Base.connection.execute("ALTER TABLE material_types AUTO_INCREMENT = 1;")
-
 Material.all.destroy_all
 ActiveRecord::Base.connection.execute("ALTER TABLE materials AUTO_INCREMENT = 1;")
 
@@ -208,18 +215,7 @@ User.all.each do |user|
   
   puts "\nFor user: #{user.name}\n\n"
 
-  types = user.material_types.create(material_types)
-  types.each do |t|
-    puts " - Created material type: #{t.name}"
-  end
-
-  puts ""
-
-  materials.each do |m|
-    data = m.dup
-    type_index = data[:type_index]
-    data.delete(:type_index)
-    data[:material_type_id] = user.material_types[type_index].id
+  materials.each do |data|
     user.materials.create(data)
     puts " - Created material: #{data[:name]}"
   end

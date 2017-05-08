@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505154025) do
+ActiveRecord::Schema.define(version: 20170508135738) do
 
   create_table "colors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name",     null: false
@@ -39,10 +39,8 @@ ActiveRecord::Schema.define(version: 20170505154025) do
   end
 
   create_table "material_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string  "name",    null: false
-    t.integer "user_id", null: false
+    t.string "name", null: false
     t.index ["name"], name: "index_material_types_on_name", using: :btree
-    t.index ["user_id"], name: "index_material_types_on_user_id", using: :btree
   end
 
   create_table "materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

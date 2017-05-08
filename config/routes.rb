@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :materials
   resources :material_types, only: [:index]
+  resources :colors, only: [:index]
 
   resources :projects do
     get '/images/get_upload_url', to: 'images#get_upload_url'

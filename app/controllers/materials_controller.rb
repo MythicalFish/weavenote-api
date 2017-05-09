@@ -1,5 +1,5 @@
 class MaterialsController < ApplicationController
-  before_action :set_material, only: [:show, :update, :destroy]
+  before_action :set_material, only: [:update, :destroy]
 
   # GET /materials
   def index
@@ -10,6 +10,11 @@ class MaterialsController < ApplicationController
 
   # GET /materials/:id
   def show
+    if params[:id] === 'new'
+      @material = Material.new
+    else
+      set_material
+    end
     render json: @material
   end
 
@@ -17,8 +22,7 @@ class MaterialsController < ApplicationController
   def create
     @material = @user.materials.new(material_params)
     if @material.save
-      #render json: @material, status: :created, location: @material
-      index
+      render json: @material, status: :created, location: @material
     else
       render json: @material.errors.full_messages.join(', '), status: :unprocessable_entity
     end

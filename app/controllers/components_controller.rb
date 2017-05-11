@@ -54,7 +54,7 @@ class ComponentsController < ApplicationController
   end
 
   def component_params
-    params.require(:component).permit(:quantity)
+    params.require(:component).permit(:quantity, :material_id)
   end
 
 end

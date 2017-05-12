@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508135738) do
+ActiveRecord::Schema.define(version: 20170512133852) do
 
   create_table "colors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name",     null: false
@@ -18,9 +18,9 @@ ActiveRecord::Schema.define(version: 20170508135738) do
   end
 
   create_table "components", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "project_id",  null: false
-    t.integer "material_id", null: false
-    t.integer "quantity"
+    t.integer "project_id",                           null: false
+    t.integer "material_id",                          null: false
+    t.decimal "quantity",    precision: 10, scale: 2
     t.index ["material_id"], name: "index_components_on_material_id", using: :btree
     t.index ["project_id"], name: "index_components_on_project_id", using: :btree
   end
@@ -44,14 +44,14 @@ ActiveRecord::Schema.define(version: 20170508135738) do
   end
 
   create_table "materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "material_type_id", null: false
-    t.string   "name",             null: false
-    t.string   "identifier",       null: false
-    t.integer  "price"
+    t.integer  "material_type_id",                          null: false
+    t.string   "name",                                      null: false
+    t.string   "identifier",                                null: false
+    t.decimal  "price",            precision: 10, scale: 2
     t.integer  "color_id"
-    t.integer  "user_id",          null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "user_id",                                   null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.index ["color_id"], name: "index_materials_on_color_id", using: :btree
     t.index ["identifier"], name: "index_materials_on_identifier", using: :btree
     t.index ["material_type_id"], name: "index_materials_on_material_type_id", using: :btree

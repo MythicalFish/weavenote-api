@@ -27,11 +27,7 @@ class ComponentsController < ApplicationController
   # PATCH/PUT /projects/:project_id/components/:id
   def update
     if @component.update(component_params)
-      if params[:index_after_update]
-        index
-      else 
-        render json: @component
-      end
+      render json: @component
     else
       render json: @component.errors, status: :unprocessable_entity
     end

@@ -3,7 +3,7 @@ class Component < ApplicationRecord
   belongs_to :project
   belongs_to :material
 
-  def price
+  def material_cost
     material.price * quantity
   end
 

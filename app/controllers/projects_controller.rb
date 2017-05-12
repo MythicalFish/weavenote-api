@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update, :destroy]
+  before_action :set_project, only: [:show, :update, :destroy, :material_cost]
 
   # GET /projects
   def index
@@ -42,6 +42,11 @@ class ProjectsController < ApplicationController
   # DELETE /projects/:id
   def destroy
     @project.destroy
+  end
+
+  # GET /projects/:id/material_cost
+  def material_cost
+    render json: @project.material_cost
   end
 
   private

@@ -18,6 +18,14 @@ class Project < ApplicationRecord
     images.order('id DESC').first.try(:url)
   end
 
+  def material_cost
+    cost = 0.00
+    components.each do |c|
+      cost += c.material_cost
+    end
+    cost.round(2)
+  end
+
   private
 
   def set_defaults

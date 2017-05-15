@@ -199,6 +199,36 @@ materials = [
   }
 ]
 
+sizes = [ 
+  { label: 'S' },
+  { label: 'M' },
+  { label: 'L' }
+]
+measurements = [
+  {
+    label: 'Hem',
+    values: [ 52, 55, 57 ]
+  },{
+    label: 'Hem facing',
+    values: [ 2.5, 2.5, 2.5 ]
+  },{
+    label: 'Shoulder length',
+    values: [ 12.5, 13.5, 14.5 ]
+  },{
+    label: 'Sleeve length',
+    values: [ 20.5, 21, 21.5 ]
+  },{
+    label: 'Underarm',
+    values: [ 13.5, 14, 14.5 ]
+  },{
+    label: 'Sleeve opening',
+    values: [ 17, 18, 19 ]
+  },{
+    label: 'Waist from hsp',
+    values: [ 44, 46, 48 ]
+  },
+]
+
 Project.all.destroy_all
 ActiveRecord::Base.connection.execute("ALTER TABLE projects AUTO_INCREMENT = 1;")
 
@@ -210,6 +240,16 @@ ActiveRecord::Base.connection.execute("ALTER TABLE materials AUTO_INCREMENT = 1;
 
 Component.all.destroy_all
 ActiveRecord::Base.connection.execute("ALTER TABLE components AUTO_INCREMENT = 1;")
+
+Size.all.destroy_all
+ActiveRecord::Base.connection.execute("ALTER TABLE sizes AUTO_INCREMENT = 1;")
+
+Measurement.all.destroy_all
+ActiveRecord::Base.connection.execute("ALTER TABLE measurements AUTO_INCREMENT = 1;")
+
+MeasurementValue.all.destroy_all
+ActiveRecord::Base.connection.execute("ALTER TABLE measurement_values AUTO_INCREMENT = 1;")
+
 
 User.all.each do |user|
   
@@ -223,15 +263,28 @@ User.all.each do |user|
   puts ""
 
   project_data.each do |d|
+    
     data = d.dup
     img_url = data[:img_url]
     data.delete(:img_url)
     components = data[:components]
     data.delete(:components)
+
     project = user.projects.create(data)
+    puts " - Created project: #{data[:name]}"
+
     project.images.create({ url: img_url })
     project.components.create(components)
-    puts " - Created project: #{data[:name]}"
+    project.sizes.create(sizes)
+    
+    measurements.each do |m|
+      mm = project.measurements.create({label:m[:label]})
+      m[:values].each_with_index do |val, i|
+        id = i + 1
+        mm.measurement_values.create({value: val, size_id: id })
+      end
+    end
+
   end
   
 

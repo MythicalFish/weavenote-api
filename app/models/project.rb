@@ -5,6 +5,8 @@ class Project < ApplicationRecord
   has_many :components
   has_many :materials, through: :components
   has_many :images, as: :imageable
+  has_many :sizes
+  has_many :measurements
   accepts_nested_attributes_for :images
 
   alias_attribute :stage, :development_stage

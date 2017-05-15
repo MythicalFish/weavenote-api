@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170512133852) do
+ActiveRecord::Schema.define(version: 20170515084658) do
 
   create_table "colors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name",     null: false
@@ -60,6 +60,26 @@ ActiveRecord::Schema.define(version: 20170512133852) do
     t.index ["user_id"], name: "index_materials_on_user_id", using: :btree
   end
 
+  create_table "measurement_values", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.decimal  "value",          precision: 10, null: false
+    t.integer  "measurement_id",                null: false
+    t.integer  "size_id",                       null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["measurement_id"], name: "index_measurement_values_on_measurement_id", using: :btree
+    t.index ["size_id"], name: "index_measurement_values_on_size_id", using: :btree
+    t.index ["value"], name: "index_measurement_values_on_value", using: :btree
+  end
+
+  create_table "measurements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "label",      null: false
+    t.integer  "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label"], name: "index_measurements_on_label", using: :btree
+    t.index ["project_id"], name: "index_measurements_on_project_id", using: :btree
+  end
+
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name",                                 null: false
     t.datetime "created_at",                           null: false
@@ -76,6 +96,12 @@ ActiveRecord::Schema.define(version: 20170512133852) do
     t.index ["identifier"], name: "index_projects_on_identifier", using: :btree
     t.index ["name"], name: "index_projects_on_name", using: :btree
     t.index ["user_id"], name: "index_projects_on_user_id", using: :btree
+  end
+
+  create_table "sizes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string  "label",      null: false
+    t.integer "project_id", null: false
+    t.index ["project_id"], name: "index_sizes_on_project_id", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

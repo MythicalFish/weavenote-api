@@ -28,6 +28,14 @@ class Project < ApplicationRecord
     cost.round(2)
   end
 
+  def measurement_values
+    values = []
+    sizes.each do |size|
+      values << size.values
+    end
+    values
+  end
+
   private
 
   def set_defaults

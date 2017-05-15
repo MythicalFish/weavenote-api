@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update, :destroy, :material_cost]
+  before_action :set_project, only: [:show, :update, :destroy, :material_cost, :measurement_values]
 
   # GET /projects
   def index
@@ -48,6 +48,12 @@ class ProjectsController < ApplicationController
   def material_cost
     render json: @project.material_cost
   end
+
+  # GET /projects/:id/measurements
+  def measurement_values
+    render json: @project.measurement_values
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

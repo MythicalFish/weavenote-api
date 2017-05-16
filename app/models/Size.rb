@@ -13,7 +13,8 @@ class Size < ApplicationRecord
   end
 
   def value_for(measurement)
-    measurement_values.find_by_measurement_id(measurement.id) || 0
+    measurement_values.find_by_measurement_id(measurement.id) || 
+    MeasurementValue.new({ size: self, measurement: measurement })
   end
 
 

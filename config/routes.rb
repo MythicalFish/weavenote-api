@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :colors, only: [:index]
 
   get '/projects/:id/material_cost', to: 'projects#material_cost'
+  get '/projects/:id/measurements', to: 'projects#measurements'
   resources :projects do
     get '/images/get_upload_url', to: 'images#get_upload_url'
     resources :images

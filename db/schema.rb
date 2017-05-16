@@ -61,11 +61,11 @@ ActiveRecord::Schema.define(version: 20170515084658) do
   end
 
   create_table "measurement_values", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.decimal  "value",          precision: 10, null: false
-    t.integer  "measurement_id",                null: false
-    t.integer  "size_id",                       null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.decimal  "value",          precision: 10, default: 0, null: false
+    t.integer  "measurement_id",                            null: false
+    t.integer  "size_id",                                   null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.index ["measurement_id"], name: "index_measurement_values_on_measurement_id", using: :btree
     t.index ["size_id"], name: "index_measurement_values_on_size_id", using: :btree
     t.index ["value"], name: "index_measurement_values_on_value", using: :btree

@@ -13,7 +13,7 @@ class AddMeasurements < ActiveRecord::Migration[5.0]
     end
 
     create_table :measurement_values do |t|
-      t.decimal :value, null: false, index: true
+      t.decimal :value, null: false, index: true, default: 0.0
       t.references :measurement, null: false
       t.references :size, null: false
       t.timestamps

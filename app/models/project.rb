@@ -31,7 +31,7 @@ class Project < ApplicationRecord
   def measurement_values
     values = []
     sizes.each do |size|
-      values << size.values
+      values << { size: size, measurements: size.values }
     end
     values
   end

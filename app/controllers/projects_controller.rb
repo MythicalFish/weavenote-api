@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update, :destroy, :material_cost, :measurement_values]
+  before_action :set_project, only: [:show, :update, :destroy, :material_cost, :measurements]
 
   # GET /projects
   def index
@@ -50,7 +50,7 @@ class ProjectsController < ApplicationController
   end
 
   # GET /projects/:id/measurements
-  def measurement_values
+  def measurements
     render json: @project.measurement_values
   end
 

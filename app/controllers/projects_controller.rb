@@ -51,7 +51,11 @@ class ProjectsController < ApplicationController
 
   # GET /projects/:id/measurements
   def measurements
-    render json: @project.measurements
+    render json: {
+      groups: @project.measurement_groups,
+      names: @project.measurement_names,
+      values: @project.measurement_values
+    }
   end
 
 

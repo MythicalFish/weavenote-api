@@ -67,23 +67,23 @@ ActiveRecord::Schema.define(version: 20170515084658) do
   end
 
   create_table "measurement_names", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name",       null: false
+    t.string   "value",      null: false
     t.integer  "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_measurement_names_on_name", using: :btree
     t.index ["project_id"], name: "index_measurement_names_on_project_id", using: :btree
+    t.index ["value"], name: "index_measurement_names_on_value", using: :btree
   end
 
-  create_table "measurements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "measurement_values", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.decimal  "value",                precision: 10, default: 0, null: false
     t.integer  "measurement_group_id",                            null: false
     t.integer  "measurement_name_id",                             null: false
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
-    t.index ["measurement_group_id"], name: "index_measurements_on_measurement_group_id", using: :btree
-    t.index ["measurement_name_id"], name: "index_measurements_on_measurement_name_id", using: :btree
-    t.index ["value"], name: "index_measurements_on_value", using: :btree
+    t.index ["measurement_group_id"], name: "index_measurement_values_on_measurement_group_id", using: :btree
+    t.index ["measurement_name_id"], name: "index_measurement_values_on_measurement_name_id", using: :btree
+    t.index ["value"], name: "index_measurement_values_on_value", using: :btree
   end
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

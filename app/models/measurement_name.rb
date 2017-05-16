@@ -1,8 +1,8 @@
 class MeasurementName < ApplicationRecord
   
-  belongs_to :project
-  has_many :measurements
+  belongs_to :project, dependent: :destroy
+  has_many :measurement_values
 
-  default_scope { order(name: :desc) }
+  default_scope { order(value: :desc) }
 
 end

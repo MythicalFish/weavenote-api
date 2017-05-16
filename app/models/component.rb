@@ -1,6 +1,6 @@
 class Component < ApplicationRecord
   
-  belongs_to :project
+  belongs_to :project, dependent: :destroy
   belongs_to :material
 
   def material_cost

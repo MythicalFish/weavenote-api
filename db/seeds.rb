@@ -247,8 +247,8 @@ ActiveRecord::Base.connection.execute("ALTER TABLE measurement_groups AUTO_INCRE
 MeasurementName.all.destroy_all
 ActiveRecord::Base.connection.execute("ALTER TABLE measurement_names AUTO_INCREMENT = 1;")
 
-Measurement.all.destroy_all
-ActiveRecord::Base.connection.execute("ALTER TABLE measurements AUTO_INCREMENT = 1;")
+MeasurementValue.all.destroy_all
+ActiveRecord::Base.connection.execute("ALTER TABLE measurement_values AUTO_INCREMENT = 1;")
 
 
 User.all.each do |user|
@@ -278,10 +278,10 @@ User.all.each do |user|
     project.measurement_groups.create(measurement_groups)
     
     measurements.each do |m|
-      mm = project.measurement_names.create({ name: m[:name] })
+      mm = project.measurement_names.create({ value: m[:name] })
       m[:values].each_with_index do |val, i|
         id = project.measurement_groups[i].id
-        mm.measurements.create({value: val, measurement_group_id: id })
+        mm.measurement_values.create({value: val, measurement_group_id: id })
       end
     end
 

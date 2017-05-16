@@ -7,6 +7,7 @@ class Project < ApplicationRecord
   has_many :images, as: :imageable
   has_many :measurement_groups
   has_many :measurement_names
+  has_many :measurement_values, through: :measurement_groups
   accepts_nested_attributes_for :images
 
   alias_attribute :stage, :development_stage
@@ -26,18 +27,6 @@ class Project < ApplicationRecord
       cost += c.material_cost
     end
     cost.round(2)
-  end
-
-  def measurements
-    r = {
-      values: [],
-      groups: measurement_groups,
-      names: measurement_names,
-    }
-    measurement_groups.each do |group|
-      r[:values] << group.values
-    end
-    r
   end
 
   private

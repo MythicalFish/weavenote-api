@@ -280,7 +280,7 @@ User.all.each do |user|
     measurements.each do |m|
       mm = project.measurements.create({label:m[:label]})
       m[:values].each_with_index do |val, i|
-        id = i + 1
+        id = project.sizes[i].id
         mm.measurement_values.create({value: val, size_id: id })
       end
     end

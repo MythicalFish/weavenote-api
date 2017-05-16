@@ -199,32 +199,32 @@ materials = [
   }
 ]
 
-sizes = [ 
-  { label: 'S' },
-  { label: 'M' },
-  { label: 'L' }
+measurement_groups = [ 
+  { name: 'S' },
+  { name: 'M' },
+  { name: 'L' }
 ]
 measurements = [
   {
-    label: 'Hem',
+    name: 'Hem',
     values: [ 52, 55, 57 ]
   },{
-    label: 'Hem facing',
+    name: 'Hem facing',
     values: [ 2.5, 2.5, 2.5 ]
   },{
-    label: 'Shoulder length',
+    name: 'Shoulder length',
     values: [ 12.5, 13.5, 14.5 ]
   },{
-    label: 'Sleeve length',
+    name: 'Sleeve length',
     values: [ 20.5, 21, 21.5 ]
   },{
-    label: 'Underarm',
+    name: 'Underarm',
     values: [ 13.5, 14, 14.5 ]
   },{
-    label: 'Sleeve opening',
+    name: 'Sleeve opening',
     values: [ 17, 18, 19 ]
   },{
-    label: 'Waist from hsp',
+    name: 'Waist from hsp',
     values: [ 44, 46, 48 ]
   },
 ]
@@ -241,14 +241,14 @@ ActiveRecord::Base.connection.execute("ALTER TABLE materials AUTO_INCREMENT = 1;
 Component.all.destroy_all
 ActiveRecord::Base.connection.execute("ALTER TABLE components AUTO_INCREMENT = 1;")
 
-Size.all.destroy_all
-ActiveRecord::Base.connection.execute("ALTER TABLE sizes AUTO_INCREMENT = 1;")
+MeasurementGroup.all.destroy_all
+ActiveRecord::Base.connection.execute("ALTER TABLE measurement_groups AUTO_INCREMENT = 1;")
+
+MeasurementName.all.destroy_all
+ActiveRecord::Base.connection.execute("ALTER TABLE measurement_names AUTO_INCREMENT = 1;")
 
 Measurement.all.destroy_all
 ActiveRecord::Base.connection.execute("ALTER TABLE measurements AUTO_INCREMENT = 1;")
-
-MeasurementValue.all.destroy_all
-ActiveRecord::Base.connection.execute("ALTER TABLE measurement_values AUTO_INCREMENT = 1;")
 
 
 User.all.each do |user|
@@ -275,13 +275,13 @@ User.all.each do |user|
 
     project.images.create({ url: img_url })
     project.components.create(components)
-    project.sizes.create(sizes)
+    project.measurement_groups.create(measurement_groups)
     
     measurements.each do |m|
-      mm = project.measurements.create({label:m[:label]})
+      mm = project.measurement_names.create({ name: m[:name] })
       m[:values].each_with_index do |val, i|
-        id = project.sizes[i].id
-        mm.measurement_values.create({value: val, size_id: id })
+        id = project.measurement_groups[i].id
+        mm.measurements.create({value: val, measurement_group_id: id })
       end
     end
 

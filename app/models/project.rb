@@ -5,8 +5,8 @@ class Project < ApplicationRecord
   has_many :components
   has_many :materials, through: :components
   has_many :images, as: :imageable
-  has_many :sizes
-  has_many :measurements
+  has_many :measurement_groups
+  has_many :measurement_names
   accepts_nested_attributes_for :images
 
   alias_attribute :stage, :development_stage
@@ -28,12 +28,16 @@ class Project < ApplicationRecord
     cost.round(2)
   end
 
-  def measurement_values
-    values = []
-    sizes.each do |size|
-      values << { size: size, measurements: size.values }
+  def measurements
+    r = {
+      values: [],
+      groups: measurement_groups,
+      names: measurement_names,
+    }
+    measurement_groups.each do |group|
+      r[:values] << group.values
     end
-    values
+    r
   end
 
   private

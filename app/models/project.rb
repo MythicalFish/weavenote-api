@@ -29,6 +29,18 @@ class Project < ApplicationRecord
     cost.round(2)
   end
 
+  def measurement_values! 
+    a = []
+    measurement_groups.each do |group|
+      measurement_names.each do |name|
+        attributes = { measurement_name_id: name.id, measurement_group_id: group.id }
+        value = measurement_values.where(attributes).first
+        a << (value || measurement_values.new(attributes))
+      end
+    end
+    a
+  end
+
   private
 
   def set_defaults

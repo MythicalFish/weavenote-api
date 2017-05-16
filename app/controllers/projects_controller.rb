@@ -54,7 +54,7 @@ class ProjectsController < ApplicationController
     render json: {
       groups: @project.measurement_groups,
       names: @project.measurement_names,
-      values: @project.measurement_values
+      values: @project.measurement_values!
     }
   end
 

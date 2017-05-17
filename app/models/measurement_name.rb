@@ -5,6 +5,6 @@ class MeasurementName < ApplicationRecord
 
   validates :value, length: { minimum: 1, maximum: 16 }
 
-  default_scope { order(value: :desc) }
+  default_scope { order(value: :asc) }
 
 end

@@ -34,7 +34,7 @@ class Project < ApplicationRecord
     measurement_groups.each do |group|
       measurement_names.each do |name|
         attributes = { measurement_name_id: name.id, measurement_group_id: group.id }
-        value = measurement_values.where(attributes).first
+        value = measurement_values.where(attributes).last
         a << (value || measurement_values.new(attributes))
       end
     end

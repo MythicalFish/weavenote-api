@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get '/projects/:id/material_cost', to: 'projects#material_cost'
   get '/projects/:id/measurements', to: 'projects#measurements'
+  patch '/projects/:id/measurements', to: 'projects#update_measurements'
   resources :projects do
     get '/images/get_upload_url', to: 'images#get_upload_url'
     resources :images

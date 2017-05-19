@@ -50,7 +50,7 @@ class InstructionsController < ApplicationController
   end
 
   def instruction_params
-    params.require(:instruction).permit(:quantity, :material_id)
+    params.require(:instruction).permit(:title, :description)
   end
 
 end

@@ -51,12 +51,17 @@ end
 
 material_types = [
   { name: 'Fabric' },
-  { name: 'Fusing' },
-  { name: 'Zip' },
-  { name: 'Trim' },
-  { name: 'Lining' },
-  { name: 'Button' },
   { name: 'Leather' },
+  { name: 'Knit' },
+  { name: 'Yarn' },
+  { name: 'Fur' },
+  { name: 'Lining' },
+  { name: 'Fusing' },
+  { name: 'Canvas' },
+  { name: 'Trim' },
+  { name: 'Wadding' },
+  { name: 'Zip' },
+  { name: 'Button' },
 ]
 
 puts ""

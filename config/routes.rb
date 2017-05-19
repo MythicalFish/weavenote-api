@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     get '/images/get_upload_url', to: 'images#get_upload_url'
     resources :images
     resources :components
+    resources :instructions
   end
 
 end

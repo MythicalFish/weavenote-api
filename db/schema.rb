@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170515084658) do
+ActiveRecord::Schema.define(version: 20170518120745) do
 
   create_table "colors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name",     null: false
@@ -36,6 +36,13 @@ ActiveRecord::Schema.define(version: 20170515084658) do
     t.string  "imageable_type"
     t.index ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type", using: :btree
     t.index ["imageable_id"], name: "index_images_on_imageable_id", using: :btree
+  end
+
+  create_table "instructions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string  "title"
+    t.text    "description", limit: 65535
+    t.integer "project_id"
+    t.index ["project_id"], name: "index_instructions_on_project_id", using: :btree
   end
 
   create_table "material_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

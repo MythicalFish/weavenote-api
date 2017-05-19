@@ -149,7 +149,7 @@ project_data = [
 
 materials = [
   {
-    material_type_id: 0,
+    material_type_id: 1,
     name: 'Drape',
     identifier: '100-99',
     color_id: @colors[16].id,

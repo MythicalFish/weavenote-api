@@ -4,7 +4,7 @@ class AddMissingMaterialFields < ActiveRecord::Migration[5.0]
     create_table :currencies do |t|
       t.string :name, null: false
       t.string :iso_code, null: false
-      t.string :html_code, null: false
+      t.string :unicode, null: false
     end
     
     create_table :suppliers do |t|

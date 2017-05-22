@@ -38,9 +38,9 @@ ActiveRecord::Schema.define(version: 20170519162344) do
   end
 
   create_table "currencies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name",      null: false
-    t.string "iso_code",  null: false
-    t.string "html_code", null: false
+    t.string "name",     null: false
+    t.string "iso_code", null: false
+    t.string "unicode",  null: false
   end
 
   create_table "development_stages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

@@ -12,9 +12,9 @@ end
 Currency.all.destroy_all
 ActiveRecord::Base.connection.execute("ALTER TABLE currencies AUTO_INCREMENT = 1;")
 @currencies = Currency.create([
-  { name: 'British Pounds', iso_code: 'GBP', html_code: '&#163;' },
-  { name: 'Euros', iso_code: 'EUR', html_code: '&#128;' },
-  { name: 'US Dollars', iso_code: 'USD', html_code: '&#036;' },
+  { name: 'British Pounds', iso_code: 'GBP', unicode: '\u00A3' },
+  { name: 'Euros', iso_code: 'EUR', unicode: '\u20AC' },
+  { name: 'US Dollars', iso_code: 'USD', unicode: '\u0024' },
 ])
 
 @currencies.each do |c|

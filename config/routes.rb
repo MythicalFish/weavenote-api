@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :materials
   resources :material_types, only: [:index]
   resources :colors, only: [:index]
+  resources :currencies, only: [:index]
+  resources :suppliers
 
   get '/projects/:id/material_cost', to: 'projects#material_cost'
   get '/projects/:id/measurements', to: 'measurements#index'

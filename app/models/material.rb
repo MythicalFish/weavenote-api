@@ -3,7 +3,7 @@ class Material < ApplicationRecord
   belongs_to :material_type
   belongs_to :color
   belongs_to :currency
-  belongs_to :supplier
+  belongs_to :supplier, optional: true
   has_and_belongs_to_many :care_labels
 
   alias_attribute :type, :material_type

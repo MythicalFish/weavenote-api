@@ -291,7 +291,7 @@ User.all.each do |user|
   puts "\nFor user: #{user.name}\n\n"
 
   materials.each do |data|
-    user.materials.create(data)
+    user.materials.create!(data)
     puts " - Created material: #{data[:name]}"
   end
 

@@ -9,6 +9,36 @@ unless User.find_by_email('jake@mythical.fish')
   })
 end
 
+Currency.all.destroy_all
+ActiveRecord::Base.connection.execute("ALTER TABLE currencies AUTO_INCREMENT = 1;")
+@currencies = Currency.create([
+  { name: 'British Pounds', iso_code: 'GBP', html_code: '&#163;' },
+  { name: 'Euros', iso_code: 'EUR', html_code: '&#128;' },
+  { name: 'US Dollars', iso_code: 'USD', html_code: '&#036;' },
+])
+
+@currencies.each do |c|
+  puts "Created currency: #{c.name}"
+end
+
+puts ""
+
+CareLabel.all.destroy_all
+ActiveRecord::Base.connection.execute("ALTER TABLE care_labels AUTO_INCREMENT = 1;")
+@labels = CareLabel.create([
+  { label: 'Tumble dry, permanent press' },
+  { label: 'Dry clean, any solvent' },
+  { label: 'Iron, any temperature, steam' },
+  { label: 'Machine wash, hot, gentle' },
+  { label: 'Machine wash, normal' },
+])
+
+@labels.each do |c|
+  puts "Created care label: #{c.label}"
+end
+
+puts ""
+
 DevelopmentStage.all.destroy_all
 ActiveRecord::Base.connection.execute("ALTER TABLE development_stages AUTO_INCREMENT = 1;")
 @stages = DevelopmentStage.create([
@@ -158,49 +188,49 @@ materials = [
     name: 'Drape',
     identifier: '100-99',
     color_id: @colors[16].id,
-    price: 36,
+    cost_base: 36,
   },{
     material_type_id: 2,
     name: 'Heavy fusing',
     identifier: '201-01',
     color_id: @colors[13].id,
-    price: 0.10,
+    cost_base: 0.10,
   },{
     material_type_id: 1,
     name: 'Georgia',
     identifier: '100-50',
     color_id: @colors[2].id,
-    price: 5,
+    cost_base: 5,
   },{
     material_type_id: 3,
     name: 'RIRI',
     identifier: '500-12',
     color_id: @colors[14].id,
-    price: 3,
+    cost_base: 3,
   },{
     material_type_id: 4,
     name: 'String',
     identifier: '605-80',
     color_id: @colors[15].id,
-    price: 3,
+    cost_base: 3,
   },{
     material_type_id: 5,
     name: 'Cupro',
     identifier: '150-01',
     color_id: @colors[9].id,
-    price: 2,
+    cost_base: 2,
   },{
     material_type_id: 6,
     name: 'Shirt standard',
     identifier: '100-99',
     color_id: @colors[14].id,
-    price: 0.2,
+    cost_base: 0.2,
   },{
     material_type_id: 7,
     name: 'Exotic',
     identifier: '900-60',
     color_id: @colors[12].id,
-    price: 13,
+    cost_base: 13,
   }
 ]
 

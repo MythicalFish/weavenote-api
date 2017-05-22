@@ -54,6 +54,6 @@ class MaterialsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def material_params
-      params.require(:material).permit(:name, :identifer, :price, :identifier, :color_id, :material_type_id)
+      params.require(:material).permit(:name, :identifer, :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 , :identifier, :color_id, :material_type_id)
     end
 end

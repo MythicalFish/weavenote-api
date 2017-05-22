@@ -27,14 +27,13 @@ class AddMissingMaterialFields < ActiveRecord::Migration[5.0]
     end
 
     add_column :materials, :currency_id, :integer, null: false, index: true
-    add_column :materials, :supplier_id, :integer, null: false, index: true
-    remove_column :materials, :price
+    add_column :materials, :supplier_id, :integer, index: true
+    remove_column :materials, :price, :decimal
     add_column :materials, :cost_base, :decimal, precision: 10, scale: 2, default: 0, index: true
     add_column :materials, :cost_delivery, :decimal, precision: 10, scale: 2, default: 0
     add_column :materials, :cost_extra1, :decimal, precision: 10, scale: 2, default: 0
     add_column :materials, :cost_extra2, :decimal, precision: 10, scale: 2, default: 0
     add_column :materials, :composition, :string
-    add_column :materials, :composition, :size
     add_column :materials, :size, :string
     add_column :materials, :length, :string
     add_column :materials, :opening_type, :string

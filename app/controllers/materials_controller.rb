@@ -56,7 +56,7 @@ class MaterialsController < ApplicationController
     def material_params
       params.require(:material).permit(
         :color_id, :material_type_id, :currency_id, :supplier_id, :care_labels,
-        :name, :identifer, :composition, :size, :length, :opening_type, 
+        :name, :identifer, :composition, :size, :length, :opening_type, :identifier,
         :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 , 
       )
     end

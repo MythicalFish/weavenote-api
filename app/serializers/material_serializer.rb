@@ -1,7 +1,7 @@
 class MaterialSerializer < ActiveModel::Serializer
   
   attributes :id, :name, :identifier, :composition, :size, :length, :opening_type,
-    :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2, :cost_total
+    :currency, :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2, :cost_total
 
   belongs_to :type
   belongs_to :color

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519162344) do
+ActiveRecord::Schema.define(version: 20170523082718) do
 
   create_table "care_labels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "label", null: false
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20170519162344) do
     t.index ["identifier"], name: "index_materials_on_identifier", using: :btree
     t.index ["material_type_id"], name: "index_materials_on_material_type_id", using: :btree
     t.index ["name"], name: "index_materials_on_name", using: :btree
+    t.index ["supplier_id"], name: "index_materials_on_supplier_id", using: :btree
     t.index ["user_id"], name: "index_materials_on_user_id", using: :btree
   end
 

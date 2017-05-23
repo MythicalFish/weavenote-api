@@ -31,11 +31,7 @@ class MaterialsController < ApplicationController
   # PATCH/PUT /materials/:id
   def update
     if @material.update(material_params)
-      if params[:index_after_update]
-        index
-      else 
-        render json: @material
-      end
+      render json: @material
     else
       render json: @material.errors, status: :unprocessable_entity
     end
@@ -54,10 +50,29 @@ class MaterialsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def material_params
-      params.require(:material).permit(
-        :color_id, :material_type_id, :currency_id, :supplier_id, :care_labels,
+      sanitized_params.permit(
+        :color_id, :material_type_id, :currency_id, :care_labels,
         :name, :identifer, :composition, :size, :length, :opening_type, :identifier,
-        :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 , 
+        :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 ,
+        supplier_attributes: [ :id, :name, :agent, :name_ref, :color_ref, :minimum_order, :comments ]
       )
     end
+
+    def sanitized_params
+      p = params[:material]
+      if p[:supplier]
+        p[:supplier_attributes] = p[:supplier]
+        p.delete(:supplier)
+      end
+      if p[:type]
+        p[:material_type_id] = p[:type][:id]
+        p.delete(:type)
+      end
+      if p[:color]
+        p[:color_id] = p[:color][:id]
+        p.delete(:color)
+      end
+      p
+    end
+
 end

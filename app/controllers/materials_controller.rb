@@ -30,6 +30,10 @@ class MaterialsController < ApplicationController
 
   # PATCH/PUT /materials/:id
   def update
+    if s = material_params[:supplier_attributes]
+      @material.supplier_id = nil unless s[:id]
+      @material.supplier_id = s[:id] if s[:id]
+    end
     if @material.update(material_params)
       render json: @material
     else

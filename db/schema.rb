@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 20170523082718) do
     t.string  "color_ref"
     t.integer "minimum_order"
     t.string  "comments"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

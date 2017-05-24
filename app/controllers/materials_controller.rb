@@ -22,7 +22,7 @@ class MaterialsController < ApplicationController
   def create
     @material = @user.materials.new(material_params)
     if @material.save
-      index
+      render json: @material
     else
       render json: @material.errors.full_messages.join(', '), status: :unprocessable_entity
     end

@@ -26,15 +26,15 @@ puts ""
 CareLabel.all.destroy_all
 ActiveRecord::Base.connection.execute("ALTER TABLE care_labels AUTO_INCREMENT = 1;")
 @labels = CareLabel.create([
-  { label: 'Tumble dry, permanent press' },
-  { label: 'Dry clean, any solvent' },
-  { label: 'Iron, any temperature, steam' },
-  { label: 'Machine wash, hot, gentle' },
-  { label: 'Machine wash, normal' },
+  { name: 'Tumble dry, permanent press' },
+  { name: 'Dry clean, any solvent' },
+  { name: 'Iron, any temperature, steam' },
+  { name: 'Machine wash, hot, gentle' },
+  { name: 'Machine wash, normal' },
 ])
 
 @labels.each do |c|
-  puts "Created care label: #{c.label}"
+  puts "Created care label: #{c.name}"
 end
 
 puts ""

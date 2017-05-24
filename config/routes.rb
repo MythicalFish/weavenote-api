@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   root to: 'application#root'
   get 'stats', to: 'application#stats'
 
-  resources :materials, :material_types, :colors, :currencies, :care_labels, only: [:index]
+  resources :materials
   resources :suppliers
+  resources :material_types, :colors, :currencies, :care_labels, only: [:index]
 
   resources :projects do
     get '/material_cost', to: 'projects#material_cost'

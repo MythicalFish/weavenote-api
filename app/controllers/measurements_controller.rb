@@ -101,7 +101,7 @@ class MeasurementsController < ApplicationController
   end
 
   def set_project
-    @project = @user.projects.find(params[:id])
+    @project = @user.projects.find(params[:project_id])
   end
 
 end

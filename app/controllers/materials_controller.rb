@@ -56,9 +56,9 @@ class MaterialsController < ApplicationController
     def material_params
       sanitized_params.permit(
         :color_id, :material_type_id, :currency_id, :care_labels,
-        :name, :identifer, :composition, :size, :length, :opening_type, :identifier,
+        :name, :identifer, :composition, :size, :length, :opening_type, :identifier, :subtype,
         :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 ,
-        supplier_attributes: [ :id, :name, :agent, :name_ref, :color_ref, :minimum_order, :comments ]
+        supplier_attributes: [ :id, :name, :agent, :ref, :color_ref, :minimum_order, :comments ]
       )
     end
 

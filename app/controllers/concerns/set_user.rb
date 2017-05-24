@@ -12,6 +12,10 @@ module SetUser
   private
 
   def set_user!
+    if Rails.env.development?
+      @user = User.first
+      return
+    end
     unless @user = fetch_user
       @user = User.create({
         name: user_info['nickname'],

@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524080427) do
+ActiveRecord::Schema.define(version: 20170524143941) do
 
   create_table "care_labels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "label", null: false
+    t.string "name", null: false
     t.string "icon"
   end
 

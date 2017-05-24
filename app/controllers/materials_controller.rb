@@ -76,6 +76,10 @@ class MaterialsController < ApplicationController
         p[:color_id] = p[:color][:id]
         p.delete(:color)
       end
+      if p[:currency]
+        p[:currency_id] = p[:currency][:id]
+        p.delete(:currency)
+      end
       p
     end
 

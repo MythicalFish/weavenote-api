@@ -2,8 +2,8 @@ class ColorsController < ApplicationController
 
   # GET /colors
   def index
-    @types = Color.all.order('name ASC')
-    render json: @types
+    @colors = Color.all.order('name ASC')
+    render json: @colors
   end
 
 end

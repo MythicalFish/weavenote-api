@@ -55,10 +55,11 @@ class MaterialsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def material_params
       sanitized_params.permit(
-        :color_id, :material_type_id, :currency_id, :care_labels,
+        :color_id, :material_type_id, :currency_id, 
         :name, :identifer, :composition, :size, :length, :opening_type, :identifier, :subtype,
         :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 ,
-        supplier_attributes: [ :id, :name, :agent, :ref, :color_ref, :minimum_order, :comments ]
+        supplier_attributes: [ :id, :name, :agent, :ref, :color_ref, :minimum_order, :comments ],
+        :care_label_ids => []
       )
     end
 
@@ -79,6 +80,14 @@ class MaterialsController < ApplicationController
       if p[:currency]
         p[:currency_id] = p[:currency][:id]
         p.delete(:currency)
+      end
+      if p[:care_labels]
+        ids = []
+        p[:care_labels].each do |l|
+          ids << l[:id]
+        end
+        p.delete(:care_labels)
+        p[:care_label_ids] = ids
       end
       p
     end

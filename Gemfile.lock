@@ -55,6 +55,8 @@ GEM
     erubis (2.7.0)
     excon (0.55.0)
     ffi (1.9.18)
+    figaro (1.1.1)
+      thor (~> 0.14)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     fog (1.40.0)
@@ -298,6 +300,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.10.5)
   auth0
   byebug
+  figaro
   fog
   jwt
   listen (~> 3.0.5)

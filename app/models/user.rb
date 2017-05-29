@@ -4,4 +4,5 @@ class User < ApplicationRecord
   has_many :materials
   has_many :suppliers
   has_many :images
+  has_many :collaborators, through: :projects
 end

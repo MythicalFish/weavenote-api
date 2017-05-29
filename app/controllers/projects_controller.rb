@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :update, :destroy, :material_cost, :measurements, :update_measurements]
+
+  before_action :set_project, except: [:index, :create]
 
   # GET /projects
   def index
@@ -49,18 +50,48 @@ class ProjectsController < ApplicationController
     render json: @project.material_cost
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_project
-      id = params[:project_id] || params[:id]
-      @project = @user.projects.find(id)
-    end
+  # GET /projects/:project_id/images
+  def images
+    @images = @project.images.order('id DESC')
+    render json: @images
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def project_params
-      params.require(:project).permit(
-        :name, :identifier, :archived, :images, :description,
-        :development_stage_id, :category
-      )
+  # POST /projects/:project_id/images
+  def create_image
+    @image = @project.create_image(image_params)
+    if @image.save
+      render json: @image, status: :created
+    else
+      render json: @image.errors.full_messages.join(', '), status: :unprocessable_entity
     end
+  end
+
+  # DELETE /projects/:project_id/images/:id
+  def destroy_image
+    @image = @project.images.find(params[:id])
+    @image.destroy
+    render json: @project.images
+  end
+
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_project
+    id = params[:project_id] || params[:id]
+    @project = @user.projects.find(id)
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def project_params
+    params.require(:project).permit(
+      :name, :identifier, :archived, :images, :description,
+      :development_stage_id, :category
+    )
+  end
+
+  def image_params
+    params.require(:image).permit(:url, :name)
+  end
+
 end

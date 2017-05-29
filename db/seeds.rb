@@ -308,7 +308,7 @@ User.all.each do |user|
     project = user.projects.create(data)
     puts " - Created project: #{data[:name]}"
 
-    project.images.create({ url: img_url })
+    project.create_image({ url: img_url })
     project.components.create(components)
     project.measurement_groups.create(measurement_groups)
     

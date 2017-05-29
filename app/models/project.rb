@@ -1,5 +1,7 @@
 class Project < ApplicationRecord
 
+  include Imageable
+
   belongs_to :user
   belongs_to :development_stage
   has_many :components

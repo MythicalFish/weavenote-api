@@ -4,13 +4,15 @@ module Imageable
 
     def create_image data
       if data.try(:id)
+        # Image exists
         data.imageable_id = self.id
         data.imageable_type = self.model_name.name
         data.save!
       else
+        # New image
         data[:imageable_id] = self.id
         data[:imageable_type] = self.model_name.name
-        self.user.images.create(data)
+        self.organization.images.create(data)
       end
     end
 

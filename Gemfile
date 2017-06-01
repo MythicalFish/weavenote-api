@@ -36,6 +36,7 @@ gem 'mysql2'
 gem 'active_model_serializers', '~> 0.10.5'
 gem 'fog'
 gem 'figaro'
+gem 'active_hash'
 
 group :development, :test do
   gem 'byebug', platform: :mri

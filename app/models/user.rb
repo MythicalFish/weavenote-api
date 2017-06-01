@@ -1,8 +1,11 @@
 class User < ApplicationRecord
-  has_many :projects
-  has_many :material_types
+  
+  has_and_belongs_to_many :organizations
+  has_many :projects, through: :organizations
   has_many :materials
   has_many :suppliers
-  has_many :images
-  has_many :collaborators, through: :projects
+
+  private
+
+
 end

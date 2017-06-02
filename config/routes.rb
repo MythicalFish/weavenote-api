@@ -24,4 +24,6 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/user', to: 'users#show'
+
 end

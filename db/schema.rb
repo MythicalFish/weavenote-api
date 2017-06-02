@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601132343) do
+ActiveRecord::Schema.define(version: 20170602070851) do
 
   create_table "care_labels_materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "care_label_id"
@@ -152,10 +152,11 @@ ActiveRecord::Schema.define(version: 20170601132343) do
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "auth0_id",   null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "auth0_id",                null: false
     t.string   "avatar"
+    t.integer  "current_organization_id"
     t.index ["auth0_id"], name: "index_users_on_auth0_id", using: :btree
   end
 

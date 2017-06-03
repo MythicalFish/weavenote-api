@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root to: 'application#root'
   get 'stats', to: 'application#stats'
 
+  resources :organizations, only: [:create, :update, :destroy]
   resources :materials
   resources :suppliers
   resources :material_types, :colors, :currencies, :care_labels, only: [:index]

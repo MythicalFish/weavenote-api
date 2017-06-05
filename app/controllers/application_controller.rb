@@ -7,7 +7,7 @@ class ApplicationController < ActionController::API
   end
 
   def stats
-    @projects = @user.projects.active
+    @projects = @organization.projects.active
     response = {
       projects: {
         counts: {
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::API
       }
     }
     DevelopmentStage.all.each do |s|
-      stage_count = @projects.where(development_stage: s).length
+      stage_count = @projects.where(development_stage_id: s.id).length
       response[:projects][:counts][:by_stage] <<
         { label: s.label, count: stage_count }
     end

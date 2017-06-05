@@ -1,8 +1,10 @@
 class Project < ApplicationRecord
 
+  extend ActiveHash::Associations::ActiveRecordExtensions
+
   include Imageable
 
-  belongs_to :user
+  belongs_to :organization
   belongs_to :development_stage
   has_many :components
   has_many :materials, through: :components
@@ -52,7 +54,7 @@ class Project < ApplicationRecord
       self.identifier = rand(36**4).to_s(36).upcase
     end
     if self.development_stage_id.blank?
-      self.development_stage = DevelopmentStage.first
+      self.development_stage_id = DevelopmentStage.first.id
     end
   end
 

@@ -4,11 +4,15 @@ class OrganizationsController < ApplicationController
 
   # POST /organizations
   def create
-    @organization = @user.organizations.new(organization_params)
-    if @organization.save
-      render json: @organization, status: :created
-    else
-      render json: @organization.errors.full_messages.join(', '), status: :unprocessable_entity
+    begin
+      @user.organizations << Organization.new(organization_params)
+      orgs = @user.organizations.order('id DESC')
+      render json: {
+        organizations: orgs,
+        current_organization: orgs.last
+      }
+    rescue => e
+      render json: e.message, status: :unprocessable_entity
     end
   end
 
@@ -34,7 +38,7 @@ class OrganizationsController < ApplicationController
   end
 
   def organization_params
-    params.require(:organization).permit(:quantity, :material_id)
+    params.require(:organization).permit(:name)
   end
 
 end

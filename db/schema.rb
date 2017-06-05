@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602070851) do
+ActiveRecord::Schema.define(version: 20170605130505) do
 
   create_table "care_labels_materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "care_label_id"
@@ -113,9 +113,9 @@ ActiveRecord::Schema.define(version: 20170602070851) do
   end
 
   create_table "organizations_users", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "organization_id", null: false
-    t.integer "user_id",         null: false
-    t.integer "role_id",         null: false
+    t.integer "organization_id",             null: false
+    t.integer "user_id",                     null: false
+    t.integer "role_id",         default: 1, null: false
     t.index ["organization_id"], name: "index_organizations_users_on_organization_id", using: :btree
     t.index ["role_id"], name: "index_organizations_users_on_role_id", using: :btree
     t.index ["user_id"], name: "index_organizations_users_on_user_id", using: :btree

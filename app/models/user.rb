@@ -5,11 +5,12 @@ class User < ApplicationRecord
 
   def current_organization
     oid = self.current_organization_id
-    unless oid
-      oid = self.organizations.first.try(:id)
-      self.update(current_organization_id: oid) if oid
+    org = self.organizations.find_by_id(oid) if oid
+    unless org
+      org = self.organizations.first
+      self.update(current_organization_id: org.id) if org
     end
-    return self.organizations.find_by_id(oid) if oid
+    return org
   end
 
   private

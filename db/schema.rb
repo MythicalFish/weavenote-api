@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170605130505) do
+ActiveRecord::Schema.define(version: 20170606095308) do
 
   create_table "care_labels_materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "care_label_id"
@@ -19,29 +19,51 @@ ActiveRecord::Schema.define(version: 20170605130505) do
     t.index ["material_id"], name: "index_care_labels_materials_on_material_id", using: :btree
   end
 
+  create_table "collaborators", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string  "email",      null: false
+    t.string  "name",       null: false
+    t.integer "project_id", null: false
+    t.index ["email"], name: "index_collaborators_on_email", using: :btree
+    t.index ["name"], name: "index_collaborators_on_name", using: :btree
+    t.index ["project_id"], name: "index_collaborators_on_project_id", using: :btree
+  end
+
   create_table "components", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "project_id",                                           null: false
-    t.integer "material_id",                                          null: false
-    t.decimal "quantity",    precision: 10, scale: 2, default: "0.0"
+    t.integer  "project_id",                                           null: false
+    t.integer  "material_id",                                          null: false
+    t.decimal  "quantity",    precision: 10, scale: 2, default: "0.0"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.index ["created_at"], name: "index_components_on_created_at", using: :btree
     t.index ["material_id"], name: "index_components_on_material_id", using: :btree
     t.index ["project_id"], name: "index_components_on_project_id", using: :btree
+    t.index ["updated_at"], name: "index_components_on_updated_at", using: :btree
   end
 
   create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string  "name"
-    t.string  "url",             null: false
-    t.integer "imageable_id"
-    t.string  "imageable_type"
-    t.integer "organization_id", null: false
+    t.string   "name"
+    t.string   "url",             null: false
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
+    t.integer  "organization_id", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["created_at"], name: "index_images_on_created_at", using: :btree
     t.index ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type", using: :btree
     t.index ["imageable_id"], name: "index_images_on_imageable_id", using: :btree
+    t.index ["organization_id"], name: "index_images_on_organization_id", using: :btree
+    t.index ["updated_at"], name: "index_images_on_updated_at", using: :btree
   end
 
   create_table "instructions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string  "title"
-    t.text    "description", limit: 65535
-    t.integer "project_id"
+    t.string   "title"
+    t.text     "description", limit: 65535
+    t.integer  "project_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["created_at"], name: "index_instructions_on_created_at", using: :btree
     t.index ["project_id"], name: "index_instructions_on_project_id", using: :btree
+    t.index ["updated_at"], name: "index_instructions_on_updated_at", using: :btree
   end
 
   create_table "invitations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -78,13 +100,18 @@ ActiveRecord::Schema.define(version: 20170605130505) do
     t.index ["identifier"], name: "index_materials_on_identifier", using: :btree
     t.index ["material_type_id"], name: "index_materials_on_material_type_id", using: :btree
     t.index ["name"], name: "index_materials_on_name", using: :btree
+    t.index ["organization_id"], name: "index_materials_on_organization_id", using: :btree
     t.index ["supplier_id"], name: "index_materials_on_supplier_id", using: :btree
   end
 
   create_table "measurement_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string  "name",       null: false
-    t.integer "project_id", null: false
+    t.string   "name",       null: false
+    t.integer  "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_measurement_groups_on_created_at", using: :btree
     t.index ["project_id"], name: "index_measurement_groups_on_project_id", using: :btree
+    t.index ["updated_at"], name: "index_measurement_groups_on_updated_at", using: :btree
   end
 
   create_table "measurement_names", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -92,7 +119,9 @@ ActiveRecord::Schema.define(version: 20170605130505) do
     t.integer  "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_measurement_names_on_created_at", using: :btree
     t.index ["project_id"], name: "index_measurement_names_on_project_id", using: :btree
+    t.index ["updated_at"], name: "index_measurement_names_on_updated_at", using: :btree
     t.index ["value"], name: "index_measurement_names_on_value", using: :btree
   end
 
@@ -133,20 +162,28 @@ ActiveRecord::Schema.define(version: 20170605130505) do
     t.integer  "organization_id",                      null: false
     t.index ["archived"], name: "index_projects_on_archived", using: :btree
     t.index ["category"], name: "index_projects_on_category", using: :btree
+    t.index ["created_at"], name: "index_projects_on_created_at", using: :btree
     t.index ["development_stage_id"], name: "index_projects_on_development_stage_id", using: :btree
     t.index ["identifier"], name: "index_projects_on_identifier", using: :btree
     t.index ["name"], name: "index_projects_on_name", using: :btree
+    t.index ["organization_id"], name: "index_projects_on_organization_id", using: :btree
+    t.index ["updated_at"], name: "index_projects_on_updated_at", using: :btree
   end
 
   create_table "suppliers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string  "name",            null: false
-    t.string  "agent"
-    t.string  "ref"
-    t.string  "color_ref"
-    t.integer "minimum_order"
-    t.string  "comments"
-    t.integer "organization_id", null: false
+    t.string   "name",            null: false
+    t.string   "agent"
+    t.string   "ref"
+    t.string   "color_ref"
+    t.integer  "minimum_order"
+    t.string   "comments"
+    t.integer  "organization_id", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["created_at"], name: "index_suppliers_on_created_at", using: :btree
     t.index ["name"], name: "index_suppliers_on_name", using: :btree
+    t.index ["organization_id"], name: "index_suppliers_on_organization_id", using: :btree
+    t.index ["updated_at"], name: "index_suppliers_on_updated_at", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -158,6 +195,9 @@ ActiveRecord::Schema.define(version: 20170605130505) do
     t.string   "avatar"
     t.integer  "current_organization_id"
     t.index ["auth0_id"], name: "index_users_on_auth0_id", using: :btree
+    t.index ["created_at"], name: "index_users_on_created_at", using: :btree
+    t.index ["name"], name: "index_users_on_name", using: :btree
+    t.index ["updated_at"], name: "index_users_on_updated_at", using: :btree
   end
 
 end

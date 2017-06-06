@@ -5,11 +5,16 @@ class OrganizationsController < ApplicationController
   # POST /organizations
   def create
     begin
-      @user.organizations << Organization.new(organization_params)
+      @org = Organization.create(organization_params)
+      @role = Role.create({
+        user: @user,
+        organization: @org,
+        role_type: RoleType.admin
+      })
       orgs = @user.organizations.order('id DESC')
       render json: {
         organizations: orgs,
-        current_organization: orgs.last
+        current_organization: @org
       }
     rescue => e
       render json: e.message, status: :unprocessable_entity

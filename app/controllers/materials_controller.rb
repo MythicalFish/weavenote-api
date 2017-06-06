@@ -3,7 +3,7 @@ class MaterialsController < ApplicationController
 
   # GET /materials
   def index
-    @materials = @user.materials
+    @materials = @organization.materials
       .order('created_at DESC')
     render json: @materials
   end
@@ -20,7 +20,7 @@ class MaterialsController < ApplicationController
 
   # POST /materials
   def create
-    @material = @user.materials.new(material_params)
+    @material = @organization.materials.new(material_params)
     if @material.save
       render json: @material
     else
@@ -49,7 +49,7 @@ class MaterialsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_material
-      @material = @user.materials.find(params[:id])
+      @material = @organization.materials.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

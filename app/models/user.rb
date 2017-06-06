@@ -1,8 +1,9 @@
 class User < ApplicationRecord
   
-  has_many :roles
-  has_many :organizations, through: :roles
-  has_many :projects, through: :organizations
+  has_many :project_roles
+  has_many :organization_roles
+  has_many :projects, through: :project_roles
+  has_many :organizations, through: :organization_roles
 
   def current_organization
     oid = self.current_organization_id

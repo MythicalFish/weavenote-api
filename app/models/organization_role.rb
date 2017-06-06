@@ -1,4 +1,4 @@
-class Role < ApplicationRecord
+class OrganizationRole < ApplicationRecord
   belongs_to :user
   belongs_to :organization
   belongs_to :role_type

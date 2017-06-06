@@ -1,7 +1,7 @@
 class Organization < ApplicationRecord
   
-  has_many :roles
-  has_many :users, through: :roles
+  has_many :organization_roles
+  has_many :users, through: :organization_roles
   has_many :projects
   has_many :images
   has_many :invitations

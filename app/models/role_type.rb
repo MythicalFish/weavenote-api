@@ -1,5 +1,7 @@
 class RoleType < ActiveHash::Base
   
+  include ToHash
+
   self.data = [
     {:id => 1, :name => "Viewer"},
     {:id => 2, :name => "Collaborator"},

@@ -13,7 +13,6 @@ class Project < ApplicationRecord
   has_many :measurement_names
   has_many :measurement_values, through: :measurement_groups
   has_many :instructions
-  has_and_belongs_to_many :collaborators
   accepts_nested_attributes_for :images
 
   alias_attribute :stage, :development_stage

@@ -2,7 +2,7 @@ class Material < ApplicationRecord
 
   extend ActiveHash::Associations::ActiveRecordExtensions
 
-  belongs_to :user
+  belongs_to :organization
   belongs_to :material_type
   belongs_to :color
   belongs_to :currency
@@ -13,7 +13,7 @@ class Material < ApplicationRecord
   alias_attribute :type, :material_type
 
   before_validation :set_currency
-  before_validation :set_supplier_user
+  before_validation :configure_supplier
 
   def cost_total
     cost_base + cost_delivery + cost_extra1 + cost_extra1
@@ -21,10 +21,10 @@ class Material < ApplicationRecord
 
   private
 
-  def set_supplier_user
+  def configure_supplier
     if self.supplier
-      unless self.supplier.user_id
-        self.supplier.user_id = self.user_id
+      unless self.supplier.organization
+        self.supplier.organization = self.organization
       end
     end
   end

@@ -4,7 +4,7 @@ class SuppliersController < ApplicationController
 
   # GET /suppliers
   def index
-    @suppliers = @user.suppliers.order('id DESC')
+    @suppliers = @organization.suppliers.order('id DESC')
     render json: @suppliers
   end
 
@@ -17,7 +17,7 @@ class SuppliersController < ApplicationController
   private
 
   def set_supplier
-    @supplier = @user.suppliers.find(params[:id])
+    @supplier = @organization.suppliers.find(params[:id])
   end
 
 end

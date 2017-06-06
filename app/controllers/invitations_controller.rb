@@ -1,6 +1,6 @@
-class CollaboratorsController < ApplicationController
+class InvitationsController < ApplicationController
 
-  def invite
+  def create
     @invitation = Invitation.new(invitation_params)
     if @invitation.save
       

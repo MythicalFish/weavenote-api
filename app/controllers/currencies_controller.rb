@@ -2,7 +2,7 @@ class CurrenciesController < ApplicationController
 
   # GET /currencies
   def index
-    @currencies = Currency.all
+    @currencies = Currency.to_hash
     render json: @currencies
   end
 

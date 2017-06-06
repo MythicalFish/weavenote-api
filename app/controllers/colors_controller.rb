@@ -2,7 +2,7 @@ class ColorsController < ApplicationController
 
   # GET /colors
   def index
-    @colors = Color.all.order('name ASC')
+    @colors = Color.to_hash
     render json: @colors
   end
 

@@ -2,7 +2,7 @@ class MaterialTypesController < ApplicationController
 
   # GET /material_types
   def index
-    @types = MaterialType.all.order('name ASC')
+    @types = MaterialType.to_hash
     render json: @types
   end
 

@@ -4,16 +4,17 @@ class Project < ApplicationRecord
 
   belongs_to :organization
   belongs_to :development_stage
+  alias_attribute :stage, :development_stage
   has_many :components
   has_many :materials, through: :components
   has_many :images, as: :imageable
+  accepts_nested_attributes_for :images
   has_many :measurement_groups
   has_many :measurement_names
   has_many :measurement_values, through: :measurement_groups
   has_many :instructions
-  accepts_nested_attributes_for :images
-
-  alias_attribute :stage, :development_stage
+  has_many :project_roles
+  has_many :users, through: :project_roles
 
   before_validation :set_defaults
 

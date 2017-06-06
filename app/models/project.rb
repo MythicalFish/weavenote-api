@@ -1,7 +1,5 @@
 class Project < ApplicationRecord
 
-  extend ActiveHash::Associations::ActiveRecordExtensions
-
   include Imageable
 
   belongs_to :organization

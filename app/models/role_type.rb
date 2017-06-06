@@ -1,13 +1,16 @@
-class RoleType < ActiveHash::Base
-  
-  include ToHash
+class RoleType < ApplicationRecord
 
-  self.data = [
-    {:id => 1, :name => "Viewer"},
-    {:id => 2, :name => "Collaborator"},
-    {:id => 3, :name => "Manager"},
-    {:id => 4, :name => "Admin"}
-  ]
+  def self.viewer
+    self.find(1)
+  end
+
+  def self.collaborator
+    self.find(2)
+  end
+
+  def self.manager
+    self.find(3)
+  end
 
   def self.admin
     self.find(4)

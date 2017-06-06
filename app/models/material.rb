@@ -1,7 +1,5 @@
 class Material < ApplicationRecord
 
-  extend ActiveHash::Associations::ActiveRecordExtensions
-
   belongs_to :organization
   belongs_to :material_type
   belongs_to :color

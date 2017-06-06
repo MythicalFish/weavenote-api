@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606123115) do
+ActiveRecord::Schema.define(version: 20170606130831) do
 
   create_table "care_labels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
@@ -24,6 +24,11 @@ ActiveRecord::Schema.define(version: 20170606123115) do
     t.index ["material_id"], name: "index_care_labels_materials_on_material_id", using: :btree
   end
 
+  create_table "colors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name",     null: false
+    t.string "hex_code", null: false
+  end
+
   create_table "components", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "project_id",                                           null: false
     t.integer  "material_id",                                          null: false
@@ -34,6 +39,16 @@ ActiveRecord::Schema.define(version: 20170606123115) do
     t.index ["material_id"], name: "index_components_on_material_id", using: :btree
     t.index ["project_id"], name: "index_components_on_project_id", using: :btree
     t.index ["updated_at"], name: "index_components_on_updated_at", using: :btree
+  end
+
+  create_table "currencies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name",     null: false
+    t.string "iso_code", null: false
+    t.string "unicode",  null: false
+  end
+
+  create_table "development_stages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "label", null: false
   end
 
   create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -71,6 +86,11 @@ ActiveRecord::Schema.define(version: 20170606123115) do
     t.index ["email"], name: "index_invitations_on_email", using: :btree
     t.index ["key"], name: "index_invitations_on_key", using: :btree
     t.index ["organization_id"], name: "index_invitations_on_organization_id", using: :btree
+  end
+
+  create_table "material_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", null: false
+    t.index ["name"], name: "index_material_types_on_name", using: :btree
   end
 
   create_table "materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -155,6 +175,10 @@ ActiveRecord::Schema.define(version: 20170606123115) do
     t.index ["name"], name: "index_projects_on_name", using: :btree
     t.index ["organization_id"], name: "index_projects_on_organization_id", using: :btree
     t.index ["updated_at"], name: "index_projects_on_updated_at", using: :btree
+  end
+
+  create_table "role_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", null: false
   end
 
   create_table "roles", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

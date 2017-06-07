@@ -2,6 +2,8 @@ class OrganizationsController < ApplicationController
   
   before_action :set_organization, only: [:update, :destroy]
 
+  include ApiResponse
+
   # POST /organizations
   def create
     begin
@@ -16,7 +18,7 @@ class OrganizationsController < ApplicationController
       }
 
     rescue => e
-      render json: e.message, status: :unprocessable_entity
+      render error_response(e)
     end
   end
 

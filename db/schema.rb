@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606140827) do
+ActiveRecord::Schema.define(version: 20170607123706) do
 
   create_table "care_labels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
@@ -175,10 +175,6 @@ ActiveRecord::Schema.define(version: 20170606140827) do
     t.index ["name"], name: "index_projects_on_name", using: :btree
     t.index ["organization_id"], name: "index_projects_on_organization_id", using: :btree
     t.index ["updated_at"], name: "index_projects_on_updated_at", using: :btree
-  end
-
-  create_table "role_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", null: false
   end
 
   create_table "roles", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

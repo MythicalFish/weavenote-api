@@ -1,8 +1,12 @@
 class User < ApplicationRecord
   
   has_many :roles
-  has_many :projects, through: :roles, source: :roleable, source_type: 'Project'
+  has_many :assigned_projects, through: :roles, source: :roleable, source_type: 'Project'
   has_many :organizations, through: :roles, source: :roleable, source_type: 'Organization'
+  
+  def projects
+
+  end
 
   def current_organization
     oid = self.current_organization_id

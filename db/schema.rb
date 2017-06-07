@@ -152,27 +152,9 @@ ActiveRecord::Schema.define(version: 20170606140827) do
     t.index ["value"], name: "index_measurement_values_on_value", using: :btree
   end
 
-  create_table "organization_roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "user_id",         null: false
-    t.integer "organization_id", null: false
-    t.integer "role_type_id",    null: false
-    t.index ["organization_id"], name: "index_organization_roles_on_organization_id", using: :btree
-    t.index ["role_type_id"], name: "index_organization_roles_on_role_type_id", using: :btree
-    t.index ["user_id"], name: "index_organization_roles_on_user_id", using: :btree
-  end
-
   create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.index ["name"], name: "index_organizations_on_name", using: :btree
-  end
-
-  create_table "project_roles", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "project_id",               null: false
-    t.integer "user_id",                  null: false
-    t.integer "role_type_id", default: 1, null: false
-    t.index ["project_id"], name: "index_project_roles_on_project_id", using: :btree
-    t.index ["role_type_id"], name: "index_project_roles_on_role_type_id", using: :btree
-    t.index ["user_id"], name: "index_project_roles_on_user_id", using: :btree
   end
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -197,6 +179,17 @@ ActiveRecord::Schema.define(version: 20170606140827) do
 
   create_table "role_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
+  end
+
+  create_table "roles", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "roleable_id",               null: false
+    t.integer "user_id",                   null: false
+    t.integer "role_type_id",  default: 1, null: false
+    t.string  "roleable_type",             null: false
+    t.index ["role_type_id"], name: "index_roles_on_role_type_id", using: :btree
+    t.index ["roleable_id"], name: "index_roles_on_roleable_id", using: :btree
+    t.index ["roleable_type"], name: "index_roles_on_roleable_type", using: :btree
+    t.index ["user_id"], name: "index_roles_on_user_id", using: :btree
   end
 
   create_table "suppliers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

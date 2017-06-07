@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     render json: {
       user: @user,
       organizations: @user.organizations,
-      current_organization: @user.current_organization,
+      current_organization: @user.organization,
     }
   end
 

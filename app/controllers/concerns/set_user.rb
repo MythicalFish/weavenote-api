@@ -14,7 +14,7 @@ module SetUser
   def set_user!
     if Rails.env.development?
       @user = User.first
-      @organization = @user.current_organization
+      @organization = @user.organization
       return
     end
     unless @user = fetch_user
@@ -24,7 +24,7 @@ module SetUser
         avatar: user_info['picture_large'],
         auth0_id: auth0_id
       })
-      @organization = @user.current_organization
+      @organization = @user.organization
     end
   rescue
     render json: { errors: ['Not Authenticated'] }, status: :unauthorized

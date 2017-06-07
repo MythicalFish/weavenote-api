@@ -7,11 +7,11 @@ class OrganizationsController < ApplicationController
 
     o = Organization.create(org_params)
     o.roles.create(admin_role)
-    @user.update(current_organization: o)
+    @user.update(organization: o)
 
     render json: {
       organizations: @user.organizations,
-      current_organization: o
+      organization: o
     }
     
   end

@@ -17,29 +17,38 @@ module UserAssociations
     has_many :assigned_projects, -> (o) {
       where('organization_id = ?', o.current_organization_id)
     }, through: :roles, source: :roleable, source_type: 'Project' 
-    
-    def organization
-      oid = self.current_organization_id
-      org = self.organizations.find_by_id(oid) if oid
-      unless org
-        org = self.organizations.first
-        self.update(organization: org) if org
-      end
-      return org
-    end
-    
-    alias_method :org, :organization
+
+    alias_method :orgs, :organizations
+    alias_method :org_roles, :organization_roles
 
     def organization=(org)
       self.current_organization_id = org.id
     end
+    
+    def organization
+      oid = self.current_organization_id
+      org = self.orgs.find_by_id(oid) if oid
+      unless org
+        org = self.orgs.first
+        self.update(organization: org) if org
+      end
+      return org
+    end
 
-    def role
-      organization_roles.find_by_roleable_id org.id
+    alias_method :org, :organization
+
+    def organization_role
+      org_roles.find_by_roleable_id org.id
+    end
+    
+    alias_method :org_role, :organization_role
+    
+    def project_role project
+      project_roles.find_by_roleable_id project.id
     end
 
     def projects
-      if role === RoleType.none
+      if org_role === RoleType.none
         return assigned_projects
       else
         return org.projects

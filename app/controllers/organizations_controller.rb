@@ -5,17 +5,16 @@ class OrganizationsController < ApplicationController
   # POST /organizations
   def create
     begin
-      @org = Organization.create(organization_params)
-      @role = Role.create({
-        user: @user,
-        organization: @org,
-        role_type: RoleType.admin
-      })
-      orgs = @user.organizations.order('id DESC')
+      
+      o = Organization.create(org_params)
+      o.roles.create(admin_role)
+      @user.update(current_organization: o)
+
       render json: {
-        organizations: orgs,
-        current_organization: @org
+        organizations: @user.organizations,
+        current_organization: o
       }
+
     rescue => e
       render json: e.message, status: :unprocessable_entity
     end
@@ -23,7 +22,7 @@ class OrganizationsController < ApplicationController
 
   # PATCH/PUT /organizations/:id
   def update
-    if @organization.update(organization_params)
+    if @organization.update(org_params)
       render json: @organization
     else
       render json: @organization.errors, status: :unprocessable_entity
@@ -42,8 +41,15 @@ class OrganizationsController < ApplicationController
     @organization = @user.organizations.find(params[:id])
   end
 
-  def organization_params
+  def org_params
     params.require(:organization).permit(:name)
+  end
+
+  def admin_role
+    {
+      user: @user,
+      role_type: RoleType.admin
+    }
   end
 
 end

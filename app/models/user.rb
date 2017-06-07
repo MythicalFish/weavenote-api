@@ -1,9 +1,8 @@
 class User < ApplicationRecord
   
-  has_many :project_roles
-  has_many :organization_roles
-  has_many :projects, through: :project_roles
-  has_many :organizations, through: :organization_roles
+  has_many :roles
+  has_many :projects, through: :roles, source: :roleable, source_type: 'Project'
+  has_many :organizations, through: :roles, source: :roleable, source_type: 'Organization'
 
   def current_organization
     oid = self.current_organization_id
@@ -13,6 +12,10 @@ class User < ApplicationRecord
       self.update(current_organization_id: org.id) if org
     end
     return org
+  end
+
+  def current_organization=(org)
+    self.current_organization_id = org.id
   end
 
   private

@@ -1,6 +1,7 @@
 class Project < ApplicationRecord
 
-  include Imageable
+  has_many :roles, as: :roleable
+  has_many :users, through: :roles
 
   belongs_to :organization
   belongs_to :development_stage
@@ -13,13 +14,13 @@ class Project < ApplicationRecord
   has_many :measurement_names
   has_many :measurement_values, through: :measurement_groups
   has_many :instructions
-  has_many :project_roles
-  has_many :users, through: :project_roles
 
   before_validation :set_defaults
 
   scope :active, -> { where(archived: false) }
   scope :archived, -> { where(archived: true) }
+
+  include Imageable
 
   def thumbnail_url
     images.order('id DESC').first.try(:url)

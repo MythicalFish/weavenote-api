@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'application#root'
-  get 'stats', to: 'application#stats'
+  get 'stats', to: 'organizations#stats'
 
   resources :organizations, only: [:create, :update, :destroy]
   resources :materials

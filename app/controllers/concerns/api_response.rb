@@ -2,30 +2,49 @@ module ApiResponse
   extend ActiveSupport::Concern
   included do
 
-    def error_response data
-      {
+    rescue_from Exception, with: :server_response
+
+    def server_response exception
+      r = {
         json: {
-          error: {
-            message: error_message(data),
-            fields: error_fields(data)
-          }
+          server_error: "Something went wrong"
         },
         status: :unprocessable_entity
       }
-    end
-
-    def error_message data
-      if data.is_a?(Object) || data.is_a?(String)
-        return data.to_s
-      elsif data.is_a? Hash
-        return data[:message].to_s
+      if Rails.env.development?
+        r[:json][:server_error] = exception.to_s 
       end
+      render r
     end
 
-    def error_fields data
-      return [] unless data.is_a? Hash
-      return data[:fields]
+    def validation_response data
+      render({
+        json: {
+          error: {
+            validation: {
+              message: user_error(data),
+              fields: error_fields(data)
+            }
+          }
+        }
+      })
     end
 
   end
+
+  def user_error data
+    if data.is_a?(Object) || data.is_a?(String)
+      return data.to_s
+    elsif data.is_a? Hash
+      u = data[:user]
+      return u[:message] if u
+    end
+  end
+
+  def error_fields data
+    return [] unless data.is_a? Hash
+    u = data[:user]
+    return u[:fields] if u
+  end
+
 end

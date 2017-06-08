@@ -26,8 +26,8 @@ module SetUser
       })
       @organization = @user.organization
     end
-  rescue
-    render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+  rescue => e
+    server_response(e)
   end
 
   def fetch_user

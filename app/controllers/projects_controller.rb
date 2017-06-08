@@ -11,9 +11,11 @@ class ProjectsController < ApplicationController
     render json: @projects
   end
 
-  # GET /projects/:id
   def show
-    render json: @project
+    render json: {
+      project: @project,
+      role: @user.project_role(@project).type.attributes
+    }
   end
 
   # POST /projects

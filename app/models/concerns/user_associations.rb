@@ -44,7 +44,9 @@ module UserAssociations
     alias_method :org_role, :organization_role
     
     def project_role project
-      project_roles.find_by_roleable_id project.id
+      role = project_roles.find_by_roleable_id(project.id)
+      return role if role
+      organization_role
     end
 
     def projects

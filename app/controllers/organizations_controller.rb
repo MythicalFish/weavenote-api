@@ -11,7 +11,7 @@ class OrganizationsController < ApplicationController
 
     render json: {
       organizations: @user.organizations,
-      organization: o
+      current_organization: o
     }
     
   end

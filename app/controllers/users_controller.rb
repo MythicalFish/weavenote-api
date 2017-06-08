@@ -5,6 +5,7 @@ class UsersController < ApplicationController
       user: @user,
       organizations: @user.organizations,
       current_organization: @user.organization,
+      role: @user.org_role.type.attributes
     }
   end
 

@@ -1,7 +1,7 @@
 class Project < ApplicationRecord
 
   has_many :roles, as: :roleable
-  has_many :users, through: :roles
+  has_many :collaborators, source: :user, through: :roles
 
   belongs_to :organization
   belongs_to :development_stage

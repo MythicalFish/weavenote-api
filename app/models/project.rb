@@ -14,7 +14,8 @@ class Project < ApplicationRecord
   has_many :measurement_names
   has_many :measurement_values, through: :measurement_groups
   has_many :instructions
-
+  has_many :invites, as: :invitable
+  
   before_validation :set_defaults
 
   scope :active, -> { where(archived: false) }

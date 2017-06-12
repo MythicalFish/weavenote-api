@@ -59,6 +59,10 @@ class ProjectsController < ApplicationController
     render json: @images
   end
 
+  def invite
+    
+  end
+
   # POST /projects/:project_id/images
   def create_image
     @image = @project.create_image(image_params)

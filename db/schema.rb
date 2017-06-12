@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170608100555) do
+ActiveRecord::Schema.define(version: 20170612184112) do
 
   create_table "care_labels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(version: 20170608100555) do
     t.datetime "updated_at",      null: false
     t.index ["created_at"], name: "index_images_on_created_at", using: :btree
     t.index ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type", using: :btree
-    t.index ["imageable_id"], name: "index_images_on_imageable_id", using: :btree
     t.index ["organization_id"], name: "index_images_on_organization_id", using: :btree
     t.index ["updated_at"], name: "index_images_on_updated_at", using: :btree
   end
@@ -77,15 +76,16 @@ ActiveRecord::Schema.define(version: 20170608100555) do
     t.index ["updated_at"], name: "index_instructions_on_updated_at", using: :btree
   end
 
-  create_table "invitations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string  "email",                           null: false
-    t.integer "organization_id",                 null: false
-    t.string  "key",                             null: false
-    t.boolean "accepted",        default: false, null: false
-    t.index ["accepted"], name: "index_invitations_on_accepted", using: :btree
-    t.index ["email"], name: "index_invitations_on_email", using: :btree
-    t.index ["key"], name: "index_invitations_on_key", using: :btree
-    t.index ["organization_id"], name: "index_invitations_on_organization_id", using: :btree
+  create_table "invites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string  "email",                          null: false
+    t.integer "invitable_id",                   null: false
+    t.string  "key",                            null: false
+    t.boolean "accepted",       default: false, null: false
+    t.string  "invitable_type",                 null: false
+    t.index ["accepted"], name: "index_invites_on_accepted", using: :btree
+    t.index ["email"], name: "index_invites_on_email", using: :btree
+    t.index ["invitable_id", "invitable_type"], name: "index_invites_on_invitable_id_and_invitable_type", using: :btree
+    t.index ["key"], name: "index_invites_on_key", using: :btree
   end
 
   create_table "material_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -183,8 +183,7 @@ ActiveRecord::Schema.define(version: 20170608100555) do
     t.integer "role_type_id",  default: 1, null: false
     t.string  "roleable_type",             null: false
     t.index ["role_type_id"], name: "index_roles_on_role_type_id", using: :btree
-    t.index ["roleable_id"], name: "index_roles_on_roleable_id", using: :btree
-    t.index ["roleable_type"], name: "index_roles_on_roleable_type", using: :btree
+    t.index ["roleable_id", "roleable_type"], name: "index_roles_on_roleable_id_and_roleable_type", using: :btree
     t.index ["user_id"], name: "index_roles_on_user_id", using: :btree
   end
 

@@ -6,7 +6,7 @@ class Organization < ApplicationRecord
   has_many :projects
   has_many :collaborators, through: :projects, source: :users
   has_many :images
-  has_many :invitations
+  has_many :invites, as: :invitable
   has_many :suppliers
   has_many :materials
 

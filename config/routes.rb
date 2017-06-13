@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     get '/images', to: 'projects#images'
     post '/images', to: 'projects#create_image'
     delete '/images/:id', to: 'projects#destroy_image'
-    post '/invites', to: 'projects#invite'
+    post '/invites', to: 'invites#create'
     resources :components
     resources :instructions do
       post '/images', to: 'instructions#create_image'

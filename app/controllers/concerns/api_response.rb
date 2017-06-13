@@ -12,7 +12,8 @@ module ApiResponse
         status: :unprocessable_entity
       }
       if Rails.env.development?
-        r[:json][:server_error] = exception.to_s 
+        backtrace = exception.backtrace.join("\n")
+        r[:json][:server_error] = exception.message + "\n\n" + backtrace
       end
       render r
     end

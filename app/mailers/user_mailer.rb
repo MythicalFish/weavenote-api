@@ -1,9 +1,9 @@
 class UserMailer < ApplicationMailer
 
-  default from: "noreply@#{ENV['SEAMLESS__DOMAIN']}"
+  default from: "\"Seamless\" <noreply@#{ENV['SEAMLESS__DOMAIN']}>"
 
-  def send_invite
-    mail(to: 'jakey.bt@gmail.com', subject: 'test')
+  def send_invite params
+    mail(params)
   end
 
 end

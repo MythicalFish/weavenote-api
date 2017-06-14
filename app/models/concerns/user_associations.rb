@@ -50,10 +50,10 @@ module UserAssociations
     end
 
     def projects
-      if org_role === RoleType.none
-        return assigned_projects
-      else
+      if ['Admin', 'Manager'].include? org_role.type.name
         return org.projects
+      else
+        return assigned_projects
       end
     end
 

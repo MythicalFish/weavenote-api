@@ -6,7 +6,11 @@ class Invite < ApplicationRecord
   after_create :send_invite
 
   def send_invite
-
+    email = UserMailer.send_invite({
+      to: self.email, 
+      subject: "You have been invited to a Seamless #{self.invitable_type}!"
+    })
+    email.deliver_now
   end
 
   private
@@ -15,7 +19,7 @@ class Invite < ApplicationRecord
     begin
       key = SecureRandom.hex(8).upcase
     end while Object.const_get(self.model_name.human).where(:key => key).exists?
-    self.key = secure_id
+    self.key = key
   end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612184112) do
+ActiveRecord::Schema.define(version: 20170614090533) do
 
   create_table "care_labels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
@@ -82,6 +82,8 @@ ActiveRecord::Schema.define(version: 20170612184112) do
     t.string  "key",                            null: false
     t.boolean "accepted",       default: false, null: false
     t.string  "invitable_type",                 null: false
+    t.string  "name"
+    t.integer "role_type_id",                   null: false
     t.index ["accepted"], name: "index_invites_on_accepted", using: :btree
     t.index ["email"], name: "index_invites_on_email", using: :btree
     t.index ["invitable_id", "invitable_type"], name: "index_invites_on_invitable_id_and_invitable_type", using: :btree

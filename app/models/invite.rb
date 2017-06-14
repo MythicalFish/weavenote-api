@@ -6,11 +6,12 @@ class Invite < ApplicationRecord
   after_create :send_invite
 
   def send_invite
-    email = UserMailer.send_invite({
-      to: self.email, 
-      subject: "You have been invited to a Seamless #{self.invitable_type}!"
-    })
+    email = UserMailer.send_invite(self)
     email.deliver_now
+  end
+
+  def invite_link
+    "http://#{ENV['SEAMLESS__DOMAIN']}/?invitation=#{self.key}"
   end
 
   private

@@ -9,6 +9,10 @@ class InvitesController < ApplicationController
     render json: @invitable.invites.where(accepted: false)
   end
 
+  def accept
+    @invite = Invite.find_by_key(params[:key]) 
+  end
+
   def create
     able = Ability.new(@user, @invitable)
     if able.to? :create

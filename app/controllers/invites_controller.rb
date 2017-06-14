@@ -26,7 +26,12 @@ class InvitesController < ApplicationController
   private
 
   def invite_params
-    params.require(:invite).permit(:email, :name, :role_type_id)
+    p = params[:invite]
+    p[:role_type_id] = 3
+    if params[:as_guest]
+      p[:role_type_id] = 2
+    end
+    p.permit(:email, :name, :role_type_id)
   end
 
   def set_invitable

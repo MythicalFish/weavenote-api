@@ -3,15 +3,16 @@ class Invite < ApplicationRecord
   belongs_to :invitable, polymorphic: true
 
   before_create :generate_key
-  after_create :send_invite
+  after_create :send_email
 
-  def send_invite
+  def send_email
     email = UserMailer.send_invite(self)
     email.deliver_now
   end
 
   def invite_link
-    "http://#{ENV['SEAMLESS__DOMAIN']}/?invitation=#{self.key}"
+    domain = Rails.env.development? ? 'localhost:3000' : ENV['SEAMLESS__DOMAIN']
+    "http://#{domain}/?invitation=#{self.key}"
   end
 
   private

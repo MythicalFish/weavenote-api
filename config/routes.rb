@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   resources :material_types, :colors, :currencies, :care_labels, only: [:index]
 
   get '/s3_url', to: 'images#s3_url'
-  get 'accept_invite', to: 'invites#accept'
+  
+  post '/create_invite', to: 'invites#create'
+  post '/accept_invite', to: 'invites#accept'
+  get '/retrieve_invite', to: 'invites#retrieve'
   
   resources :projects do
     get '/material_cost', to: 'projects#material_cost'
@@ -19,7 +22,6 @@ Rails.application.routes.draw do
     get '/images', to: 'projects#images'
     post '/images', to: 'projects#create_image'
     delete '/images/:id', to: 'projects#destroy_image'
-    post '/invites', to: 'invites#create'
     resources :components
     resources :instructions do
       post '/images', to: 'instructions#create_image'

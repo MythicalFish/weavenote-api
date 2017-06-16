@@ -1,6 +1,6 @@
 class InvitesController < ApplicationController
 
-  before_action :set_invitable
+  before_action :set_vars, except: [ :retrieve ]
 
   def index
     unless @invitable
@@ -9,14 +9,20 @@ class InvitesController < ApplicationController
     render json: @invitable.invites.where(accepted: false)
   end
 
+  def retrieve
+    @invite = Invite.find_by_key(params['key'])
+    render json: @invite
+  end
+
   def accept
-    @invite = Invite.find_by_key(params[:key]) 
+    @invite = @invitable.invites.find_by_key(params[:key])
+    byebug
+    raise Exception.new('Invite not found') unless @invite
   end
 
   def create
-    able = Ability.new(@user, @invitable)
-    if able.to? :create
-      @invite = @invitable.invites.new(invite_params)
+    if @able.to? :create
+      @invite = find_or_create
       if @invite.save
         index
       else
@@ -29,6 +35,24 @@ class InvitesController < ApplicationController
 
   private
 
+  def find_or_create
+    invite = @invitable.invites.find_by_email(invite_params[:email])
+    if invite
+      if invite.accepted
+        if @invitable.collaborators.find_by_email(invite_params[:email])
+          validation_error "User already added"
+        else
+          invite.update(accepted: false)
+        end
+      end
+      invite.update(invite_params)
+      invite.send_email
+      return invite
+    else
+      return @invitable.invites.new(invite_params) 
+    end
+  end
+
   def invite_params
     p = params[:invite]
     p[:role_type_id] = 3
@@ -38,10 +62,11 @@ class InvitesController < ApplicationController
     p.permit(:email, :name, :role_type_id)
   end
 
-  def set_invitable
+  def set_vars
     pid = params[:project_id]
     @invitable = @user.projects.find(pid) if pid
     @invitable = @organization unless pid
+    @able = Ability.new(@user, @invitable)
   end
 
 end

@@ -34,19 +34,10 @@ module ApiResponse
 
   end
 
-  def user_error data
+  def validation_error data
     if data.is_a?(Object) || data.is_a?(String)
-      return data.to_s
-    elsif data.is_a? Hash
-      u = data[:user]
-      return u[:message] if u
+      render json: { validation_error: data.to_s }
     end
-  end
-
-  def error_fields data
-    return [] unless data.is_a? Hash
-    u = data[:user]
-    return u[:fields] if u
   end
 
 end

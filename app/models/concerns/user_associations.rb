@@ -49,6 +49,10 @@ module UserAssociations
       organization_role
     end
 
+    def role_for object
+      object.roles.find_by_user_id(self.id)
+    end
+
     def projects
       if ['Admin', 'Manager'].include? org_role.type.name
         return org.projects

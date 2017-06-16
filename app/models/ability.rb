@@ -37,12 +37,8 @@ class Ability
     }
   end
 
-  def class_name object
-    object.model_name.name
-  end
-
   def role_for_object object
-    klass = class_name(object)
+    klass = object.class.name
     if klass === 'Project'
       return @user.project_role(object)
     elsif klass === 'Organization'

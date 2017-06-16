@@ -1,6 +1,9 @@
 class InvitesController < ApplicationController
 
-  before_action :set_vars, except: [ :retrieve ]
+  before_action :set_invitable, except: [ :retrieve, :accept ]
+  
+  before_action :set_invite, only: [ :retrieve, :accept ]
+  skip_before_action :set_user!, only: [ :retrieve ]
 
   def index
     unless @invitable
@@ -10,14 +13,42 @@ class InvitesController < ApplicationController
   end
 
   def retrieve
-    @invite = Invite.find_by_key(params['key'])
     render json: @invite
   end
 
   def accept
-    @invite = @invitable.invites.find_by_key(params[:key])
-    byebug
-    raise Exception.new('Invite not found') unless @invite
+    
+    invitable = @invite.invitable
+    existing_role = @user.role_for(invitable)
+
+    if existing_role
+      existing_role.update(role_type_id: @invite.role_type_id)
+    else
+      invitable.roles.create({
+        user: @user,
+        role_type_id: @invite.role_type_id
+      })
+    end
+
+    if invitable.class.name == 'Organization'
+      org = invitable
+    else
+      org = invitable.org
+    end
+
+    user_org = @user.orgs.find_by_id(org.id)
+
+    unless user_org
+      org.roles.create({
+        user: @user,
+        role_type: RoleType.none
+      })
+    end
+
+    @invite.update( accepted: true )
+
+    render json: { success: true }
+
   end
 
   def create
@@ -29,7 +60,7 @@ class InvitesController < ApplicationController
         raise Exception.new(@invite.errors.full_messages.join("\n"))
       end
     else
-      raise Exception.new("User lacks ability to invite to #{@invitable.class_name.name}")
+      raise Exception.new("User lacks ability to invite to #{@invitable.class.name}")
     end
   end
 
@@ -62,11 +93,16 @@ class InvitesController < ApplicationController
     p.permit(:email, :name, :role_type_id)
   end
 
-  def set_vars
+  def set_invitable
     pid = params[:project_id]
     @invitable = @user.projects.find(pid) if pid
     @invitable = @organization unless pid
     @able = Ability.new(@user, @invitable)
+  end
+
+  def set_invite
+    @invite = Invite.find_by_key(params['key'])
+    raise Exception.new('Invite not found') unless @invite
   end
 
 end

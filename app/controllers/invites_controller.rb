@@ -47,7 +47,7 @@ class InvitesController < ApplicationController
 
     @invite.update( accepted: true )
 
-    render json: { success: true }
+    UserController.show
 
   end
 

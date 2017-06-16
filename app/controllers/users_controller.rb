@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   
-  def show
+  def self.show
     render json: {
       user: @user,
       organizations: @user.organizations,

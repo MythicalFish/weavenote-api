@@ -1,9 +1,8 @@
 class InvitesController < ApplicationController
 
-  before_action :set_invitable, except: [ :retrieve, :accept ]
-  
-  before_action :set_invite, only: [ :retrieve, :accept ]
-  skip_before_action :set_user!, only: [ :retrieve ]
+  skip_before_action :set_user!, only: [ :show ]
+  before_action :set_invitable, except: [ :show, :accept ]
+  before_action :set_invite, only: [ :show, :update, :destroy, :accept ]
 
   def index
     unless @invitable
@@ -12,7 +11,12 @@ class InvitesController < ApplicationController
     render json: @invitable.invites.where(accepted: false)
   end
 
-  def retrieve
+  def show
+    @invite = Invite.find_by_key!(params[:id])
+    render json: @invite
+  end
+
+  def update
     render json: @invite
   end
 
@@ -64,6 +68,10 @@ class InvitesController < ApplicationController
     end
   end
 
+  def destroy
+
+  end
+
   private
 
   def find_or_create
@@ -94,15 +102,14 @@ class InvitesController < ApplicationController
   end
 
   def set_invitable
-    pid = params[:project_id]
-    @invitable = @user.projects.find(pid) if pid
-    @invitable = @organization unless pid
+    invitable_class = Object.const_get(params['invitable_type'])
+    collection = invitable_class.model_name.collection
+    @invitable = @user.send(collection).find(params['invitable_id'])
     @able = Ability.new(@user, @invitable)
   end
 
   def set_invite
-    @invite = Invite.find_by_key(params['key'])
-    raise Exception.new('Invite not found') unless @invite
+    @invite = @invitable.invites.find_by_key!(params[:id])
   end
 
 end

@@ -9,9 +9,8 @@ Rails.application.routes.draw do
 
   get '/s3_url', to: 'images#s3_url'
   
-  post '/create_invite', to: 'invites#create'
-  post '/accept_invite', to: 'invites#accept'
-  get '/retrieve_invite', to: 'invites#retrieve'
+  resources :invites
+  post '/accept_invite/:id', to: 'invites#accept'
   
   resources :projects do
     get '/material_cost', to: 'projects#material_cost'

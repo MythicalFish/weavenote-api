@@ -1,12 +1,16 @@
 class UsersController < ApplicationController
   
-  def self.show
+  def show
     render json: {
       user: @user,
       organizations: @user.organizations,
       current_organization: @user.organization,
       role: @user.org_role.type.attributes
     }
+  end
+
+  def self.show
+    show
   end
 
   private

@@ -56,20 +56,22 @@ class InvitesController < ApplicationController
   end
 
   def create
-    if @able.to? :create
-      @invite = find_or_create
-      if @invite.save
-        index
-      else
-        raise Exception.new(@invite.errors.full_messages.join("\n"))
-      end
+    @able.to? :create
+    @invite = find_or_create
+    if @invite.save
+      index
     else
-      raise Exception.new("User lacks ability to invite to #{@invitable.class.name}")
+      raise Exception.new(@invite.errors.full_messages.join("\n"))
     end
   end
 
   def destroy
-
+    @able.to? :destroy
+    if @invite.destroy
+      index
+    else
+      raise Exception.new(@invite.errors.full_messages.join("\n"))
+    end
   end
 
   private

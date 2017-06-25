@@ -102,9 +102,9 @@ class InvitesController < ApplicationController
   end
 
   def set_invitable
-    invitable_class = Object.const_get(params['invitable_type'])
+    invitable_class = Object.const_get(params[:invitable][:type])
     collection = invitable_class.model_name.collection
-    @invitable = @user.send(collection).find(params['invitable_id'])
+    @invitable = @user.send(collection).find(params[:invitable][:id])
     @able = Ability.new(@user, @invitable)
   end
 

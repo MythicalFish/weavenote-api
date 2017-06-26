@@ -14,7 +14,11 @@ class InvitesController < ApplicationController
   end
 
   def update
-    render_success "Invite updated", @invite
+    if @invite.update(invite_params)
+      render_success "Invite updated", @invite
+    else
+      user_error @invite
+    end
   end
   
   def create
@@ -103,7 +107,7 @@ class InvitesController < ApplicationController
 
   def invite_params
     p = params[:invite]
-    p[:role_type_id] = 3
+    p[:role_type_id] = 3 unless p[:role_type_id]
     if params[:as_guest]
       p[:role_type_id] = 2
     end

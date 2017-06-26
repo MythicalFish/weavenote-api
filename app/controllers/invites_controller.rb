@@ -65,7 +65,7 @@ class InvitesController < ApplicationController
     unless user_org
       org.roles.create({
         user: @user,
-        role_type: RoleType.none
+        role_type: RoleType.guest
       })
     end
 

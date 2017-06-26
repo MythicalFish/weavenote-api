@@ -14,7 +14,30 @@ class InvitesController < ApplicationController
   end
 
   def update
-    render json: @invite
+    render_success "Invite updated", @invite
+  end
+  
+  def create
+    @able.to? :create
+    if is_collaborator?(invitee)
+      user_error(msg[:already_collaborator])
+    elsif already_invited?(invitee)
+      user_error(msg[:already_invited])
+    else
+      @invite = @invitable.invites.new(invite_params) 
+      if @invite.save
+        @invite.send_email
+      else
+        user_error(@invite)
+      end
+      render_success "Invite sent", pending_invites
+    end
+  end
+
+  def destroy
+    @able.to? :destroy
+    @invite.destroy!
+    render_success "Invite cancelled", pending_invites
   end
 
   def accept
@@ -52,28 +75,7 @@ class InvitesController < ApplicationController
 
   end
 
-  def create
-    @able.to? :create
-    if is_collaborator?(invitee)
-      user_error(msg[:already_collaborator])
-    elsif already_invited?(invitee)
-      user_error(msg[:already_invited])
-    else
-      @invite = @invitable.invites.new(invite_params) 
-      if @invite.save
-        @invite.send_email
-      else
-        user_error @invite
-      end
-      render_success "Invite sent", pending_invites
-    end
-  end
 
-  def destroy
-    @able.to? :destroy
-    @invite.destroy!
-    index
-  end
 
   private
 
@@ -125,7 +127,7 @@ class InvitesController < ApplicationController
   def msg
     {
       :no_email => "No email address provided for invite",
-      :already_invited => "User already has already been invited"
+      :already_invited => "User already has already been invited",
       :already_collaborator => "User already is already a collaborator"
     }
   end

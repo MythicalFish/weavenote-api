@@ -5,7 +5,13 @@ Rails.application.routes.draw do
   resources :organizations, only: [:create, :update, :destroy]
   resources :materials
   resources :suppliers
-  resources :material_types, :colors, :currencies, :care_labels, only: [:index]
+
+  get '/material_types', to: 'static_resources#material_types'
+  get '/colors', to: 'static_resources#colors'
+  get '/currencies', to: 'static_resources#currencies'
+  get '/care_labels', to: 'static_resources#care_labels'
+  get '/role_types', to: 'static_resources#role_types'
+
 
   get '/s3_url', to: 'images#s3_url'
   

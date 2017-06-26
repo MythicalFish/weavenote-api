@@ -76,22 +76,34 @@ class InvitesController < ApplicationController
 
   private
 
+  def invite_for invitable
+    invitable.invites.find_by_email(invite_params[:email])
+  end
+
+  def already_invited_to? invitable
+    !!invite_for(invitable)
+  end
+
+  def is_collaborator_for? invitable
+    invitable.collaborators.find_by_email(invite_params[:email])
+  end
+
   def find_or_create
-    invite = @invitable.invites.find_by_email(invite_params[:email])
-    if invite
+    if already_invited_to?(@invitable)
+      invite = invite_for(@invitable)
       if invite.accepted
-        if @invitable.collaborators.find_by_email(invite_params[:email])
-          validation_error "User already added"
+        if is_collaborator_for?(@invitable)
+          user_error "User already added to #{@invitable.class.name}"
         else
           invite.update(accepted: false)
         end
       end
       invite.update(invite_params)
-      invite.send_email
-      return invite
     else
-      return @invitable.invites.new(invite_params) 
+      invite = @invitable.invites.new(invite_params) 
     end
+    invite.send_email
+    return invite
   end
 
   def invite_params

@@ -3,7 +3,6 @@ class Invite < ApplicationRecord
   belongs_to :invitable, polymorphic: true
 
   before_create :generate_key
-  after_create :send_email
 
   def send_email
     email = UserMailer.send_invite(self)

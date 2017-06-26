@@ -7,7 +7,7 @@ module ApiResponse
     rescue_from Exception, with: :server_response
     rescue_from StandardError, with: :nothing
 
-    def user_error error
+    def user_error data
       r = {
         json: {
           user_error: {
@@ -16,11 +16,13 @@ module ApiResponse
           }
         }
       }
-      if error.is_a?(Hash)
-        r[:json][:user_error][:message] = error[:message] if error[:message]
-        r[:json][:user_error][:field] = error[:fields] if error[:fields]
-      elsif error.is_a?(String)
-        r[:json][:user_error][:message] = error
+      if data.is_a?(Hash)
+        r[:json][:user_error][:message] = data[:message] if data[:message]
+        r[:json][:user_error][:field] = data[:fields] if data[:fields]
+      elsif data.is_a?(String)
+        r[:json][:user_error][:message] = data
+      elsif data.is_a?(Object)
+        r[:json][:user_error][:message] = data.errors.full_messages.join("\n")
       end
       render r
       raise StandardError.new
@@ -32,7 +34,7 @@ module ApiResponse
         payload: payload
       }
     end
-    
+
   end
 
   def server_response exception

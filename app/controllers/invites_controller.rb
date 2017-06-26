@@ -5,10 +5,7 @@ class InvitesController < ApplicationController
   before_action :set_invite, only: [ :show, :update, :destroy, :accept ]
 
   def index
-    unless @invitable
-      raise Exception.new("Missing invitable (project/organization), can't index Invites")
-    end
-    render json: @invitable.invites.where(accepted: false)
+    render json: pending_invites
   end
 
   def show
@@ -57,53 +54,49 @@ class InvitesController < ApplicationController
 
   def create
     @able.to? :create
-    @invite = find_or_create
-    if @invite.save
-      index
+    if is_collaborator?(invitee)
+      user_error(msg[:already_collaborator])
+    elsif already_invited?(invitee)
+      user_error(msg[:already_invited])
     else
-      raise Exception.new(@invite.errors.full_messages.join("\n"))
+      @invite = @invitable.invites.new(invite_params) 
+      if @invite.save
+        @invite.send_email
+      else
+        user_error @invite
+      end
+      render_success "Invite sent", pending_invites
     end
   end
 
   def destroy
     @able.to? :destroy
-    if @invite.destroy
-      index
-    else
-      raise Exception.new(@invite.errors.full_messages.join("\n"))
-    end
+    @invite.destroy!
+    index
   end
 
   private
 
-  def invite_for invitable
-    invitable.invites.find_by_email(invite_params[:email])
+  def invitee
+    invitee = invite_params[:email]
+    user_error(msg[:no_email]) unless invitee
+    invitee
   end
 
-  def already_invited_to? invitable
-    !!invite_for(invitable)
+  def pending_invites
+    @invitable.invites.where(accepted: false)
   end
 
-  def is_collaborator_for? invitable
-    invitable.collaborators.find_by_email(invite_params[:email])
+  def invite_for email
+    pending_invites.find_by_email(email)
   end
 
-  def find_or_create
-    if already_invited_to?(@invitable)
-      invite = invite_for(@invitable)
-      if invite.accepted
-        if is_collaborator_for?(@invitable)
-          user_error "User already added to #{@invitable.class.name}"
-        else
-          invite.update(accepted: false)
-        end
-      end
-      invite.update(invite_params)
-    else
-      invite = @invitable.invites.new(invite_params) 
-    end
-    invite.send_email
-    return invite
+  def already_invited? email
+    !!invite_for(email)
+  end
+
+  def is_collaborator? email
+    @invitable.collaborators.find_by_email(email)
   end
 
   def invite_params
@@ -119,11 +112,22 @@ class InvitesController < ApplicationController
     invitable_class = Object.const_get(params[:invitable][:type])
     collection = invitable_class.model_name.collection
     @invitable = @user.send(collection).find(params[:invitable][:id])
+    unless @invitable
+      raise "Missing invitable (project/organization), can't index Invites"
+    end
     @able = Ability.new(@user, @invitable)
   end
 
   def set_invite
     @invite = @invitable.invites.find_by_key!(params[:id])
+  end
+
+  def msg
+    {
+      :no_email => "No email address provided for invite",
+      :already_invited => "User already has already been invited"
+      :already_collaborator => "User already is already a collaborator"
+    }
   end
 
 end

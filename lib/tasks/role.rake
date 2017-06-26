@@ -5,9 +5,9 @@ namespace :role do
     puts "Role is now: None"
   end
 
-  task viewer: :environment do
+  task guest: :environment do
     User.first.org_role.update!(role_type_id: 2)
-    puts "Role is now: Viewer"
+    puts "Role is now: Guest"
   end
 
   task editor: :environment do

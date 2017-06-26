@@ -22,7 +22,7 @@ class Ability
   def priv_map
     {
       'None' =>    actions(0,0,0,0),
-      'Viewer' =>  actions(0,1,0,0),
+      'Guest' =>  actions(0,1,0,0),
       'Editor' =>  actions(0,1,1,0),
       'Manager' => actions(1,1,1,1),
       'Admin' =>   actions(1,1,1,1)

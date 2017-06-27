@@ -4,6 +4,7 @@ module AcceptInvitation
   included do
     
     def accept
+      @invite = Invite.find_by_key!(params[:id])
       @invitable = @invite.invitable
       fail_if_admin
       @organization = add_user_to_organization
@@ -17,7 +18,7 @@ module AcceptInvitation
         })
       end
       @invite.update!( accepted: true )
-      UserController.show
+      render_success 'Accepted', @invite
     end
 
   end
@@ -32,7 +33,7 @@ module AcceptInvitation
     if @invitable.class.name == 'Organization'
       return @invitable
     end
-    @invitable.org
+    @invitable.organization
   end
 
   def add_user_to_organization

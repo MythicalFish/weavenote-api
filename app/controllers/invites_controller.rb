@@ -4,7 +4,7 @@ class InvitesController < ApplicationController
   include AcceptInvitation
 
   before_action :set_invitable, except: [ :show, :accept ]
-  before_action :set_invite, except: [ :index, :show, :create ]
+  before_action :set_invite, except: [ :show, :accept, :index, :create ]
   skip_before_action :set_user!, only: [ :show ]
 
   def index

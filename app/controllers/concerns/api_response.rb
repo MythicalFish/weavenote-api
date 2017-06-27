@@ -58,8 +58,8 @@ module ApiResponse
     }
     if Rails.env.development?
       trace = e.backtrace
-      backtrace = trace ? "\n" + trace.take(5).join("\n") : nil;
-      backtrace += "\n..." if trace && trace.size > 5
+      backtrace = trace ? "\n" + trace.take(10).join("\n") : nil;
+      backtrace += "\n..." if trace && trace.size > 10
       r[:json][:server_error] = e.message  + backtrace
     end
     render r

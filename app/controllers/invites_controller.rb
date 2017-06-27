@@ -20,9 +20,11 @@ class InvitesController < ApplicationController
   
   def create
     @able.to? :create
-    if is_collaborator?(invitee)
+    if already_collaborator?
       user_error(msg[:already_collaborator])
-    elsif already_invited?(invitee)
+    elsif already_collaborator? @organization
+      user_error(msg[:already_org_collaborator])
+    elsif already_invited?
       user_error(msg[:already_invited])
     else
       @invite = @invitable.invites.new(invite_params) 
@@ -77,26 +79,31 @@ class InvitesController < ApplicationController
 
   private
 
-  def invitee
-    invitee = invite_params[:email]
-    user_error(msg[:no_email]) unless invitee
-    invitee
+  def email
+    email = invite_params[:email]
+    user_error(msg[:no_email]) unless email
+    email
   end
 
   def pending_invites
     @invitable.invites.where(accepted: false)
   end
 
-  def invite_for email
+  def pending_invite
     pending_invites.find_by_email(email)
   end
 
-  def already_invited? email
-    !!invite_for(email)
+  def already_invited?
+    !!pending_invite
   end
 
-  def is_collaborator? email
-    @invitable.collaborators.find_by_email(email)
+  def collaborator invitable = nil
+    invitable = invitable || @invitable
+    invitable.collaborators.find_by_email(email)
+  end
+
+  def already_collaborator? invitable = nil
+    !!collaborator(invitable)
   end
 
   def invite_params
@@ -129,7 +136,8 @@ class InvitesController < ApplicationController
     {
       :no_email => "No email address provided for invite",
       :already_invited => "User already has already been invited",
-      :already_collaborator => "User already is already a collaborator"
+      :already_collaborator => "User already is already a collaborator",
+      :already_org_collaborator => "User already is already a collaborator for this Organization"
     }
   end
 

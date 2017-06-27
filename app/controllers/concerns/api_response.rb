@@ -7,7 +7,7 @@ module ApiResponse
     rescue_from Exception, with: :handle_exception
 
     def user_error object
-      raise ActiveRecord::RecordInvalid.new(object)
+      raise StandardError.new(object)
     end
 
     def server_error data
@@ -24,8 +24,8 @@ module ApiResponse
   end
 
   def handle_exception e
-    if e.class == ActiveRecord::RecordInvalid
-      user_error_response e.record
+    if [StandardError, ActiveRecord::RecordInvalid].include? e.class
+      user_error_response e
     else
       server_error_response e
     end
@@ -41,13 +41,10 @@ module ApiResponse
       status: :unprocessable_entity
       }
     }
-    if data.is_a?(Hash)
-      r[:json][:user_error][:message] = data[:message] if data[:message]
-      r[:json][:user_error][:fields] = data[:fields] if data[:fields]
-    elsif data.is_a?(String)
-      r[:json][:user_error][:message] = data
-    elsif data.is_a?(Object)
+    if data.try(:errors)
       r[:json][:user_error][:message] = data.errors.full_messages.join("\n")
+    elsif data.try(:message)
+      r[:json][:user_error][:message] = data.message
     end
     render r
   end

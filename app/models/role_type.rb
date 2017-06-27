@@ -8,6 +8,12 @@ class RoleType < ActiveHash::Base
     {:id => 5, :name => "Admin"}
   ]
 
+  EXPOSED_IDS = [2,3]
+
+  def self.exposed
+    find(EXPOSED_IDS)
+  end
+
   def self.none
     self.find(1)
   end

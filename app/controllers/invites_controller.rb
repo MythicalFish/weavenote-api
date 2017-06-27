@@ -15,7 +15,7 @@ class InvitesController < ApplicationController
 
   def update
     @invite.update!(invite_params)
-    render_success "Invite updated", @invite
+    render_success "Invite updated", pending_invites
   end
   
   def create
@@ -104,6 +104,9 @@ class InvitesController < ApplicationController
     p[:role_type_id] = 3 unless p[:role_type_id]
     if params[:as_guest]
       p[:role_type_id] = 2
+    end
+    unless RoleType::EXPOSED_IDS.include? p[:role_type_id]
+      server_error "User attempted to assign unpermitted role_type_id"
     end
     p.permit(:email, :name, :role_type_id)
   end

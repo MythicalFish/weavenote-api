@@ -12,11 +12,11 @@ Rails.application.routes.draw do
   get '/care_labels', to: 'static_resources#care_labels'
   get '/role_types', to: 'static_resources#role_types'
 
-
   get '/s3_url', to: 'images#s3_url'
   
   resources :invites
   post '/accept_invite/:id', to: 'invites#accept'
+  resources :collaborators, only: [:index, :update, :destroy]
   
   resources :projects do
     get '/material_cost', to: 'projects#material_cost'

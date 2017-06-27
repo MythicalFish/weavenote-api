@@ -1,8 +1,10 @@
 class InvitesController < ApplicationController
 
-  skip_before_action :set_user!, only: [ :show ]
+  include SetInvitable
+
   before_action :set_invitable, except: [ :show, :accept ]
   before_action :set_invite, except: [ :index, :show, :create ]
+  skip_before_action :set_user!, only: [ :show ]
 
   def index
     render json: pending_invites
@@ -117,17 +119,7 @@ class InvitesController < ApplicationController
     end
     p.permit(:email, :name, :role_type_id)
   end
-
-  def set_invitable
-    invitable_class = Object.const_get(params[:invitable][:type])
-    collection = invitable_class.model_name.collection
-    @invitable = @user.send(collection).find(params[:invitable][:id])
-    unless @invitable
-      raise "Missing invitable (project/organization), can't index Invites"
-    end
-    @able = Ability.new(@user, @invitable)
-  end
-
+  
   def set_invite
     @invite = @invitable.invites.find_by_key!(params[:id])
   end

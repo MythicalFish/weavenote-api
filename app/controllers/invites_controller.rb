@@ -1,6 +1,7 @@
 class InvitesController < ApplicationController
 
   include SetInvitable
+  include AcceptInvitation
 
   before_action :set_invitable, except: [ :show, :accept ]
   before_action :set_invite, except: [ :index, :show, :create ]
@@ -41,44 +42,6 @@ class InvitesController < ApplicationController
     @invite.destroy!
     render_success "Invite cancelled", pending_invites
   end
-
-  def accept
-    
-    invitable = @invite.invitable
-    existing_role = @user.role_for(invitable)
-
-    if existing_role
-      existing_role.update(role_type_id: @invite.role_type_id)
-    else
-      invitable.roles.create({
-        user: @user,
-        role_type_id: @invite.role_type_id
-      })
-    end
-
-    if invitable.class.name == 'Organization'
-      org = invitable
-    else
-      org = invitable.org
-    end
-
-    user_org = @user.orgs.find_by_id(org.id)
-
-    unless user_org
-      org.roles.create!({
-        user: @user,
-        role_type: RoleType.guest
-      })
-    end
-
-    @invite.update!( accepted: true )
-    @user.update!( current_organization_id: org.id )
-
-    UserController.show
-
-  end
-
-
 
   private
 

@@ -65,13 +65,14 @@ class InvitesController < ApplicationController
     user_org = @user.orgs.find_by_id(org.id)
 
     unless user_org
-      org.roles.create({
+      org.roles.create!({
         user: @user,
         role_type: RoleType.guest
       })
     end
 
     @invite.update!( accepted: true )
+    @user.update!( current_organization_id: org.id )
 
     UserController.show
 

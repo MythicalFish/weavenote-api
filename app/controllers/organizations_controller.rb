@@ -2,29 +2,23 @@ class OrganizationsController < ApplicationController
   
   before_action :set_organization, only: [:update, :destroy]
 
-  # POST /organizations
   def create 
-
-    o = Organization.create(org_params)
-    o.roles.create(admin_role)
-    @user.update(organization: o)
-
+    o = Organization.create!(org_params)
+    o.roles.create!(admin_role)
+    @user.update!(organization: o)
     render json: {
       organizations: @user.organizations,
       current_organization: o
     }
-    
   end
 
-  # PATCH/PUT /organizations/:id
   def update
     @organization.update!(org_params)
     render json: @organization
   end
 
-  # DELETE /organizations/:id
   def destroy
-    @organization.destroy
+    @organization.destroy!
     index
   end
 

@@ -18,11 +18,8 @@ class OrganizationsController < ApplicationController
 
   # PATCH/PUT /organizations/:id
   def update
-    if @organization.update(org_params)
-      render json: @organization
-    else
-      render json: @organization.errors, status: :unprocessable_entity
-    end
+    @organization.update!(org_params)
+    render json: @organization
   end
 
   # DELETE /organizations/:id

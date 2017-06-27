@@ -20,59 +20,43 @@ class ProjectsController < ApplicationController
     }
   end
 
-  # POST /projects
   def create
     @project = @organization.projects.new(project_params)
-    if @project.save
-      index
-    else
-      render json: @project.errors.full_messages.join(', '), status: :unprocessable_entity
-    end
+    @project.save!
+    index
   end
 
-  # PATCH/PUT /projects/:id
   def update
-    if @project.update(project_params)
-      if params[:index_after_update]
-        index
-      else 
-        render json: @project
-      end
-    else
-      render json: @project.errors, status: :unprocessable_entity
+    @project.update!(project_params)
+    if params[:index_after_update]
+      index
+    else 
+      render json: @project
     end
   end
 
-  # DELETE /projects/:id
   def destroy
-    @project.destroy
+    @project.destroy!
   end
 
-  # GET /projects/:id/material_cost
   def material_cost
     render json: @project.material_cost
   end
 
-  # GET /projects/:project_id/images
   def images
     @images = @project.images.order('id DESC')
     render json: @images
   end
 
-  # POST /projects/:project_id/images
   def create_image
     @image = @project.create_image(image_params)
-    if @image.save
-      render json: @image, status: :created
-    else
-      render json: @image.errors.full_messages.join(', '), status: :unprocessable_entity
-    end
+    @image.save!
+    render json: @image, status: :created
   end
 
-  # DELETE /projects/:project_id/images/:id
   def destroy_image
     @image = @project.images.find(params[:id])
-    @image.destroy
+    @image.destroy!
     render json: @project.images
   end
 

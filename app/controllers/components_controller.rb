@@ -3,39 +3,29 @@ class ComponentsController < ApplicationController
   before_action :set_project
   before_action :set_component, only: [:show, :update, :destroy]
 
-  # GET /projects/:project_id/components
   def index
     @components = @project.components.order('id DESC')
     render json: @components
   end
 
-  # GET /projects/:project_id/components/:id
   def show
     render json: @component
   end
 
-  # POST /projects/:project_id/components
   def create
     @component = @project.components.new(component_params)
-    if @component.save
-      render json: @component, status: :created
-    else
-      render json: @component.errors.full_messages.join(', '), status: :unprocessable_entity
-    end
+    @component.save!
+    render json: @component
   end
 
-  # PATCH/PUT /projects/:project_id/components/:id
   def update
-    if @component.update(component_params)
-      render json: @component
-    else
-      render json: @component.errors, status: :unprocessable_entity
-    end
+    @component.update!(component_params)
+    render json: @component
   end
 
   # DELETE /projects/:project_id/components/:id
   def destroy
-    @component.destroy
+    @component.destroy!
     index
   end
 

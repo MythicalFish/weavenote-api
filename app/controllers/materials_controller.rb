@@ -1,14 +1,12 @@
 class MaterialsController < ApplicationController
   before_action :set_material, only: [:update, :destroy]
 
-  # GET /materials
   def index
     @materials = @organization.materials
       .order('created_at DESC')
     render json: @materials
   end
 
-  # GET /materials/:id
   def show
     if params[:id] === 'new'
       @material = Material.new
@@ -18,32 +16,23 @@ class MaterialsController < ApplicationController
     render json: @material
   end
 
-  # POST /materials
   def create
     @material = @organization.materials.new(material_params)
-    if @material.save
-      render json: @material
-    else
-      render json: @material.errors.full_messages.join(', '), status: :unprocessable_entity
-    end
+    @material.save!
+    render json: @material
   end
 
-  # PATCH/PUT /materials/:id
   def update
     if s = material_params[:supplier_attributes]
       @material.supplier_id = nil unless s[:id]
       @material.supplier_id = s[:id] if s[:id]
     end
-    if @material.update(material_params)
-      render json: @material
-    else
-      render json: @material.errors, status: :unprocessable_entity
-    end
+    @material.update!(material_params)
+    render json: @material
   end
 
-  # DELETE /materials/:id
   def destroy
-    @material.destroy
+    @material.destroy!
   end
 
   private

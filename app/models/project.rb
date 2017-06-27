@@ -18,6 +18,8 @@ class Project < ApplicationRecord
   
   before_validation :set_defaults
 
+  validates :name, length: { minimum: 3 }
+
   scope :active, -> { where(archived: false) }
   scope :archived, -> { where(archived: true) }
 

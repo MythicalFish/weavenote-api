@@ -2,7 +2,7 @@ class InvitesController < ApplicationController
 
   skip_before_action :set_user!, only: [ :show ]
   before_action :set_invitable, except: [ :show, :accept ]
-  before_action :set_invite, only: [ :show, :update, :destroy, :accept ]
+  before_action :set_invite, except: [ :index, :show, :create ]
 
   def index
     render json: pending_invites
@@ -14,11 +14,8 @@ class InvitesController < ApplicationController
   end
 
   def update
-    if @invite.update(invite_params)
-      render_success "Invite updated", @invite
-    else
-      user_error @invite
-    end
+    @invite.update!(invite_params)
+    render_success "Invite updated", @invite
   end
   
   def create
@@ -29,11 +26,8 @@ class InvitesController < ApplicationController
       user_error(msg[:already_invited])
     else
       @invite = @invitable.invites.new(invite_params) 
-      if @invite.save
-        @invite.send_email
-      else
-        user_error(@invite)
-      end
+      @invite.save!
+      @invite.send_email
       render_success "Invite sent", pending_invites
     end
   end
@@ -73,7 +67,7 @@ class InvitesController < ApplicationController
       })
     end
 
-    @invite.update( accepted: true )
+    @invite.update!( accepted: true )
 
     UserController.show
 

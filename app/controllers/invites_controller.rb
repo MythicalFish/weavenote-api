@@ -111,7 +111,7 @@ class InvitesController < ApplicationController
   def invite_params
     p = params[:invite]
     p[:role_type_id] = 3 unless p[:role_type_id]
-    if params[:as_guest]
+    if p[:as_guest]
       p[:role_type_id] = 2
     end
     unless RoleType::EXPOSED_IDS.include? p[:role_type_id]

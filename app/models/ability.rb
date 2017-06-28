@@ -3,15 +3,17 @@ class Ability
   def initialize(user, object)
     @user = user
     @object = object
-    @role = role_for_object(@object)
+    @role = @user.role_for(@object)
+    @is_admin = @user.role_for(@user.organization).type == RoleType.admin
     raise "No role found for user" unless @role
   end 
 
 
   def to? action
+    return true if @is_admin
     able = priv_map[@role.type.name][action]
     unless able
-      raise Exception.new("User has role of \"#{@role.type.name}\" for #{@object}, and lacks ability to #{action}")
+      raise StandardError.new "Permission error: Your role for this #{@object.class.name} is \"#{@role.type.name}\""
     end
     able
   end
@@ -40,15 +42,6 @@ class Ability
       update:  bool(u),
       destroy: bool(d),
     }
-  end
-
-  def role_for_object object
-    klass = object.class.name
-    if klass === 'Project'
-      return @user.project_role(object)
-    elsif klass === 'Organization'
-      return @user.org_role
-    end
   end
 
 end

@@ -4,7 +4,8 @@ module AcceptInvitation
   included do
     
     def accept
-      @invite = Invite.find_by_key!(params[:id])
+      @invite = Invite.find_by_key(params[:id])
+      fail_unless_invite
       @invitable = @invite.invitable
       fail_if_already_accepted
       fail_if_already_admin
@@ -24,6 +25,12 @@ module AcceptInvitation
       render_success msg, @invite
     end
 
+  end
+
+  def fail_unless_invite
+    unless @invite
+      render_warning("Invite not found")
+    end
   end
 
   def fail_if_already_admin

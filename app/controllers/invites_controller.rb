@@ -24,11 +24,11 @@ class InvitesController < ApplicationController
   def create
     @able.to? :create
     if already_collaborator?
-      user_error(msg[:already_collaborator])
+      render_error(msg[:already_collaborator])
     elsif already_collaborator? @organization
-      user_error(msg[:already_org_collaborator])
+      render_error(msg[:already_org_collaborator])
     elsif already_invited?
-      user_error(msg[:already_invited])
+      render_error(msg[:already_invited])
     else
       @invite = @invitable.invites.new(invite_params) 
       @invite.save!
@@ -47,7 +47,7 @@ class InvitesController < ApplicationController
 
   def email
     email = invite_params[:email]
-    user_error(msg[:no_email]) unless email
+    render_error(msg[:no_email]) unless email
     email
   end
 
@@ -79,7 +79,7 @@ class InvitesController < ApplicationController
       p[:role_type_id] = 2
     end
     unless RoleType::EXPOSED_IDS.include? p[:role_type_id]
-      server_error "User attempted to assign unpermitted role_type_id"
+      render_fatal "User attempted to assign unpermitted role_type_id"
     end
     p.permit(:email, :name, :role_type_id)
   end

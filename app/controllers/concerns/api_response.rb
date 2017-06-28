@@ -6,63 +6,78 @@ module ApiResponse
     
     rescue_from Exception, with: :handle_exception
 
-    def user_error object
-      raise StandardError.new(object)
-    end
-
-    def server_error data
-      raise Exception.new(data)
-    end
-
-    def render_success message, payload
+    def render_success message, payload = nil
       render json: {
         message: message,
         payload: payload
       }
     end
 
+    def render_warning message, payload = nil
+      render json: {
+        warning: message,
+        payload: payload
+      }
+      raise CustomException::UserWarning.new
+    end
+
+    def render_error object
+      raise CustomException::UserError.new(object)
+    end
+
+    def render_fatal data
+      raise Exception.new(data)
+    end
+
   end
 
   def handle_exception e
-    if [StandardError, ActiveRecord::RecordInvalid].include? e.class
-      user_error_response e
+    if e.class == CustomException::UserWarning
+      # This exception is just to prevent the DoubleRenderError error
     else
-      server_error_response e
+      render error_response(e)
     end
   end
 
-  def user_error_response data
-    r = {
-      json: {
-        user_error: {
-          message: "Something went wrong",
-          fields: []
+  def error_response e
+    
+    msg = "Something went wrong, we'll look into it!"
+    trace = nil
+
+    if expose_error? e
+      if e.try(:errors)
+        msg = e.errors.full_messages.join("\n")
+      elsif e.try(:message)
+        msg = e.message
+      end
+    end
+
+    if Rails.env.development?
+      if e.backtrace
+        trace = "API says no: \n\n"
+        trace += " " + e.message + "\n" + e.backtrace.take(10).join("\n")
+        trace += "\n..." if e.backtrace.size > 10
+      end
+    end
+    
+    {
+       json: {
+        error: {
+          message: msg,
+          fields: [],
+          backtrace: trace
         },
-      status: :unprocessable_entity
+        status: :unprocessable_entity
       }
     }
-    if data.try(:errors)
-      r[:json][:user_error][:message] = data.errors.full_messages.join("\n")
-    elsif data.try(:message)
-      r[:json][:user_error][:message] = data.message
-    end
-    render r
+
   end
 
-  def server_error_response e
-    r = {
-      json: {
-        server_error: "A server-side error occured."
-      },
-      status: :unprocessable_entity
-    }
-    if Rails.env.development?
-      trace = e.backtrace
-      backtrace = trace ? "\n" + trace.take(10).join("\n") : nil;
-      backtrace += "\n..." if trace && trace.size > 10
-      r[:json][:server_error] = e.message  + backtrace
-    end
-    render r
+  def expose_error? e
+    [
+      CustomException::UserError, 
+      ActiveRecord::RecordInvalid
+    ].include? e.class
   end
 
 end

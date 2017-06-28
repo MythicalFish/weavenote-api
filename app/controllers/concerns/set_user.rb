@@ -26,8 +26,6 @@ module SetUser
       })
       @organization = @user.organization
     end
-  rescue => e
-    server_response(e)
   end
 
   def fetch_user

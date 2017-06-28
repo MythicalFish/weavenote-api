@@ -33,7 +33,7 @@ class CollaboratorsController < ApplicationController
   def collaborator_params
     p = params[:collaborator]
     unless RoleType::EXPOSED_IDS.include? p[:role_type_id]
-      server_error "User attempted to assign unpermitted role_type_id"
+      render_fatal "User attempted to assign unpermitted role_type_id"
     end
     p.permit(:role_type_id)
   end

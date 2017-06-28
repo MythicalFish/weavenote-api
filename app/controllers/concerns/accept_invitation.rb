@@ -28,13 +28,13 @@ module AcceptInvitation
 
   def fail_if_already_admin
     if @user.role_for(invited_organization).type == RoleType.admin
-      user_error("You're already an admin for this organization")
+      render_warning("You're already an admin for this organization")
     end
   end
 
   def fail_if_already_accepted
     if @invite.accepted
-      user_error("You've already accepted this invite")
+      render_warning("You've already accepted this invite")
     end
   end
 

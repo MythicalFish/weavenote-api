@@ -6,8 +6,9 @@ module AcceptInvitation
     def accept
       @invite = Invite.find_by_key(params[:id])
       fail_unless_invite
-      @invitable = @invite.invitable
       fail_if_already_accepted
+      fail_if_email_mismatch
+      @invitable = @invite.invitable
       fail_if_already_admin
       assign_organization
       existing_role = @user.role_for(@invitable)
@@ -27,6 +28,12 @@ module AcceptInvitation
 
   end
 
+  def fail_if_email_mismatch
+    if @invite.email != @user.email
+      render_warning("You are logged in with #{@user.email}, however the invite was sent to #{@invite.email}")
+    end
+  end
+
   def fail_unless_invite
     unless @invite
       render_warning("Invite not found")
@@ -34,7 +41,8 @@ module AcceptInvitation
   end
 
   def fail_if_already_admin
-    if @user.role_for(invited_organization).type == RoleType.admin
+    org_role = @user.role_for(invited_organization)
+    if org_role && org_role.type == RoleType.admin
       render_warning("You're already an admin for this organization")
     end
   end

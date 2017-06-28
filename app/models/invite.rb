@@ -1,7 +1,9 @@
 class Invite < ApplicationRecord
 
-  belongs_to :invitable, polymorphic: true
+  extend ActiveHash::Associations::ActiveRecordExtensions
 
+  belongs_to :invitable, polymorphic: true
+  belongs_to :role_type
   before_create :generate_key
 
   def send_email

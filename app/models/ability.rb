@@ -4,6 +4,7 @@ class Ability
     @user = user
     @object = object
     @role = @user.role_for(@object)
+    @role = @user.organization_role unless @role
     raise "No role found for user" unless @role
   end 
 

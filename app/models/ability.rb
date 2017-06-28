@@ -4,13 +4,12 @@ class Ability
     @user = user
     @object = object
     @role = @user.role_for(@object)
-    @is_admin = @user.role_for(@user.organization).type == RoleType.admin
     raise "No role found for user" unless @role
   end 
 
 
   def to? action
-    return true if @is_admin
+    return true if @user.is_admin?
     able = priv_map[@role.type.name][action]
     unless able
       raise StandardError.new "Permission error: Your role for this #{@object.class.name} is \"#{@role.type.name}\""

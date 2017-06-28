@@ -40,6 +40,10 @@ module UserAssociations
     def organization_role
       org_roles.find_by_roleable_id org.id
     end
+
+    def is_admin?
+      organization_role.type == RoleType.admin
+    end
     
     alias_method :org_role, :organization_role
     

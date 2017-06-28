@@ -2,7 +2,6 @@ class ProjectsController < ApplicationController
 
   before_action :set_project, except: [:index, :create]
 
-  # GET /projects
   def index
     archived = params[:archived] == "true" ? true : false
     @projects = @user.projects
@@ -21,6 +20,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
+    @able.to? :create
     @project = @organization.projects.new(project_params)
     @project.save!
     index
@@ -63,13 +63,11 @@ class ProjectsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_project
     id = params[:project_id] || params[:id]
     @project = @user.projects.find(id)
   end
 
-  # Only allow a trusted parameter "white list" through.
   def project_params
     params.require(:project).permit(
       :name, :identifier, :archived, :images, :description,

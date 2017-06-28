@@ -1,6 +1,7 @@
 class Ability
 
   def initialize(user, object)
+    return unless object
     @user = user
     @object = object
     @role = @user.role_for(@object)
@@ -10,10 +11,11 @@ class Ability
 
 
   def to? action
+    return false unless @object
     return true if @user.is_admin?
     able = priv_map[@role.type.name][action]
     unless able
-      raise StandardError.new "Permission error: Your role for this #{@object.class.name} is \"#{@role.type.name}\""
+      raise CustomException::PermissionError.new "Permission error: Your role for this #{@object.class.name} is \"#{@role.type.name}\""
     end
     able
   end

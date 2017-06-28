@@ -12,20 +12,17 @@ module SetUser
   private
 
   def set_user!
-    if Rails.env.development?
-      @user = User.first
-      @organization = @user.organization
-      return
-    end
-    unless @user = fetch_user
+    #@user = User.first if Rails.env.development?
+    unless @user || @user = fetch_user
       @user = User.create({
         name: user_info['nickname'],
         email: user_info['email'],
         avatar: user_info['picture_large'],
         auth0_id: auth0_id
       })
-      @organization = @user.organization
     end
+    @organization = @user.organization
+    @able = Ability.new(@user, @organization)
   end
 
   def fetch_user

@@ -76,6 +76,7 @@ module ApiResponse
   def expose_error? e
     [
       CustomException::UserError, 
+      CustomException::PermissionError, 
       ActiveRecord::RecordInvalid
     ].include? e.class
   end

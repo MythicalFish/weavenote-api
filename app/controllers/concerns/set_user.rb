@@ -9,8 +9,6 @@ module SetUser
     before_action :set_user!
   end
 
-  private
-
   def set_user!
     #@user = User.first if Rails.env.development?
     unless @user || @user = fetch_user
@@ -22,12 +20,6 @@ module SetUser
       })
     end
     @organization = @user.organization
-    @ability = Ability.new(@user, @organization)
-  end
-
-  def user_can? action
-    return false unless @ability
-    return @ability.to? action
   end
 
   def fetch_user

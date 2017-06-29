@@ -1,4 +1,5 @@
 class MaterialsController < ApplicationController
+
   before_action :set_material, only: [:update, :destroy]
 
   def index

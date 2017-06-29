@@ -23,7 +23,6 @@ class ComponentsController < ApplicationController
     render json: @component
   end
 
-  # DELETE /projects/:project_id/components/:id
   def destroy
     @component.destroy!
     index

@@ -4,7 +4,6 @@ class ProjectsController < ApplicationController
   before_action :set_permission, except: [:index, :create]
 
   def index
-    user_can? :read
     archived = params[:archived] == "true" ? true : false
     @projects = @user.projects
       .order('created_at DESC')
@@ -13,7 +12,6 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    user_can? :read
     render json: {
       attributes: @project,
       user_role: @user.project_role(@project).type.attributes,
@@ -23,14 +21,12 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    user_can? :create
     @project = @organization.projects.new(project_params)
     @project.save!
     index
   end
 
   def update
-    user_can? :update
     @project.update!(project_params)
     if params[:index_after_update]
       index

@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
   
   include SetUser
+  include CheckAbility
   include ApiResponse
 
   def root

@@ -10,27 +10,47 @@ class Ability
   end 
 
 
-  def to? action
-    return true if @user.is_admin?
-    able = priv_map[@role.type.name][action]
-    return able if able
-    deny("Permission error: Your role for this #{@roleable.class.name} is \"#{@role.type.name}\"")
+  def to? action, target_model = 'Undefined'
+    map = model_ability_map[target_model]
+    return map[@role.type.name][action]
   end
-
-  def deny msg
-    raise CustomException::PermissionError.new(msg)
-  end
-
 
   private
 
-  def priv_map
+  def model_ability_map
+    abilities = {}
+    model_list.each do |model|
+      abilities[model] = role_ability_map
+    end
+    admin_only_models.each do |model|
+      abilities[model]['Contributor'] = action_map([0,1,0,0]);
+      abilities[model]['Manager'] = action_map([0,1,1,0]);
+    end
+    abilities['User'] = role_ability_map([1,1,1,1])
+    abilities
+  end
+
+
+  def model_list
+    [ 
+      'Collaborator', 'Component', 'Image', 'Instruction', 'Invite', 
+      'Material', 'Measurement', 'Organization', 'Project', 'Supplier', 'User', 'Undefined'
+    ]
+  end
+
+  def admin_only_models
+    [ 
+      'Organization', 'Invite', 'Collaborator'
+    ]
+  end
+
+  def role_ability_map i = nil
     {
-      'None' =>         actions(0,0,0,0),
-      'Guest' =>        actions(0,1,0,0),
-      'Contributor' =>  actions(0,1,1,0),
-      'Manager' =>      actions(1,1,1,1),
-      'Admin' =>        actions(1,1,1,1)
+      'None' =>         action_map(i || [0,0,0,0]),
+      'Guest' =>        action_map(i || [0,1,0,0]),
+      'Contributor' =>  action_map(i || [0,1,1,0]),
+      'Manager' =>      action_map(i || [1,1,1,1]),
+      'Admin' =>        action_map(i || [1,1,1,1])
     }
   end
 
@@ -38,12 +58,12 @@ class Ability
     i > 0
   end
 
-  def actions c, r, u, d
+  def action_map i = [0,0,0,0]
     {
-      create:  bool(c),
-      read:    bool(r),
-      update:  bool(u),
-      destroy: bool(d),
+      create:  bool(i[0]),
+      read:    bool(i[1]),
+      update:  bool(i[2]),
+      destroy: bool(i[3]),
     }
   end
 

@@ -14,7 +14,6 @@ class CollaboratorsController < ApplicationController
   end
   
   def destroy
-    user_can? :destroy
     @role.destroy!
     render_success "Collaborator removed from #{@invitable.class.name}", collaborators
   end

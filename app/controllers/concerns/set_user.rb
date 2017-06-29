@@ -27,16 +27,14 @@ module SetUser
 
   def fetch_user
     key = cache_key_for_user
-    options = cache_options
-    Rails.cache.fetch( key, options ) do
+    Rails.cache.fetch( key, cache_options ) do
       User.find_by_auth0_id(auth0_id)
     end
   end
 
   def auth0_id
     key = cache_key_for_auth0_id
-    options = cache_options
-    Rails.cache.fetch( key, options ) do
+    Rails.cache.fetch( key, cache_options ) do
       user_info['user_id']
     end
   end

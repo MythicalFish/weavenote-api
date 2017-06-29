@@ -6,10 +6,13 @@ class OrganizationsController < ApplicationController
     o = Organization.create!(org_params)
     o.roles.create!(admin_role)
     @user.update!(organization: o)
-    render json: {
-      organizations: @user.organizations,
-      current_organization: o
-    }
+    render_success(
+      "#{o.name} was succesfully created", 
+      {
+        organization: o,
+        organizations: @user.organizations,
+      }
+    )
   end
 
   def update

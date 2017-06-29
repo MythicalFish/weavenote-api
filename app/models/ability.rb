@@ -16,11 +16,14 @@ class Ability
     @role = @user.role_for(@roleable) || @user.organization_role
   end 
 
-
   def to? action, target_model = 'Undefined'
-    role = @role || Role.none
-    map = ability_map[target_model]
-    return map[role.type.name][action]
+    list[target_model][action]
+  end
+
+  def list
+    ability_map.map { |model,abilities|
+      [model, abilities[role_type]]
+    }.to_h
   end
 
   def ability_map
@@ -28,6 +31,7 @@ class Ability
     abilities['User'] = grant_roles :all_actions
     abilities['Organization'] = grant_roles [:create]
     abilities['Invite'] = grant_roles [:read]
+    abilities['Undefined'] = grant_roles []
     abilities
   end
 
@@ -94,6 +98,11 @@ class Ability
       'Manager' =>      grant(:all_actions),
       'Admin' =>        grant(:all_actions)
     }
+  end
+
+  def role_type
+    role = @role || Role.none
+    role.type.name
   end
 
 end

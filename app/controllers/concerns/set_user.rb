@@ -22,7 +22,12 @@ module SetUser
       })
     end
     @organization = @user.organization
-    @able = Ability.new(@user, @organization)
+    @ability = Ability.new(@user, @organization)
+  end
+
+  def user_can? action
+    return false unless @ability
+    return @ability.to? action
   end
 
   def fetch_user

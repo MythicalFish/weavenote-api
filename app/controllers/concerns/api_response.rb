@@ -3,32 +3,30 @@ module ApiResponse
   extend ActiveSupport::Concern
 
   included do
-    
     rescue_from Exception, with: :handle_exception
+  end
 
-    def render_success message, payload = nil
-      render json: {
-        message: message,
-        payload: payload
-      }
-    end
+  def render_success message, payload = nil
+    render json: {
+      message: message,
+      payload: payload
+    }
+  end
 
-    def render_warning message, payload = nil
-      render json: {
-        warning: message,
-        payload: payload
-      }
-      raise CustomException::UserWarning.new
-    end
+  def render_warning message, payload = nil
+    render json: {
+      warning: message,
+      payload: payload
+    }
+    raise CustomException::UserWarning.new
+  end
 
-    def render_error object
-      raise CustomException::UserError.new(object)
-    end
+  def render_error object
+    raise CustomException::UserError.new(object)
+  end
 
-    def render_fatal data
-      raise Exception.new(data)
-    end
-
+  def render_fatal data
+    raise Exception.new(data)
   end
 
   def handle_exception e

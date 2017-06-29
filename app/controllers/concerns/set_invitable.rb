@@ -10,7 +10,7 @@ module SetInvitable
       unless @invitable
         raise "Missing invitable (project/organization), can't index Invites"
       end
-      @able = Ability.new(@user, @invitable)
+      @ability = Ability.new(@user, @invitable)
     end
 
   end

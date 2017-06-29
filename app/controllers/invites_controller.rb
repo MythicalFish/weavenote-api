@@ -22,7 +22,7 @@ class InvitesController < ApplicationController
   end
   
   def create
-    @able.to? :create
+    user_can? :create
     if already_collaborator?
       render_error(msg[:already_collaborator])
     elsif already_collaborator? @organization
@@ -38,7 +38,7 @@ class InvitesController < ApplicationController
   end
 
   def destroy
-    @able.to? :destroy
+    user_can? :destroy
     @invite.destroy!
     render_success "Invite cancelled", pending_invites
   end

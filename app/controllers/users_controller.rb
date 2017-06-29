@@ -3,9 +3,9 @@ class UsersController < ApplicationController
   def show
     render json: {
       user: @user,
+      organization: @user.organization,
+      organization_role: @user.organization_role.type.attributes,
       organizations: @user.organizations,
-      current_organization: @user.organization,
-      role: @user.org_role.type.attributes
     }
   end
 

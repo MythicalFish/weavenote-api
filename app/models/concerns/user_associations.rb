@@ -38,7 +38,10 @@ module UserAssociations
     alias_method :org, :organization
 
     def organization_role
-      org_roles.find_by_roleable_id org.id
+      unless organization
+        return self.roles.new(role_type: RoleType.none)
+      end
+      org_roles.find_by_roleable_id organization.id
     end
 
     def is_admin?
@@ -53,8 +56,8 @@ module UserAssociations
       organization_role
     end
 
-    def role_for object
-      object.roles.find_by_user_id(self.id)
+    def role_for roleable
+      roleable.roles.find_by_user_id(self.id)
     end
 
     def projects

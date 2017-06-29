@@ -1,24 +1,24 @@
 class Ability
 
-  def initialize(user, object)
-    return unless object
+  def initialize(user, roleable)
+    return unless roleable
     @user = user
-    @object = object
-    @role = @user.role_for(@object)
+    @roleable = roleable
+    @role = @user.role_for(@roleable)
     @role = @user.organization_role unless @role
     raise "No role found for user" unless @role
   end 
 
 
   def to? action
-    return false unless @object
     return true if @user.is_admin?
     able = priv_map[@role.type.name][action]
-    unless able
-      raise CustomException::PermissionError.new(
-        "Permission error: Your role for this #{@object.class.name} is \"#{@role.type.name}\"")
-    end
-    able
+    return able if able
+    deny("Permission error: Your role for this #{@roleable.class.name} is \"#{@role.type.name}\"")
+  end
+
+  def deny msg
+    raise CustomException::PermissionError.new(msg)
   end
 
 

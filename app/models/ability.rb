@@ -15,7 +15,8 @@ class Ability
     return true if @user.is_admin?
     able = priv_map[@role.type.name][action]
     unless able
-      raise CustomException::PermissionError.new "Permission error: Your role for this #{@object.class.name} is \"#{@role.type.name}\""
+      raise CustomException::PermissionError.new(
+        "Permission error: Your role for this #{@object.class.name} is \"#{@role.type.name}\"")
     end
     able
   end
@@ -25,11 +26,11 @@ class Ability
 
   def priv_map
     {
-      'None' =>    actions(0,0,0,0),
-      'Guest' =>  actions(0,1,0,0),
-      'Editor' =>  actions(0,1,1,0),
-      'Manager' => actions(1,1,1,1),
-      'Admin' =>   actions(1,1,1,1)
+      'None' =>         actions(0,0,0,0),
+      'Guest' =>        actions(0,1,0,0),
+      'Contributor' =>  actions(0,1,1,0),
+      'Manager' =>      actions(1,1,1,1),
+      'Admin' =>        actions(1,1,1,1)
     }
   end
 

@@ -2,6 +2,7 @@ class Invite < ApplicationRecord
 
   extend ActiveHash::Associations::ActiveRecordExtensions
 
+  belongs_to :inviter, class_name: 'User'
   belongs_to :invitable, polymorphic: true
   belongs_to :role_type
   before_create :generate_key

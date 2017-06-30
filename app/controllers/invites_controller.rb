@@ -1,7 +1,7 @@
 class InvitesController < ApplicationController
 
-  include SetInvitable
-  include AcceptInvitation
+  include ::SetInvitable
+  include ::AcceptInvitation
 
   before_action :set_invitable, except: [ :show, :accept ]
   before_action :set_invite, except: [ :show, :accept, :index, :create ]
@@ -24,8 +24,6 @@ class InvitesController < ApplicationController
   def create
     if already_collaborator?
       render_error(msg[:already_collaborator])
-    elsif already_collaborator? @organization
-      render_error(msg[:already_org_collaborator])
     elsif already_invited?
       render_error(msg[:already_invited])
     else
@@ -72,6 +70,7 @@ class InvitesController < ApplicationController
 
   def invite_params
     p = params[:invite]
+    p[:inviter_id] = @user.id
     p[:role_type_id] = 3 unless p[:role_type_id]
     if p[:as_guest]
       p[:role_type_id] = 2
@@ -79,7 +78,7 @@ class InvitesController < ApplicationController
     unless RoleType::EXPOSED_IDS.include? p[:role_type_id]
       render_fatal "User attempted to assign unpermitted role_type_id"
     end
-    p.permit(:email, :name, :role_type_id)
+    p.permit(:email, :name, :role_type_id, :inviter_id)
   end
   
   def set_invite

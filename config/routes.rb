@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   
   resources :invites
   post '/accept_invite/:id', to: 'invites#accept'
-  resources :collaborators, only: [:index, :update, :destroy]
+  resources :roles, only: [:index, :update, :destroy]
   
   resources :projects do
     get '/material_cost', to: 'projects#material_cost'

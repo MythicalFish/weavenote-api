@@ -3,11 +3,11 @@ class Ability
   ACTION_NAMES = [ :create, :read, :update, :destroy ]
 
   MODELS = [ 
-    'Collaborator', 'Component', 'Image', 'Instruction', 'Invite', 
+    'Role', 'Component', 'Image', 'Instruction', 'Invite', 
     'Material', 'Measurement', 'Organization', 'Project', 'Supplier', 'User', 'Undefined'
   ]
 
-  RESTRICTED_MODELS = [ 'Invite', 'Collaborator' ]
+  RESTRICTED_MODELS = [ 'Invite', 'Role' ]
 
   def initialize(user, roleable)
     return unless roleable
@@ -17,6 +17,7 @@ class Ability
   end 
 
   def to? action, target_model = 'Undefined'
+    throw "Model abilities not defined, aborting" unless MODELS.include?(target_model)
     list[target_model][action]
   end
 

@@ -31,6 +31,7 @@ module UserAssociations
       unless org
         org = self.orgs.first
         self.update(organization: org) if org
+        self.update(current_organization_id: 0) unless org
       end
       return org
     end

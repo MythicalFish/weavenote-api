@@ -1,3 +1,13 @@
-Click here to accept the invitation:
+<% if @invite.name %>
+Hi <%= @invite.name %>,
+<% else %>
+Hello there,
+<% end %>
 
+<p>
+  <%= @invite.inviter.name %> invited to join the <%= @invite.invitable.name %> <%= @invite.invitable_type %>!
+</p>
+
+Click here to accept the invitation:
+<br>
 <a href="<%= @invite.invite_link %>"><%= @invite.invite_link %></a>

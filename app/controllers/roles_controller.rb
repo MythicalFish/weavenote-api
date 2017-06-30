@@ -1,11 +1,11 @@
 class RolesController < ApplicationController
 
-  include SetInvitable
+  include ::SetInvitable
   before_action :set_invitable
   before_action :set_role, only: [:update, :destroy]
 
   def index
-    render json: @invitable.roles
+    render json: @invitable.roles.where(role_type_id:RoleType::EXPOSED_IDS)
   end
 
   def update

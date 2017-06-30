@@ -3,18 +3,18 @@ class OrganizationsController < ApplicationController
   before_action :set_organization, only: [:update, :destroy]
 
   def create 
-    o = Organization.create!(org_params)
-    o.roles.create!(admin_role)
-    user.update!(organization: o)
-    role = @user.organization_role
-    ability = Ability.new(user, role)
+    @organization = Organization.create!(org_params)
+    @organization.roles.create!(admin_role)
+    @user.update!(organization: @organization)
+    @role = @user.organization_role
+    @ability = Ability.new(@user, @organization)
     render_success(
-      "#{o.name} was succesfully created", 
+      "#{@organization.name} was succesfully created", 
       {
-        organization: o,
-        organization_role: role.type.attributes,
-        organizations: user.organizations,
-        abilities: ability.list,
+        organization: @organization,
+        organization_role: @role.type.attributes,
+        organizations: @user.organizations,
+        abilities: @ability.list,
       }
     )
   end

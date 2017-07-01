@@ -21,7 +21,7 @@ class OrganizationsController < ApplicationController
 
   def update
     @organization.update!(org_params)
-    render json: @organization
+    render_success "Organization updated", @organization
   end
 
   def destroy

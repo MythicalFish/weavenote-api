@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  
   root to: 'application#root'
-  get 'stats', to: 'organizations#stats'
+
+  get '/user', to: 'users#show'
+  patch '/user', to: 'users#update'
 
   resources :organizations, only: [:create, :update, :destroy]
   resources :materials
@@ -34,6 +37,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/user', to: 'users#show'
+  get 'stats', to: 'organizations#stats'
 
 end

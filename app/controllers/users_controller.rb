@@ -10,10 +10,17 @@ class UsersController < ApplicationController
     }
   end
 
-  def self.show
-    show
+  def self.show() show end
+
+  def update
+    @user.update!(user_params)
+    render_success "Profile updated", @user
   end
 
   private
+
+  def user_params
+    params.require(:user).permit(:name, :email)
+  end
 
 end

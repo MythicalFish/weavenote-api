@@ -50,6 +50,10 @@ module ApiResponse
       end
     end
 
+    if e.class == Auth0::Unauthorized
+      msg = "Unauthorized"
+    end
+
     if Rails.env.development?
       if e.backtrace
         trace = "API says no: \n\n"

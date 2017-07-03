@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   end
 
   def reset_password
+    secrets = Rails.application.secrets
     url = URI("https://#{secrets.auth0_domain}/dbconnections/change_password")
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true

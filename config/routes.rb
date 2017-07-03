@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get '/user', to: 'users#show'
   patch '/user', to: 'users#update'
+  get '/reset_password', to: 'users#reset_password'
 
   resources :organizations, only: [:create, :update, :destroy]
   resources :materials

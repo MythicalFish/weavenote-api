@@ -7,7 +7,7 @@ class Ability
     'Material', 'Measurement', 'Organization', 'Project', 'Supplier', 'User', 'Undefined'
   ]
 
-  RESTRICTED_MODELS = [ 'Invite', 'Role' ]
+  RESTRICTED_MODELS = [ 'Organization', 'Invite', 'Role' ]
 
   def initialize(user, roleable)
     return unless roleable
@@ -30,17 +30,16 @@ class Ability
   def ability_map
     abilities = base_model_ability_map
     abilities['User'] = grant_roles :all_actions
-    abilities['Organization'] = grant_roles [:create]
     abilities['Invite'] = grant_roles [:read]
-    abilities['Undefined'] = grant_roles []
+    abilities['Undefined'] = grant_roles_only []
     abilities
   end
 
   def base_model_ability_map
     abilities = generic_model_ability_map
     RESTRICTED_MODELS.each do |m|
-      abilities[m]['Contributor'] = grant([:read]);
-      abilities[m]['Manager'] = grant([:read,:update]);
+      abilities[m]['Contributor'] = grant [:read]
+      abilities[m]['Manager'] = grant [:read, :update]
     end
     abilities
   end
@@ -58,8 +57,12 @@ class Ability
     action_map(parseActionNames(actions))
   end
 
-  def grant_roles actions = []
-    role_ability_map(actions, false)
+  def grant_roles actions = [], only = false
+    role_ability_map(actions, only)
+  end
+
+  def grant_roles_only actions = []
+    grant_roles actions, true
   end
 
   def role_ability_map overides = nil, only = true

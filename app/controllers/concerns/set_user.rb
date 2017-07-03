@@ -16,7 +16,7 @@ module SetUser
       @user = User.create({
         name: user_info['nickname'],
         email: user_info['email'],
-        avatar: user_info['picture_large'],
+        avatar: user_info['picture'],
         auth0_id: auth0_id
       })
     end

@@ -13,8 +13,8 @@ class Invite < ApplicationRecord
   end
 
   def invite_link
-    domain = Rails.env.development? ? 'localhost:3000' : ENV['SEAMLESS__DOMAIN']
-    "http://#{domain}/?invitation=#{self.key}"
+    domain = ENV['SEAMLESS__SITE_URL']
+    "#{domain}/?invitation=#{self.key}"
   end
 
   private

@@ -32,9 +32,21 @@ module ApiResponse
   def handle_exception e
     if e.class == CustomException::UserWarning
       # This exception is just to prevent the DoubleRenderError error
+      log_error e, 'WARNING'
     else
+      log_error e
       render error_response(e)
     end
+  end
+
+  def log_error e, title = "ERROR"
+    msg = "\n\n\n\n"
+    msg << "<!--- #{title} --->\n\n"
+    msg << e.message
+    msg << "\n\n"
+    msg << e.backtrace.take(20).join("\n")
+    msg << "\n\n\n\n"
+    logger.error msg
   end
 
   def error_response e

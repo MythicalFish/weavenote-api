@@ -1,114 +1,83 @@
 class Ability
 
-  ACTION_NAMES = [ :create, :read, :update, :destroy ]
+  def initialize(user, roleable = nil)
+    if roleable
+      role = user.role_for(roleable) || user.organization_role
+    else
+      role = Role.none
+    end
+    @role_type = role.type.name
+  end
 
   MODELS = [ 
     'Role', 'Component', 'Image', 'Instruction', 'Invite', 
     'Material', 'Measurement', 'Organization', 'Project', 'Supplier', 'User', 'Undefined'
   ]
 
-  RESTRICTED_MODELS = [ 'Organization', 'Invite', 'Role' ]
+  ALL_ACTIONS = [:create, :read, :update, :destroy]
 
-  def initialize(user, roleable)
-    return unless roleable
-    @user = user
-    @roleable = roleable
-    @role = @user.role_for(@roleable) || @user.organization_role
-  end 
+  DEFAULT_ABILITIES = {
+    'None' => [],
+    'Guest' => [:read],
+    'Contributor' => [:read, :update],
+    'Manager' => ALL_ACTIONS,
+    'Admin' => ALL_ACTIONS
+  }
 
-  def to? action, target_model = 'Undefined'
-    throw "Model abilities not defined, aborting" unless MODELS.include?(target_model)
-    list[target_model][action]
+  def base_abilities
+    MODELS.map { |m| [ m, DEFAULT_ABILITIES ] }.to_h
   end
 
-  def list
-    ability_map.map { |model,abilities|
-      [model, abilities[role_type]]
+  def abilities
+    a = base_abilities
+    a['Undefined'] = grant_all_only []
+    a['User'] = grant_all ALL_ACTIONS
+    a['Invite'] = grant_all [:read]
+    a['Organization'] = grant_all_only [:create]
+    a['Organization']['Admin'] = ALL_ACTIONS
+    a['Invite']['Contributor'] = [:read]
+    a['Role']['Contributor'] = [:read]
+    a['Invite']['Manager'] = [:read, :update]
+    a['Role']['Manager'] = [:read, :update]
+    a
+  end
+
+  def user_abilities
+    abilities.map { |model,abilities|
+      [model, abilities[@role_type]]
     }.to_h
   end
 
-  def ability_map
-    abilities = base_model_ability_map
-    abilities['User'] = grant_roles :all_actions
-    abilities['Invite'] = grant_roles [:read]
-    abilities['Organization'] = grant_roles_only [:create]
-    abilities['Organization']['Admin'] = [1,1,1,1]
-    abilities['Undefined'] = grant_roles_only []
-    abilities
+  def list
+    user_abilities.map { |model,actions|
+      a = ALL_ACTIONS.map { |aa|
+        [aa,actions.include?(aa)]
+      }.to_h
+      [model, a]
+    }.to_h
   end
 
-  def base_model_ability_map
-    abilities = generic_model_ability_map
-    RESTRICTED_MODELS.each do |m|
-      abilities[m]['Contributor'] = grant [:read]
-      abilities[m]['Manager'] = grant [:read, :update]
-    end
-    abilities
+  def to? action, target_model = 'Undefined'
+    throw "Model abilities not defined, aborting" unless MODELS.include?(target_model)
+    return user_abilities[target_model].include? action
   end
 
-  def generic_model_ability_map
-    MODELS.map { |m| [ m, role_ability_map ] }.to_h
-  end
-
-  def parseActionNames actions = []
-    actions = ACTION_NAMES if actions == :all_actions
-    ACTION_NAMES.map { |n| actions.include?(n) ? 1 : 0 }
-  end
-
-  def grant actions = []
-    action_map(parseActionNames(actions))
-  end
-
-  def grant_roles actions = [], only = false
-    role_ability_map(actions, only)
-  end
-
-  def grant_roles_only actions = []
-    grant_roles actions, true
-  end
-
-  def role_ability_map overides = nil, only = true
-    abilities = default_role_abilities
-    return abilities unless overides
-    abilities.each do |role,actions|
-      if only
-        abilities[role] = parseActionNames(overides)
-      else
-        overides = ACTION_NAMES if overides == :all_actions
-        overides.each do |action, permission|
-          abilities[role][action] = true
+  def grant_all new_abilities
+    DEFAULT_ABILITIES.map { |role,defaults|
+      abilities = defaults
+      new_abilities.each do |a|
+        unless abilities.include? a
+          abilities << a
         end
       end
-    end
-    abilities
+      [role,abilities]
+    }.to_h
   end
 
-  def bool i
-    (i > 0)
-  end
-
-  def action_map i = [0,0,0,0]
-    {
-      create:  bool(i[0]),
-      read:    bool(i[1]),
-      update:  bool(i[2]),
-      destroy: bool(i[3]),
-    }
-  end
-
-  def default_role_abilities
-    {
-      'None' =>         grant([]),
-      'Guest' =>        grant([:read]),
-      'Contributor' =>  grant([:read, :update]),
-      'Manager' =>      grant(:all_actions),
-      'Admin' =>        grant(:all_actions)
-    }
-  end
-
-  def role_type
-    role = @role || Role.none
-    role.type.name
+  def grant_all_only new_abilities
+    DEFAULT_ABILITIES.map { |role,defaults|
+      [role,new_abilities]
+    }.to_h
   end
 
 end

@@ -31,6 +31,8 @@ class Ability
     abilities = base_model_ability_map
     abilities['User'] = grant_roles :all_actions
     abilities['Invite'] = grant_roles [:read]
+    abilities['Organization'] = grant_roles_only [:create]
+    abilities['Organization']['Admin'] = [1,1,1,1]
     abilities['Undefined'] = grant_roles_only []
     abilities
   end

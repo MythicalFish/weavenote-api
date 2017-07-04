@@ -29,15 +29,6 @@ gem 'puma', '~> 3.0'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
-# Added gems <-------------
-gem 'jwt'
-gem 'auth0'
-gem 'mysql2'
-gem 'active_model_serializers', '~> 0.10.5'
-gem 'fog'
-gem 'figaro'
-gem 'active_hash'
-
 group :development, :test do
   gem 'byebug', platform: :mri
 end
@@ -55,3 +46,15 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Added gems <-------------
+gem 'jwt'
+gem 'auth0'
+gem 'mysql2'
+gem 'active_model_serializers', '~> 0.10.5'
+gem 'fog'
+gem 'figaro'
+gem 'active_hash'
+group :production do
+  gem 'newrelic_rpm'
+end

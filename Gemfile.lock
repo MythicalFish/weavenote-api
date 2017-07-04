@@ -231,6 +231,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     mysql2 (0.4.5)
+    newrelic_rpm (4.1.0.333)
     nio4r (2.0.0)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
@@ -308,6 +309,7 @@ DEPENDENCIES
   jwt
   listen (~> 3.0.5)
   mysql2
+  newrelic_rpm
   puma (~> 3.0)
   rack-cors
   rails (~> 5.0.2)

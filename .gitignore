@@ -23,3 +23,4 @@
 
 # Env
 config/application.yml
+config/newrelic.yml

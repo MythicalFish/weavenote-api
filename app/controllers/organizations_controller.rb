@@ -9,12 +9,7 @@ class OrganizationsController < ApplicationController
     @ability = Ability.new(@user, @organization)
     render_success(
       "#{@organization.name} was succesfully created", 
-      {
-        organization: @organization,
-        organization_role_type: @user.organization_role_type,
-        organizations: @user.organizations,
-        abilities: @ability.list,
-      }
+      @user.serialized
     )
   end
 
@@ -28,6 +23,11 @@ class OrganizationsController < ApplicationController
     index
   end
 
+  def switch_organization
+    o = @user.organizations.find(params[:id])
+    @user.update!(organization: o)
+    render_success "You are now using #{o.name}", @user.serialized
+  end
 
   def stats
     @projects = @organization.projects.active

@@ -16,4 +16,8 @@ class User < ApplicationRecord
     abilities.list
   end
 
+  def serialized
+    ActiveModel::SerializableResource.new(self).serializable_hash
+  end
+
 end

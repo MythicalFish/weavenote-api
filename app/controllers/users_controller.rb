@@ -4,13 +4,7 @@ class UsersController < ApplicationController
   require 'net/http'
   
   def show
-    render json: {
-      user: @user,
-      organization: @user.organization,
-      organization_role_type: @user.organization_role_type,
-      organizations: @user.organizations,
-      abilities: @ability.list
-    }
+    render json: @user
   end
 
   def self.show() show end

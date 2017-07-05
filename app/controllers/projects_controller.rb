@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
   def show
     render json: {
       attributes: @project,
-      user_role: @user.project_role(@project).type.attributes,
+      user_role: @user.project_role_type(@project),
       material_cost: @project.material_cost,
       collaborators: @project.collaborators,
     }

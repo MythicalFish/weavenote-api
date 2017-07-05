@@ -62,7 +62,7 @@ module AcceptInvitation
 
   def assign_organization
     org = invited_organization
-    user_org = @user.orgs.find_by_id(org.id)
+    user_org = @user.organizations.find_by_id(org.id)
     unless user_org
       org.roles.create!({
         user: @user,

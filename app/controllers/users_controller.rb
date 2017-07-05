@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     render json: {
       user: @user,
       organization: @user.organization,
-      organization_role: @user.organization_role.type.attributes,
+      organization_role_type: @user.organization_role_type,
       organizations: @user.organizations,
       abilities: @ability.list
     }

@@ -18,55 +18,19 @@ module UserAssociations
       where('organization_id = ?', o.current_organization_id)
     }, through: :roles, source: :roleable, source_type: 'Project' 
 
-    alias_method :orgs, :organizations
-    alias_method :org_roles, :organization_roles
-
     def organization=(org)
       self.current_organization_id = org.id
     end
     
     def organization
-      oid = self.current_organization_id
-      org = self.orgs.find_by_id(oid) if oid
+      oid = current_organization_id
+      org = organizations.find_by_id(oid) if oid
       unless org
-        org = self.orgs.first
+        org = organizations.first
         self.update(organization: org) if org
         self.update(current_organization_id: 0) unless org
       end
       return org
-    end
-
-    alias_method :org, :organization
-
-    def organization_role
-      unless organization
-        return self.roles.new(role_type: RoleType.none)
-      end
-      org_roles.find_by_roleable_id organization.id
-    end
-
-    def is_admin?
-      organization_role.type == RoleType.admin
-    end
-    
-    alias_method :org_role, :organization_role
-    
-    def project_role project
-      role = project_roles.find_by_roleable_id(project.id)
-      return role if role
-      organization_role
-    end
-
-    def role_for roleable
-      roleable.roles.find_by_user_id(self.id)
-    end
-
-    def projects
-      if ['Admin', 'Manager'].include? org_role.type.name
-        return org.projects
-      else
-        return assigned_projects
-      end
     end
 
   end

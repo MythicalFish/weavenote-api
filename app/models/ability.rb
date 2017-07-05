@@ -1,12 +1,8 @@
 class Ability
 
   def initialize(user, roleable = nil)
-    if roleable
-      role = user.role_for(roleable) || user.organization_role
-    else
-      role = Role.none
-    end
-    @role_type = role.type.name
+    role_type = user.role_type_for(roleable) || user.organization_role_type
+    @role_name = role_type[:name]
   end
 
   MODELS = [ 
@@ -44,7 +40,7 @@ class Ability
 
   def user_abilities
     abilities.map { |model,abilities|
-      [model, abilities[@role_type]]
+      [model, abilities[@role_name]]
     }.to_h
   end
 

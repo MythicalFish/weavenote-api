@@ -5,10 +5,6 @@ module SetUser
   
   require 'auth0'
 
-  included do
-    before_action :set_user!
-  end
-
   def set_user!
     #@user = User.first if Rails.env.development?
     @user = fetch_user unless @user

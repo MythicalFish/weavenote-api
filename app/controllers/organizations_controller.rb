@@ -6,13 +6,12 @@ class OrganizationsController < ApplicationController
     @organization = Organization.create!(org_params)
     @organization.roles.create!(admin_role)
     @user.update!(organization: @organization)
-    @role = @user.organization_role
     @ability = Ability.new(@user, @organization)
     render_success(
       "#{@organization.name} was succesfully created", 
       {
         organization: @organization,
-        organization_role: @role.type.attributes,
+        organization_role_type: @user.organization_role_type,
         organizations: @user.organizations,
         abilities: @ability.list,
       }

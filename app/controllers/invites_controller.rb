@@ -5,7 +5,7 @@ class InvitesController < ApplicationController
 
   before_action :set_invitable, except: [ :show, :accept ]
   before_action :set_invite, except: [ :show, :accept, :index, :create ]
-  skip_before_action :set_user!, only: [ :show ]
+  skip_before_action :initialize_user!, only: [ :show ]
 
   def index
     render json: pending_invites

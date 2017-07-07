@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     if response.code == "200"
       render_success "Please check your email to reset your password"
     else
-      render_error "Something went wrong"
+      render_fatal "Something went wrong, unable to reset password"
     end
   end
 

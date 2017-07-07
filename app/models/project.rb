@@ -47,6 +47,10 @@ class Project < ApplicationRecord
     a
   end
 
+  def serialized
+    ActiveModel::SerializableResource.new(self).serializable_hash
+  end  
+
   private
 
   def set_defaults

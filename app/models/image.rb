@@ -4,8 +4,6 @@ class Image < ApplicationRecord
   belongs_to :imageable, polymorphic: true
 
   has_attached_file :file,
-    :storage => :fog,
-    :fog_directory => ENV['SEAMLESS__AWS_S3_BUCKET'],
     :path => "seamless/uploads/:organization_id/:id/:style/:basename.:extension",
     #:url => "seamless/uploads/:organization_id/:id/:style/:basename.:extension",
     #:fog_host => "#{ENV['SEAMLESS__CDN']}",

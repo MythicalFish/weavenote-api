@@ -8,7 +8,7 @@ class ImagesController < ApplicationController
 
   def create
     @image = @imageable.images.create!(image_params)
-    @image.save!
+    attach_image! @image.url
     render_success "Image uploaded", images_response
   end
 
@@ -35,6 +35,18 @@ class ImagesController < ApplicationController
   end
 
   private
+
+  def attach_image! url
+    extname = File.extname(url)
+    basename = File.basename(url, extname)
+    newfile = Tempfile.new([basename, extname])
+    newfile.binmode
+    open(URI.parse(url)) do |data|  
+      newfile.write data.read
+    end
+    newfile.rewind
+    @image.update!(file:newfile)
+  end
 
   def image_params
     p = params[:image]

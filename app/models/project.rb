@@ -23,7 +23,7 @@ class Project < ApplicationRecord
   scope :active, -> { where(archived: false) }
   scope :archived, -> { where(archived: true) }
 
-  include Imageable
+  #include Imageable
 
   def thumbnail_url
     images.order('id DESC').first.try(:url)

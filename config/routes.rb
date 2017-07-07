@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get '/care_labels', to: 'static_resources#care_labels'
   get '/role_types', to: 'static_resources#role_types'
 
+  resources :images
   get '/s3_url', to: 'images#s3_url'
   
   resources :invites
@@ -30,9 +31,6 @@ Rails.application.routes.draw do
     patch '/measurements', to: 'measurements#update'
     post '/measurement_groups', to: 'measurements#create_group'
     post '/measurement_names', to: 'measurements#create_name'
-    get '/images', to: 'projects#images'
-    post '/images', to: 'projects#create_image'
-    delete '/images/:id', to: 'projects#destroy_image'
     resources :components
     resources :instructions do
       post '/images', to: 'instructions#create_image'

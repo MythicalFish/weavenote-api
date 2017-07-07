@@ -1,6 +1,6 @@
 class InvitesController < ApplicationController
 
-  include ::SetInvitable
+  include ::Invitable
   include ::AcceptInvitation
 
   before_action :set_invitable, except: [ :show, :accept ]

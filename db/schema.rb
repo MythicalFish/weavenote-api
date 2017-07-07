@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630110605) do
+ActiveRecord::Schema.define(version: 20170707083743) do
 
   create_table "care_labels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
@@ -53,12 +53,16 @@ ActiveRecord::Schema.define(version: 20170630110605) do
 
   create_table "images", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.string   "url",             null: false
+    t.string   "url",               null: false
     t.integer  "imageable_id"
     t.string   "imageable_type"
-    t.integer  "organization_id", null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "organization_id",   null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
     t.index ["created_at"], name: "index_images_on_created_at", using: :btree
     t.index ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type", using: :btree
     t.index ["organization_id"], name: "index_images_on_organization_id", using: :btree

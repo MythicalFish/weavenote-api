@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
 
-  include ::SetInvitable
+  include ::Invitable
   before_action :set_invitable
   before_action :set_role, only: [:update, :destroy]
 

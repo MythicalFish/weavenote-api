@@ -43,24 +43,6 @@ class ProjectsController < ApplicationController
     render json: @project.material_cost
   end
 
-  def images
-    @images = @project.images.order('id DESC')
-    render json: @images
-  end
-
-  def create_image
-    @image = @project.create_image(image_params)
-    @image.save!
-    render json: @image, status: :created
-  end
-
-  def destroy_image
-    @image = @project.images.find(params[:id])
-    @image.destroy!
-    render json: @project.images
-  end
-
-
   private
 
   def set_project
@@ -78,10 +60,6 @@ class ProjectsController < ApplicationController
       :name, :identifier, :archived, :images, :description,
       :development_stage_id, :category
     )
-  end
-
-  def image_params
-    params.require(:image).permit(:url, :name)
   end
 
 end

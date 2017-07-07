@@ -51,7 +51,7 @@ class ImagesController < ApplicationController
 
   def images_response
     images = @imageable.images.order('id ASC')
-    return { images: images, imageable: @imageable }
+    return { images: images, imageable_type: @imageable.model_name }
   end
 
 end

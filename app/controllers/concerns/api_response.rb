@@ -44,7 +44,7 @@ module ApiResponse
     msg << "<!--- #{title} --->\n\n"
     msg << e.message
     msg << "\n\n"
-    msg << e.backtrace.take(20).join("\n")
+    msg << e.backtrace.join("\n")
     msg << "\n\n\n\n"
     logger.error msg
   end

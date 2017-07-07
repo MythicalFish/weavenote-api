@@ -1,8 +1,7 @@
 class Instruction < ApplicationRecord
 
   belongs_to :project
-  has_one :image, as: :imageable
-  accepts_nested_attributes_for :image
+  has_many :images, as: :imageable
 
   validates :title, length: { minimum: 3 }
 

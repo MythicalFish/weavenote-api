@@ -1,5 +1,6 @@
 class ImagesController < ApplicationController
 
+  include Serializer
   before_action :set_imageable, except: [:s3_url]
 
   def index
@@ -51,7 +52,8 @@ class ImagesController < ApplicationController
   def image_params
     p = params[:image]
     p[:organization_id] = @organization.id
-    p.permit(:url, :name, :organization_id)
+    p[:user_id] = @user.id
+    p.permit(:url, :name, :organization_id, :user_id)
   end
 
   def set_imageable
@@ -62,7 +64,7 @@ class ImagesController < ApplicationController
   end
 
   def images_response
-    images = @imageable.images.order('id ASC')
+    images = serialized(@imageable.images.order('id ASC'))
     return { images: images, imageable_type: @imageable.model_name }
   end
 

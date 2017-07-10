@@ -9,7 +9,6 @@ class Project < ApplicationRecord
   has_many :components
   has_many :materials, through: :components
   has_many :images, as: :imageable
-  accepts_nested_attributes_for :images
   has_many :measurement_groups
   has_many :measurement_names
   has_many :measurement_values, through: :measurement_groups
@@ -24,7 +23,8 @@ class Project < ApplicationRecord
   scope :archived, -> { where(archived: true) }
 
   def thumbnail_url
-    images.order('id DESC').first.try(:url)
+    i = images.order('id DESC').first
+    i.file.url(:tiny) if i
   end
 
   def material_cost

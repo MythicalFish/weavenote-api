@@ -25,7 +25,7 @@ class Image < ApplicationRecord
     attachment.instance.organization_id
   end
 
-  def cropped
+  def urls
     {
       tiny: file.url(:tiny),
       small: file.url(:small),

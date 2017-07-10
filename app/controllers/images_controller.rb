@@ -24,7 +24,7 @@ class ImagesController < ApplicationController
     storage = Fog::Storage.new( Rails.configuration.fog )
     options = { path_style: true }
     headers = { "Content-Type" => params[:contentType], "x-amz-acl" => "public-read" }
-    path = "seamless/user_uploads/#{@user.email}/#{Time.now.to_i}__#{params[:objectName]}"
+    path = "seamless/uploads/unmodified/#{@user.email}/#{Time.now.to_i}__#{params[:objectName]}"
     
     url = storage.put_object_url('content.mythical.fish', path, 3.minutes.from_now.to_time.to_i, headers, options)
     

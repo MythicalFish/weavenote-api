@@ -2,21 +2,26 @@ class ImagesController < ApplicationController
 
   include Serializer
   before_action :set_imageable, except: [:s3_url]
+  before_action :set_image, only: [:destroy, :update]
 
   def index
     render json: images_response
   end
 
   def create
-    @image = @imageable.images.create!(image_params)
+    @image = @imageable.images.create!(create_image_params)
     attach_image! @image.url
     render_success "Image uploaded", images_response
   end
 
   def destroy
-    @image = @imageable.images.find(params[:id])
     @image.destroy!
     render_success "Image deleted", images_response
+  end
+
+  def update
+    @image.update!(update_image_params)
+    render_success "Image updated", images_response
   end
 
   def s3_url
@@ -49,11 +54,15 @@ class ImagesController < ApplicationController
     @image.update!(file:newfile)
   end
 
-  def image_params
+  def create_image_params
     p = params[:image]
     p[:organization_id] = @organization.id
     p[:user_id] = @user.id
     p.permit(:url, :name, :organization_id, :user_id)
+  end
+
+  def update_image_params
+    params.require(:image).permit(:name)
   end
 
   def set_imageable
@@ -61,6 +70,10 @@ class ImagesController < ApplicationController
     collection = imageable_class.model_name.collection
     @imageable = @organization.send(collection).find(params[:imageable][:id])
     raise "Missing imageable" unless @imageable
+  end
+
+  def set_image
+    @image = @imageable.images.find(params[:id])
   end
 
   def images_response

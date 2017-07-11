@@ -9,7 +9,7 @@ module UserRoles
     }, class_name: 'Role'
 
     def role_for roleable
-      return @user.roles.new(role_type:RoleType.none) unless roleable
+      return self.roles.new(role_type:RoleType.none) unless roleable
       roleable.roles.find_by_user_id(self.id)
     end
 

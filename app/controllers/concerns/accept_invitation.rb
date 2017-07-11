@@ -14,15 +14,14 @@ module AcceptInvitation
       existing_role = @user.role_for(@invitable)
       if existing_role
         existing_role.update!(role_type: @invite.role_type)
-        msg = "Your role for this #{@invitable.class.name} has been updated to \"#{@invite.role_type.name}\""
       else
         @invitable.roles.create!({
           user: @user,
           role_type: @invite.role_type
         })
-        msg = "You are now a #{@invite.role_type.name} for this #{@invitable.class.name}"
       end
       @invite.update!( accepted: true )
+      msg = "You are now a #{@invite.role_type.name} for this #{@invitable.class.name}"
       render_success msg, @invite
     end
 

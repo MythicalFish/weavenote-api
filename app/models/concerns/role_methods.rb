@@ -3,22 +3,23 @@ module RoleMethods
   included do
 
     def role_for roleable
-      return Role.none unless roleable
-      role = roleable.roles.find_by_user_id(self.id)
-      return role ? role : Role.none
+      return nil unless roleable
+      roleable.roles.find_by_user_id(self.id)
     end
 
     def role_type_for roleable
-      role_for(roleable).type.attributes
+      r = role_for(roleable)
+      return r.type if r
     end
 
     def organization_role
-      return Role.none unless organization
+      return nil unless organization
       organization_roles.find_by_roleable_id(organization.id)
     end
 
     def organization_role_type
-      organization_role.type.attributes
+      r = organization_role
+      return r.type if r
     end
 
     def project_role project
@@ -28,11 +29,11 @@ module RoleMethods
     end
 
     def project_role_type project
-      project_role(project).type.attributes
+      project_role(project).type
     end
 
     def is_admin?
-      organization_role_type.type == RoleType.admin
+      organization_role_type == RoleType.admin
     end
 
   end

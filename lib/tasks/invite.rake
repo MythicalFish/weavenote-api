@@ -2,8 +2,8 @@ namespace :invite do
 
   task test: :environment do
     User.where('id != ?', 1).each do |u|
-      u.roles.destroy!
-      u.destroy!
+      u.roles.destroy_all
+      u.destroy
     end
     Invite.all.destroy_all
     i = Invite.create!(
@@ -13,6 +13,7 @@ namespace :invite do
       invitable_type: 'Organization',
       invitable_id: Organization.first.id
     )
+    i.update(key:'test')
     puts i.invite_link
   end
 

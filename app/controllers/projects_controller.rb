@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
   def show
     render json: {
       attributes: @project.serialized,
-      user_role: @user.project_role_type(@project),
+      user_role: @user.project_role_type(@project).attributes,
       material_cost: @project.material_cost,
       collaborators: @project.collaborators,
     }
@@ -51,7 +51,6 @@ class ProjectsController < ApplicationController
   end
 
   def set_permission
-    return unless @project
     @ability = Ability.new(@user, @project)
   end
 

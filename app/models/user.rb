@@ -4,7 +4,7 @@ class User < ApplicationRecord
   include RoleMethods
 
   def projects
-    if ['Admin', 'Manager'].include? organization_role.type.name
+    unless organization_role_type.name == 'None'
       return organization.projects
     else
       return assigned_projects

@@ -1,27 +1,19 @@
-module UserRoles
+module RoleMethods
   extend ActiveSupport::Concern
   included do
 
-    has_many :roles
-
-    has_many :organization_roles, -> (o) {
-      where('roleable_type = "Organization"')
-    }, class_name: 'Role'
-
     def role_for roleable
-      return self.roles.new(role_type:RoleType.none) unless roleable
-      roleable.roles.find_by_user_id(self.id)
+      return Role.none unless roleable
+      role = roleable.roles.find_by_user_id(self.id)
+      return role ? role : Role.none
     end
 
     def role_type_for roleable
-      r = role_for(roleable)
-      return r.type.attributes if r
+      role_for(roleable).type.attributes
     end
 
     def organization_role
-      unless organization
-        return self.roles.new(role_type: RoleType.none)
-      end
+      return Role.none unless organization
       organization_roles.find_by_roleable_id(organization.id)
     end
 

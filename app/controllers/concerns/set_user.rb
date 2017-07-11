@@ -6,7 +6,7 @@ module SetUser
   require 'auth0'
 
   def set_user!
-    @user = User.first if Rails.env.development?
+    #@user = User.first if Rails.env.development?
     @user = fetch_user unless @user
     unless @user
       @user = User.create({

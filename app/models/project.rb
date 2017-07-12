@@ -14,6 +14,7 @@ class Project < ApplicationRecord
   has_many :measurement_values, through: :measurement_groups
   has_many :instructions
   has_many :invites, as: :invitable
+  has_many :comments
   
   before_validation :set_defaults
 

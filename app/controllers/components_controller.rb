@@ -14,7 +14,7 @@ class ComponentsController < ApplicationController
   def create
     @component = @project.components.new(component_params)
     @component.save!
-    render_success "Material added", @component
+    render_success "Material added", serialized(@component)
   end
 
   def update

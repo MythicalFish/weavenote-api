@@ -4,11 +4,7 @@ class ProjectsController < ApplicationController
   before_action :set_permission, except: [:index, :create]
 
   def index
-    archived = params[:archived] == "true" ? true : false
-    @projects = @user.projects
-      .order('created_at DESC')
-      .where(archived: archived)
-    render json: @projects
+    render json: project_list
   end
 
   def show
@@ -23,20 +19,21 @@ class ProjectsController < ApplicationController
   def create
     @project = @organization.projects.new(project_params)
     @project.save!
-    index
+    render_success "Project created", project_list
   end
 
   def update
     @project.update!(project_params)
     if params[:index_after_update]
-      index
+      render_success "Project archived", project_list
     else 
-      render json: @project
+      render_success "Project updated", @project
     end
   end
 
   def destroy
     @project.destroy!
+    render_success "Project deleted", nil
   end
 
   def material_cost
@@ -44,6 +41,13 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def project_list
+    archived = params[:archived] == "true" ? true : false
+    @user.projects
+      .order('created_at DESC')
+      .where(archived: archived)
+  end
 
   def set_project
     id = params[:project_id] || params[:id]

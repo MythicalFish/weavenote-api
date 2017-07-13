@@ -7,7 +7,7 @@ module SetUser
   CACHE = ActiveSupport::Cache::MemoryStore.new(expires_in: 30.minutes) # this caches in Development too
 
   def set_user!
-    @user = fetch_user unless @user
+    @user = User.find_by_auth0_id(auth0_id)
     unless @user
       @user = User.create({
         name: user_info['nickname'],
@@ -19,16 +19,8 @@ module SetUser
     @organization = @user.organization
   end
 
-  def fetch_user
-    key = cache_key_for_user
-    CACHE.fetch( key ) do
-      User.find_by_auth0_id(auth0_id)
-    end
-  end
-
   def auth0_id
-    key = cache_key_for_auth0_id
-    CACHE.fetch( key ) do
+    CACHE.fetch(cache_key_for_auth0_id) do
       user_info['user_id']
     end
   end
@@ -53,10 +45,6 @@ module SetUser
 
   def cache_key_for_auth0_id
     "auth0_id_from_token___#{token}"
-  end
-
-  def cache_key_for_user
-    "user_from_token___#{token}"
   end
 
 end

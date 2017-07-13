@@ -1,12 +1,12 @@
-# frozen_string_literal: true
 module SetUser
   
   extend ActiveSupport::Concern
   
   require 'auth0'
 
+  CACHE = ActiveSupport::Cache::MemoryStore.new(expires_in: 30.minutes) # this caches in Development too
+
   def set_user!
-    #@user = User.first if Rails.env.development?
     @user = fetch_user unless @user
     unless @user
       @user = User.create({
@@ -21,14 +21,14 @@ module SetUser
 
   def fetch_user
     key = cache_key_for_user
-    Rails.cache.fetch( key, cache_options ) do
+    CACHE.fetch( key ) do
       User.find_by_auth0_id(auth0_id)
     end
   end
 
   def auth0_id
     key = cache_key_for_auth0_id
-    Rails.cache.fetch( key, cache_options ) do
+    CACHE.fetch( key ) do
       user_info['user_id']
     end
   end
@@ -57,12 +57,6 @@ module SetUser
 
   def cache_key_for_user
     "user_from_token___#{token}"
-  end
-
-  def cache_options
-    {
-      expires_in: 30.minutes
-    }
   end
 
 end

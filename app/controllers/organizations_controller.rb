@@ -9,7 +9,7 @@ class OrganizationsController < ApplicationController
     @ability = Ability.new(@user, @organization)
     render_success(
       "#{@organization.name} was succesfully created", 
-      @user.serialized
+      serialized(@user)
     )
   end
 
@@ -26,7 +26,7 @@ class OrganizationsController < ApplicationController
   def switch_organization
     o = @user.organizations.find(params[:id])
     @user.update!(organization: o)
-    render_success "You are now using #{o.name}", @user.serialized
+    render_success "You are now using #{o.name}", serialized(@user)
   end
 
   def stats

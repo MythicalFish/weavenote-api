@@ -1,6 +1,5 @@
 class ImagesController < ApplicationController
 
-  include Serializer
   before_action :set_imageable, except: [:s3_url]
   before_action :set_image, only: [:destroy, :update]
 

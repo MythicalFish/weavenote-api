@@ -3,6 +3,7 @@ class ApplicationController < ActionController::API
   include ApiResponse
   include SetUser
   include CheckAbility
+  include Serializer
 
   before_action :initialize_user!
 

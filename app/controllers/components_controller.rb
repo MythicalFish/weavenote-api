@@ -1,10 +1,9 @@
 class ComponentsController < ApplicationController
-  
+
   before_action :set_project
   before_action :set_component, only: [:show, :update, :destroy]
 
   def index
-    @components = @project.components.order('id DESC')
     render json: @components
   end
 
@@ -15,23 +14,24 @@ class ComponentsController < ApplicationController
   def create
     @component = @project.components.new(component_params)
     @component.save!
-    render json: @component
+    render_success "Material added", @component
   end
 
   def update
     @component.update!(component_params)
-    render json: @component
+    render_success "Material updated", serialized(@component)
   end
 
   def destroy
     @component.destroy!
-    index
+    render_success "Material deleted", @components
   end
 
   private
 
   def set_project
     @project = @user.projects.find(params[:project_id])
+    @components = @project.components.order('id DESC')
   end
 
   def set_component

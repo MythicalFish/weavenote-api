@@ -13,6 +13,7 @@ class ProjectsController < ApplicationController
       user_role: @user.project_role_type(@project).attributes,
       material_cost: @project.material_cost,
       collaborators: @project.collaborators,
+      comments: @project.comments,
     }
   end
 

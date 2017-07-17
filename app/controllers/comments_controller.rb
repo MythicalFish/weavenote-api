@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
   private
 
   def comments
-    @commentable.comments.order('created_at DESC')
+    serialized(@commentable.comments.order('created_at DESC'))
   end
 
   def set_commentable

@@ -7,7 +7,7 @@ class Ability
   end
 
   MODELS = [ 
-    'Role', 'Component', 'Image', 'Instruction', 'Invite', 
+    'Role', 'Component', 'Image', 'Instruction', 'Invite', 'Comment',
     'Material', 'Measurement', 'Organization', 'Project', 'Supplier', 'User', 'Undefined'
   ]
 

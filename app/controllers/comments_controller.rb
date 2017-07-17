@@ -3,10 +3,6 @@ class CommentsController < ApplicationController
   before_action :set_commentable
   before_action :set_comment, only: [:update, :destroy]
 
-  def index
-    render json: comments
-  end
-
   def create
     @commentable.comments.create!(comment_params)
     render_success "Comment added", comments
@@ -42,7 +38,7 @@ class CommentsController < ApplicationController
 
   def comment_params
     p = params[:comment]
-    p.user_id = @user.id
+    p[:user_id] = @user.id
     p.permit(:user_id, :text)
   end
 

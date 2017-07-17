@@ -1,11 +1,11 @@
 
-unless User.find_by_email('jake@mythical.fish')
-  User.create({
-    name: 'jake',
-    email: 'jake@mythical.fish',
-    auth0_id: 'auth0|58fa28e05ae79b35893d826a'
-  })
-end
+#unless User.find_by_email('jake@mythical.fish')
+#  User.create({
+#    name: 'jake',
+#    email: 'jake@mythical.fish',
+#    auth0_id: 'auth0|58fa28e05ae79b35893d826a'
+#  })
+#end
 
 def care_labels
   puts ''

@@ -1,30 +1,15 @@
 Rails.application.routes.draw do
   
   root to: 'application#root'
-
-  get '/user', to: 'users#show'
-  patch '/user', to: 'users#update'
-  get '/reset_password', to: 'users#reset_password'
-
-  resources :organizations, only: [:create, :update, :destroy]
-  get '/switch_organization', to: 'organizations#switch_organization'
   
+  resources :organizations, except: [:index]
   resources :materials
   resources :suppliers
-
-  get '/material_types', to: 'static_resources#material_types'
-  get '/colors', to: 'static_resources#colors'
-  get '/currencies', to: 'static_resources#currencies'
-  get '/care_labels', to: 'static_resources#care_labels'
-  get '/role_types', to: 'static_resources#role_types'
-
-  resources :images
-  get '/s3_url', to: 'images#s3_url'
-  
+  resources :comments, except: [:index]
+  resources :images, except: [:index]
   resources :invites
-  post '/accept_invite/:id', to: 'invites#accept'
-  resources :roles, only: [:index, :update, :destroy]
-  
+  resources :roles, except: [:create]
+
   resources :projects do
     get '/material_cost', to: 'projects#material_cost'
     get '/measurements', to: 'measurements#index'
@@ -38,6 +23,22 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'stats', to: 'organizations#stats'
+  # Misc:
+
+  get '/s3_url', to: 'images#s3_url'
+  post '/accept_invite/:id', to: 'invites#accept'
+  get '/switch_organization', to: 'organizations#switch_organization'
+  get '/user', to: 'users#show'
+  patch '/user', to: 'users#update'
+  get '/reset_password', to: 'users#reset_password'
+  get '/stats', to: 'organizations#stats'
+
+  # Static resources:
+
+  get '/material_types', to: 'static_resources#material_types'
+  get '/colors', to: 'static_resources#colors'
+  get '/currencies', to: 'static_resources#currencies'
+  get '/care_labels', to: 'static_resources#care_labels'
+  get '/role_types', to: 'static_resources#role_types'
 
 end

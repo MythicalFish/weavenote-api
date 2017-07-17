@@ -17,15 +17,15 @@ class ProjectsController < ApplicationController
   def create
     @project = @organization.projects.new(project_params)
     @project.save!
-    render_success "Project created", project_list
+    render_success "Project created", serialized(project_list)
   end
 
   def update
     @project.update!(project_params)
     if params[:index_after_update]
-      render_success "Project archived", project_list
+      render_success "Project archived", serialized(project_list)
     else 
-      render_success "Project updated", @project
+      render_success "Project updated", serialized(@project)
     end
   end
 

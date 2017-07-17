@@ -4,16 +4,13 @@ class ProjectsController < ApplicationController
   before_action :set_permission, except: [:index, :create]
 
   def index
-    render json: project_list
+    render json: project_list, each_serializer: ProjectListSerializer
   end
 
   def show
     render json: {
-      attributes: serialized(@project),
+      project: serialized(@project),
       user_role: @user.project_role_type(@project).attributes,
-      material_cost: @project.material_cost,
-      collaborators: serialized(@project.collaborators),
-      comments: serialized(@project.comments),
     }
   end
 

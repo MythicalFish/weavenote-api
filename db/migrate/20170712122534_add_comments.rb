@@ -3,8 +3,10 @@ class AddComments < ActiveRecord::Migration[5.0]
     create_table :comments do |t|
       t.string :text, null: false
       t.references :user
-      t.references :project
+      t.integer :commentable_id, null: false
+      t.string :commentable_type, null: false
       t.timestamps
     end
+    add_index :comments, [:commentable_id, :commentable_type]
   end
 end

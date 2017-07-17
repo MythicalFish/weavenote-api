@@ -1,7 +1,11 @@
 class Comment < ApplicationRecord
   
-  belongs_to :project, dependent: :destroy
-  belongs_to :user, dependent: :destroy
+  belongs_to :user
+  belongs_to :commentable, dependent: :destroy, polymorphic: true
+  has_many :replies, -> (o) {
+      where('commentable_id = ? AND commentable_type = ?', o.id, 'Comment')
+    }, class_name: 'Comment'
   has_many :images, as: :imageable  
+  delegate :organization, to: :user
 
 end

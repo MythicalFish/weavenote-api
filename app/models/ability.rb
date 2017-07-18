@@ -59,8 +59,9 @@ class Ability
   def to? action, target_model = 'Undefined'
     throw "Model abilities not defined, aborting" unless MODELS.include?(target_model)
     return true if user_abilities[target_model].include? action
-    return true if abilities[target_model][@user.organization_role_type.name].include? action
-    false
+    rn = @user.organization_role_type.try(:name).to_s
+    rna = abilities[target_model][n] || []
+    return rna.include? action
   end
 
   def grant_all new_abilities

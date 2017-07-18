@@ -60,7 +60,7 @@ class Ability
     throw "Model abilities not defined, aborting" unless MODELS.include?(target_model)
     return true if user_abilities[target_model].include? action
     rn = @user.organization_role_type.try(:name).to_s
-    rna = abilities[target_model][n] || []
+    rna = abilities[target_model][rn] || []
     return rna.include? action
   end
 

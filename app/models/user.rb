@@ -2,6 +2,8 @@ class User < ApplicationRecord
 
   include UserAssociations
   include RoleMethods
+  
+  validates_uniqueness_of :email
 
   def projects
     unless organization_role_type.name == 'None'

@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def reset_password
-    p = @auth0.change_password @user.email, nil
+    p = auth0.change_password @user.email, nil
     if p
       render_success p
     else

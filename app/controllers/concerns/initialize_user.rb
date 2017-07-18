@@ -8,13 +8,12 @@ module InitializeUser
     @organization = @user.organization
   end
 
-  def find_user id = nil
-    id = id || @auth0.user_info['user_id']
-    User.find_by_auth0_id(id)
+  def find_user
+    User.find_by_auth0_id(auth0_id)
   end
 
   def create_user
-    info = @auth0.user_info
+    info = auth0.user_info
     User.create!({
       name: info['nickname'],
       email: info['email'],

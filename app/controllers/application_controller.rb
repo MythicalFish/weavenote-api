@@ -10,7 +10,6 @@ class ApplicationController < ActionController::API
   before_action :initialize_client!
 
   def initialize_client!
-    initialize_auth0!
     initialize_user!
     check_ability!
   end

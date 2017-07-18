@@ -12,8 +12,9 @@ module SetUser
     @organization = @user.organization
   end
 
-  def find_user
-    User.find_by_auth0_id(user_info['user_id'])
+  def find_user id = nil
+    id = id || user_info['user_id']
+    User.find_by_auth0_id(id)
   end
 
   def create_user
@@ -34,7 +35,10 @@ module SetUser
         :domain => secrets.auth0_domain,
         :api_version => 2
       )
-      auth0.user_info
+      info = auth0.user_info
+      user = find_user(info['user_id'])
+      user.update!(avatar: info['picture']) if user
+      info
     end
   end
 

@@ -1,14 +1,17 @@
 class ApplicationController < ActionController::API
   
   include ApiResponse
-  include SetUser
-  include CheckAbility
   include Serializer
 
-  before_action :initialize_user!
+  include InitializeAuth0
+  include InitializeUser
+  include CheckAbility
 
-  def initialize_user!
-    set_user!
+  before_action :initialize_client!
+
+  def initialize_client!
+    initialize_auth0!
+    initialize_user!
     check_ability!
   end
 

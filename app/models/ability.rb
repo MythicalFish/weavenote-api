@@ -29,6 +29,7 @@ class Ability
     a = base_abilities
     a['Undefined'] = grant_all_only []
     a['User'] = grant_all ALL_ACTIONS
+    a['Comment'] = grant_all ALL_ACTIONS
     a['Invite'] = grant_all [:read]
     a['Organization'] = grant_all_only [:create]
     a['Organization']['Admin'] = ALL_ACTIONS

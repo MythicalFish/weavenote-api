@@ -15,11 +15,11 @@ module CheckAbility
     end
   end
 
-  def ability_check! action, object = nil
-    unless @ability.to? action, object
+  def ability_check! action, object_name = nil
+    unless @ability.to? action, object_name
       msg = "You don't have permission to #{action} this"
-      msg += " #{object}" if object
-      render_error(msg)
+      msg += " #{object_name}" if object_name
+      render_denied(msg)
     end
   end
 

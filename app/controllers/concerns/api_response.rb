@@ -6,6 +6,16 @@ module ApiResponse
     rescue_from Exception, with: :handle_exception
   end
 
+  def handle_exception e
+    if e.class == CustomException::UserWarning
+      # This exception is just to prevent the DoubleRenderError error
+      log_error e, 'WARNING'
+    else
+      log_error e
+      render error_response(e)
+    end
+  end
+
   def render_success message, payload = nil
     render json: {
       message: message,
@@ -25,18 +35,12 @@ module ApiResponse
     raise CustomException::UserError.new(object)
   end
 
-  def render_fatal data
-    raise Exception.new(data)
+  def render_denied object
+    raise CustomException::PermissionError.new(object)
   end
 
-  def handle_exception e
-    if e.class == CustomException::UserWarning
-      # This exception is just to prevent the DoubleRenderError error
-      log_error e, 'WARNING'
-    else
-      log_error e
-      render error_response(e)
-    end
+  def render_fatal data
+    raise Exception.new(data)
   end
 
   def log_error e, title = "ERROR"
@@ -66,11 +70,13 @@ module ApiResponse
       msg = "Unauthorized"
     end
 
-    if Rails.env.development?
-      if e.backtrace
-        trace = "API says no: \n\n"
-        trace += " " + e.message + "\n" + e.backtrace.take(10).join("\n")
-        trace += "\n..." if e.backtrace.size > 10
+    unless e.class == CustomException::PermissionError
+      if Rails.env.development?
+        if e.backtrace
+          trace = "API says no: \n\n"
+          trace += " " + e.message + "\n" + e.backtrace.take(10).join("\n")
+          trace += "\n..." if e.backtrace.size > 10
+        end
       end
     end
     

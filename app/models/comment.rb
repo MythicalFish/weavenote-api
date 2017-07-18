@@ -8,4 +8,6 @@ class Comment < ApplicationRecord
   has_many :images, as: :imageable  
   delegate :organization, to: :user
 
+  validates :text, length: { minimum: 2 }
+
 end

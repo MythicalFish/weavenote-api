@@ -4,12 +4,12 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:update, :destroy]
 
   def create
-    @commentable.comments.create!(comment_params)
+    @commentable.comments.create!(create_comment_params)
     render_success "Comment added", comments
   end
 
   def update
-    @comment.update!(comment_params)
+    @comment.update!(update_comment_params)
     render_success "Comment updated", comments
   end
   
@@ -21,7 +21,11 @@ class CommentsController < ApplicationController
   private
 
   def comments
-    serialized(@commentable.comments.order('created_at ASC'))
+    c = @commentable
+    if c.class.name == 'Comment'
+      c = c.commentable
+    end
+    serialized(c.comments.order('created_at ASC'))
   end
 
   def set_commentable
@@ -30,16 +34,26 @@ class CommentsController < ApplicationController
     unless @commentable.organization == @organization
       render_fatal "Unable to comment on a different organization"
     end
+    if @commentable.class.name == 'Comment'
+      if @commentable.commentable.class.name == 'Comment'
+        render_fatal "Maximum comment depth is 1"
+      end
+    end
   end
 
   def set_comment
     @comment = @commentable.comments.find(params[:id])
   end
 
-  def comment_params
+  def create_comment_params
     p = params[:comment]
     p[:user_id] = @user.id
-    p.permit(:user_id, :text)
+    p[:organization_id] = @organization.id
+    p.permit(:user_id, :organization_id, :text)
+  end
+
+  def update_comment_params
+    params.require(:comment).permit(:text)
   end
 
 end

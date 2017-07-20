@@ -82,11 +82,8 @@ class ImagesController < ApplicationController
   end
 
   def images_response
-    if @imageable.class.name == 'Comment'
-      return @imageable.commentable.comments
-    end
     images = serialized(@imageable.images.order('id ASC'))
-    return { images: images, reducer: @imageable.model_name }
+    return { images: images, imageable: { id: @imageable.id, type: @imageable.class.name } }
   end
 
 end

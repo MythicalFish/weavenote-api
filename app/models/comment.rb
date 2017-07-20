@@ -9,4 +9,8 @@ class Comment < ApplicationRecord
 
   validates :text, length: { minimum: 2 }
 
+  def is_reply
+    self.commentable_type == 'Comment'
+  end
+
 end

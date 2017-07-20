@@ -81,7 +81,7 @@ class ImagesController < ApplicationController
 
   def images_response
     images = serialized(@imageable.images.order('id ASC'))
-    return { images: images, imageable_type: @imageable.model_name }
+    return { images: images, reducer: @imageable.model_name }
   end
 
 end

@@ -7,13 +7,10 @@ module ApiResponse
   end
 
   def handle_exception e
-    if e.class == CustomException::UserWarning
-      # This exception is just to prevent the DoubleRenderError error
-      log_error e, 'WARNING'
-    else
-      log_error e
-      render error_response(e)
+    if log_exception? e
+      log_error e, e.class.to_s
     end
+    render error_response(e)
   end
 
   def render_success message, payload = nil
@@ -23,12 +20,8 @@ module ApiResponse
     }
   end
 
-  def render_warning message, payload = nil
-    render json: {
-      warning: message,
-      payload: payload
-    }
-    raise CustomException::UserWarning.new
+  def render_warning message
+    raise CustomException::UserWarning.new(message)
   end
 
   def render_error object
@@ -66,11 +59,7 @@ module ApiResponse
       end
     end
 
-    if e.class == Auth0::Unauthorized
-      msg = "Unauthorized"
-    end
-
-    unless e.class == CustomException::PermissionError
+    if log_exception? e
       if Rails.env.development?
         if e.backtrace
           trace = "API says no: \n\n"
@@ -79,13 +68,18 @@ module ApiResponse
         end
       end
     end
-    
+
+    if e.class == Auth0::Unauthorized
+      msg = "Unauthorized"
+    end
+
     {
        json: {
         error: {
           message: msg,
-          fields: [],
-          backtrace: trace
+          fields: error_fields(e),
+          backtrace: trace,
+          type: error_type(e)
         },
         status: :unprocessable_entity
       }
@@ -97,8 +91,24 @@ module ApiResponse
     [
       CustomException::UserError, 
       CustomException::PermissionError, 
+      CustomException::UserWarning, 
       ActiveRecord::RecordInvalid
     ].include? e.class
+  end
+
+  def log_exception? e
+    !expose_error?(e)
+  end
+
+  def error_type e
+    return 'warning' if e.class == CustomException::UserWarning
+    return 'auth' if e.class == Auth0::Unauthorized
+    'bug'
+  end
+
+  def error_fields e
+    return {} unless e.try(:record).try(:errors)
+    e.record.errors.messages
   end
 
 end

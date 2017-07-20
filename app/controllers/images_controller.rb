@@ -70,8 +70,10 @@ class ImagesController < ApplicationController
 
   def set_imageable
     imageable_class = Object.const_get(params[:imageable][:type])
-    collection = imageable_class.model_name.collection
-    @imageable = @organization.send(collection).find(params[:imageable][:id])
+    @imageable = imageable_class.find(params[:imageable][:id])
+    unless @imageable.organization == @organization
+      raise "Imageable organization does not match the user's organization"
+    end
     raise "Missing imageable" unless @imageable
   end
 
@@ -80,6 +82,9 @@ class ImagesController < ApplicationController
   end
 
   def images_response
+    if @imageable.class.name == 'Comment'
+      return @imageable.commentable.comments
+    end
     images = serialized(@imageable.images.order('id ASC'))
     return { images: images, reducer: @imageable.model_name }
   end

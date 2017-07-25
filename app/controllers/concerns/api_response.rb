@@ -7,9 +7,7 @@ module ApiResponse
   end
 
   def handle_exception e
-    if log_exception? e
-      log_error e, e.class.to_s
-    end
+    log_error e, e.class.to_s
     render error_response(e)
   end
 

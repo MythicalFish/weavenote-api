@@ -56,6 +56,7 @@ gem 'paperclip'
 gem 'fog'
 gem 'figaro'
 gem 'active_hash'
+gem 'letter_avatar'
 group :production do
   gem 'newrelic_rpm'
 end

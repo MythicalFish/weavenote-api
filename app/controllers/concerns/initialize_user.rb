@@ -17,16 +17,8 @@ module InitializeUser
     User.create!({
       name: info['nickname'],
       email: info['email'],
-      avatar: info['picture'],
       auth0_id: info['user_id']
     })
-  end
-
-  def update_avatar
-    info = @auth0.user_info
-    user = find_user(info['user_id'])
-    user.update!(avatar: info['picture']) if user
-    info
   end
 
 end

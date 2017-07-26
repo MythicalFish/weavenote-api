@@ -5,6 +5,7 @@ class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   has_many :images, as: :imageable  
   has_many :comments, as: :commentable
+  has_many :annotations, as: :annotatable
   alias_attribute :replies, :comments
 
   validates :text, length: { minimum: 2 }

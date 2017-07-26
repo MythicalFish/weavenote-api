@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   resources :images, except: [:index]
   resources :invites
   resources :roles, except: [:create]
-
+  resources :annotations, except: [:index, :show]
+  
   resources :projects do
     get '/material_cost', to: 'projects#material_cost'
     get '/measurements', to: 'measurements#index'

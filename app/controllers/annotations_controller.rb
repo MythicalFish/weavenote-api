@@ -5,17 +5,17 @@ class AnnotationsController < ApplicationController
 
   def create
     @annotation = @annotatable.annotations.create!(annotation_params)
-    render_success "Annotation created", annotations_response
+    render_success "Annotation created", serialized(@annotation.image)
   end
 
   def destroy
     @annotation.destroy!
-    render_success "Annotation deleted", annotations_response
+    render_success "Annotation deleted"
   end
 
   def update
     @annotation.update!(annotation_params)
-    render_success "Annotation updated", annotations_response
+    render_success "Annotation updated", serialized(@annotation)
   end
 
   private
@@ -24,7 +24,10 @@ class AnnotationsController < ApplicationController
     p = params[:annotation]
     p[:anchors_attributes] = params[:anchors]
     p[:annotation_type] = params[:type]
-    p.permit(:image_id, :anchors_attributes, :annotation_type)
+    p.permit(
+      :image_id, :annotation_type, 
+      anchors_attributes: [:x, :y]
+    )
   end
 
   def set_annotatable
@@ -37,11 +40,6 @@ class AnnotationsController < ApplicationController
 
   def set_annotation
     @annotation = @annotatable.annotations.find(params[:id])
-  end
-
-  def annotations_response
-    annotations = @annotatable.annotations
-    return { annotations: annotations, annotatable: { id: @annotatable.id, type: @annotatable.class.name } }
   end
 
 end

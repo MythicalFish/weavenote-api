@@ -10,10 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727193214) do
+ActiveRecord::Schema.define(version: 20170728100055) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
+    t.float   "x",             limit: 24
+    t.float   "y",             limit: 24
     t.index ["annotation_id"], name: "index_annotation_anchors_on_annotation_id", using: :btree
   end
 

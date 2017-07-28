@@ -3,7 +3,7 @@ class Image < ApplicationRecord
   belongs_to :organization
   belongs_to :user
   belongs_to :imageable, polymorphic: true
-  has_many :annotations
+  has_many :annotations, dependent: :destroy
 
   has_attached_file :file,
     :path => "seamless/uploads/organization-:organization_id/image-:id/:style/:basename.:extension",

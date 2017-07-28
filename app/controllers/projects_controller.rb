@@ -10,6 +10,8 @@ class ProjectsController < ApplicationController
   def show
     render json: {
       project: serialized(@project),
+      images: serialized(@project.images),
+      comments: serialized(@project.comments),
       user_role: @user.project_role_type(@project).attributes,
     }
   end

@@ -2,7 +2,7 @@ class MeasurementGroup < ApplicationRecord
   
   belongs_to :project
   has_many :measurement_names, through: :project
-  has_many :measurement_values
+  has_many :measurement_values, dependent: :destroy
 
   validates :name, length: { minimum: 1, maximum: 3 }
 

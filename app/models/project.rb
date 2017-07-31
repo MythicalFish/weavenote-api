@@ -6,15 +6,15 @@ class Project < ApplicationRecord
   belongs_to :organization
   belongs_to :development_stage
   alias_attribute :stage, :development_stage
-  has_many :components
+  has_many :components, dependent: :destroy
   has_many :materials, through: :components
-  has_many :images, as: :imageable
-  has_many :measurement_groups
-  has_many :measurement_names
+  has_many :images, as: :imageable, dependent: :destroy
+  has_many :measurement_groups, dependent: :destroy
+  has_many :measurement_names, dependent: :destroy
   has_many :measurement_values, through: :measurement_groups
-  has_many :instructions
-  has_many :invites, as: :invitable
-  has_many :comments, as: :commentable
+  has_many :instructions, dependent: :destroy
+  has_many :invites, as: :invitable, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
   
   before_validation :set_defaults
 

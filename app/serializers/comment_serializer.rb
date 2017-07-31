@@ -1,5 +1,5 @@
 class CommentSerializer < ActiveModel::Serializer
-  attributes :id, :text, :created_at, :updated_at
+  attributes :id, :text, :created_at, :updated_at, :relative_id
   belongs_to :user, serializer: CollaboratorSerializer
   has_many :replies, serializer: CommentReplySerializer
   has_many :images, serializer: ImageSerializer

@@ -7,4 +7,8 @@ class MeasurementName < ApplicationRecord
 
   default_scope { order(value: :asc) }
 
+  def type
+    self.class.name
+  end
+
 end

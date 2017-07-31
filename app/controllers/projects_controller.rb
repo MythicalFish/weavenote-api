@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
     render json: {
       project: serialized(@project),
       images: serialized(@project.images),
-      comments: serialized(@project.comments),
+      comments: serialized(@project.comments.order(created_at: :desc)),
       user_role: @user.project_role_type(@project).attributes,
     }
   end

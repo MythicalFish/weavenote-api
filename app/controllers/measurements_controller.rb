@@ -1,17 +1,11 @@
 class MeasurementsController < ApplicationController
-  
+
   before_action :set_project
 
-  # GET /projects/:id/measurements
   def index
-    render json: {
-      groups: @project.measurement_groups,
-      names: @project.measurement_names,
-      values: @project.measurement_values!
-    }
+    render json: measurements_response
   end
 
-  # PATCH /projects/:id/measurements
   def update
     
     @m = params[:measurements]
@@ -59,38 +53,36 @@ class MeasurementsController < ApplicationController
       end
     end
 
-    render json: {
-      errors: @errors,
-      updates: @updates,
-      measurements: {
-        groups: @project.measurement_groups,
-        names: @project.measurement_names,
-        values: @project.measurement_values!
-      }
-    }
+    render_success "Measurement updated", measurements_response
   end
 
-  # POST /projects/:id/measurement_groups
   def create_group
-    @group = @project.measurement_groups.new(measurement_group_params)
-    if @group.save
-      index
-    else 
-      render json: @group.errors.full_messages.join(', '), status: :unprocessable_entity
+    if @project.measurement_groups.length >= 6
+      render_error "Maximum measurement groups is 6"
     end
+    @group = @project.measurement_groups.new(measurement_group_params)
+    @group.save!
+    render_success "Measurement group created", measurements_response
   end
 
-  # POST /projects/:id/measurement_names
   def create_name
+    if @project.measurement_groups.length >= 26
+      render_error "Maximum measurement names is 26"
+    end    
     @name = @project.measurement_names.new(measurement_name_params)
-    if @name.save
-      index
-    else 
-      render json: @name.errors.full_messages.join(', '), status: :unprocessable_entity
-    end
+    @name.save!
+    render_success "Measurement name created", measurements_response
   end
 
   private
+
+  def measurements_response
+    {
+      groups: @project.measurement_groups,
+      names: @project.measurement_names,
+      values: @project.measurement_values!
+    }
+  end
 
   def measurement_group_params
     params.require(:group).permit(:name)

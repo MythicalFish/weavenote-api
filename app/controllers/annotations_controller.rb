@@ -4,6 +4,7 @@ class AnnotationsController < ApplicationController
   before_action :set_annotation, except: [:create]
 
   def create
+    @annotatable.annotations.destroy_all
     @annotation = @annotatable.annotations.create!(annotation_params)
     render_success "Annotation created", serialized(@annotation.image)
   end

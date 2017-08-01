@@ -20,7 +20,7 @@ class User < ApplicationRecord
   end
 
   def avatar
-    "#{ENV['SEAMLESS__API_URL']}#{self.avatar_url}"
+    "#{ENV['WEAVENOTE__API_URL']}#{self.avatar_url}"
   end
 
 end

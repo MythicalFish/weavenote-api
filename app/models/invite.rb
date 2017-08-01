@@ -13,7 +13,7 @@ class Invite < ApplicationRecord
   end
 
   def invite_link
-    domain = ENV['SEAMLESS__SITE_URL']
+    domain = ENV['WEAVENOTE__SITE_URL']
     "#{domain}/?invitation=#{self.key}"
   end
 

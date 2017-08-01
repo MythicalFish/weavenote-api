@@ -6,11 +6,11 @@ class Image < ApplicationRecord
   has_many :annotations, dependent: :destroy
 
   has_attached_file :file,
-    :path => "seamless/uploads/organization-:organization_id/image-:id/:style/:basename.:extension",
+    :path => "weavenote/uploads/organization-:organization_id/image-:id/:style/:basename.:extension",
     :storage => :fog,
     :fog_credentials =>  Rails.application.config.fog,
-    :fog_directory => ENV['SEAMLESS__AWS_S3_BUCKET'],
-    :fog_host => "https://s3-#{ENV['SEAMLESS__AWS_REGION']}.amazonaws.com/#{ENV['SEAMLESS__AWS_S3_BUCKET']}",
+    :fog_directory => ENV['WEAVENOTE__AWS_S3_BUCKET'],
+    :fog_host => "https://s3-#{ENV['WEAVENOTE__AWS_REGION']}.amazonaws.com/#{ENV['WEAVENOTE__AWS_S3_BUCKET']}",
     :styles => {
       :tiny =>     { :format => 'jpg', :time => 10, :geometry => "100x100#" },
       :medium =>   { :format => 'jpg', :time => 10, :geometry => "800x800>"  },

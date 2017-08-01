@@ -1,7 +1,7 @@
 ActionMailer::Base.smtp_settings = {
   :user_name => ENV['SENDGRID_USERNAME'],
   :password => ENV['SENDGRID_PASSWORD'],
-  :domain => ENV['SEAMLESS__DOMAIN'],
+  :domain => ENV['WEAVENOTE__DOMAIN'],
   :address => 'smtp.sendgrid.net',
   :port => 587,
   :authentication => :plain,

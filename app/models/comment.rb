@@ -3,9 +3,9 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :organization
   belongs_to :commentable, polymorphic: true
-  has_many :images, as: :imageable  
-  has_many :comments, as: :commentable
-  has_many :annotations, as: :annotatable
+  has_many :images, as: :imageable, dependent: :destroy  
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :annotations, as: :annotatable, dependent: :destroy
 
   validates :text, length: { minimum: 2 }
 

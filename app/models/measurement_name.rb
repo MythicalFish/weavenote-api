@@ -12,4 +12,17 @@ class MeasurementName < ApplicationRecord
     self.class.name
   end
 
+  def identifier
+    alph = ("A".."Z").to_a
+    alph[relative_id-1]
+  end
+
+  def relative_id
+    rid = 1
+    project.measurement_names.each do |n|
+      return rid if n.id == id
+      rid += 1
+    end
+  end
+
 end

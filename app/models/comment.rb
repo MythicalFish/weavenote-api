@@ -21,7 +21,7 @@ class Comment < ApplicationRecord
     self.class.name
   end
 
-  def relative_id
+  def identifier
     rid = 1
     self.commentable.comments.each do |c|
       return rid if c.id == self.id

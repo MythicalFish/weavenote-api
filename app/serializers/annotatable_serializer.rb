@@ -1,3 +1,3 @@
 class AnnotatableSerializer < ActiveModel::Serializer
-  attributes :id, :type
+  attributes :id, :type, :identifier
 end

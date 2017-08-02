@@ -96,7 +96,7 @@ class MeasurementsController < ApplicationController
   def measurements_response
     {
       groups: @project.measurement_groups,
-      names: @project.measurement_names,
+      names: serialized(@project.measurement_names),
       values: @project.measurement_values!
     }
   end

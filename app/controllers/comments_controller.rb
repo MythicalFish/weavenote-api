@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
     if c.class.name == 'Comment'
       c = c.commentable
     end
-    serialized(c.comments.order('created_at ASC'))
+    serialized(c.comments.order(created_at: :desc))
   end
 
   def set_commentable

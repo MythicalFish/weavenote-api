@@ -1,6 +1,7 @@
 class MeasurementName < ApplicationRecord
   
   belongs_to :project
+  delegate :organization, to: :project
   has_many :measurement_values, dependent: :destroy
   has_many :annotations, as: :annotatable
   validates :value, length: { minimum: 1, maximum: 16 }

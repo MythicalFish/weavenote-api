@@ -28,7 +28,14 @@ module CheckAbility
   end
 
   def roleable
-    return @project if @project && target_model == Project
+    case target_model
+    when Project
+      return @project if @project
+    when Annotation
+      return @annotatable.project if @annotatable
+    else
+      return @organization
+    end
     @organization
   end
 

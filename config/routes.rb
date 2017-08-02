@@ -16,7 +16,9 @@ Rails.application.routes.draw do
     get '/measurements', to: 'measurements#index'
     patch '/measurements', to: 'measurements#update'
     post '/measurement_groups', to: 'measurements#create_group'
+    delete '/measurement_groups', to: 'measurements#delete_group'
     post '/measurement_names', to: 'measurements#create_name'
+    delete '/measurement_names', to: 'measurements#delete_name'
     resources :components
     resources :instructions do
       post '/images', to: 'instructions#create_image'

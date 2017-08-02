@@ -56,7 +56,8 @@ class MeasurementsController < ApplicationController
     render_success "Measurement updated", measurements_response
   end
 
-  def create_group
+  def create_group 
+    ability_check! :create, 'Measurement'
     if @project.measurement_groups.length >= 6
       render_error "Maximum measurement groups is 6"
     end
@@ -66,6 +67,7 @@ class MeasurementsController < ApplicationController
   end
 
   def create_name
+    ability_check! :create, 'Measurement'
     if @project.measurement_groups.length >= 26
       render_error "Maximum measurement names is 26"
     end    
@@ -73,6 +75,21 @@ class MeasurementsController < ApplicationController
     @name.save!
     render_success "Measurement name created", measurements_response
   end
+
+  def delete_name
+    ability_check! :destroy, 'Measurement'
+    n = @project.measurement_names.find(params[:id])
+    n.destroy!
+    render_success "Measurement name deleted", measurements_response
+  end
+
+  def delete_group
+    ability_check! :destroy, 'Measurement'
+    n = @project.measurement_groups.find(params[:id])
+    n.destroy!
+    render_success "Measurement group deleted", measurements_response
+  end
+
 
   private
 

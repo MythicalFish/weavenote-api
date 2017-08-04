@@ -23,7 +23,7 @@ class ImagesController < ApplicationController
       @image.update!(update_image_params)
       render_success "Image updated", images_response
     else
-      render_success nil
+      render_success nil, images_response
     end
   end
 

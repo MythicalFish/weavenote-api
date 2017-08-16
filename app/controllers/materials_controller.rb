@@ -20,7 +20,7 @@ class MaterialsController < ApplicationController
   def create
     @material = @organization.materials.new(material_params)
     @material.save!
-    render_success "Material created", @material
+    render_success "Material created", serialized(@material)
   end
 
   def update
@@ -29,7 +29,7 @@ class MaterialsController < ApplicationController
       @material.supplier_id = s[:id] if s[:id]
     end
     @material.update!(material_params)
-    render_success "Material updated", @material
+    render_success "Material updated", serialized(@material)
   end
 
   def destroy

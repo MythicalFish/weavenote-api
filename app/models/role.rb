@@ -7,12 +7,12 @@ class Role < ApplicationRecord
   belongs_to :roleable, polymorphic: true
 
   alias_attribute :type, :role_type
+  
+  default_scope { where(role_type_id: RoleType::EXPOSED_IDS) }
+  scope :permitted, -> { where(role_type_id: RoleType::PERMITTED_IDS) }
 
   def self.none
     self.new role_type: RoleType.none 
   end
-  
-  scope :permitted, -> { where(role_type_id: RoleType::PERMITTED_IDS) }
-  scope :exposed, -> { where(role_type_id: RoleType::EXPOSED_IDS) }
 
 end

@@ -1,7 +1,9 @@
 class ProjectsController < ApplicationController
 
   before_action :set_project, except: [:index, :create]
-  before_action :set_permission, except: [:index, :create]
+  
+  skip_before_action :check_ability!, only: [ :show, :update ]
+  before_action :check_project_ability!, only: [ :show, :update ]
 
   def index
     render json: project_list, each_serializer: ProjectListSerializer
@@ -55,8 +57,9 @@ class ProjectsController < ApplicationController
     @project = @user.projects.find(id)
   end
 
-  def set_permission
-    @ability = Ability.new(@user, @project)
+  def check_project_ability!
+    #@ability = Ability.new(@user, @project)
+    ability_check! action_name.to_sym
   end
 
   def project_params

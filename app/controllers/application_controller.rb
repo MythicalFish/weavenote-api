@@ -7,12 +7,8 @@ class ApplicationController < ActionController::API
   include InitializeUser
   include CheckAbility
 
-  before_action :initialize_client!
-
-  def initialize_client!
-    initialize_user!
-    check_ability!
-  end
+  before_action :initialize_user!
+  before_action :check_ability!
 
   def root
     render json: {}

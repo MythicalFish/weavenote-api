@@ -22,7 +22,7 @@ class StaticResourcesController < ApplicationController
 
   def role_types
     r = []
-    RoleType.exposed.each do |rt|
+    RoleType.permitted.each do |rt|
       r << rt.attributes
     end
     render json: r

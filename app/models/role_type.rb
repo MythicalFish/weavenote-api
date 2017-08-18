@@ -8,13 +8,21 @@ class RoleType < ActiveHash::Base
     {:id => 5, :name => "Admin"}
   ]
 
-  EXPOSED_IDS = [2,3]
+  EXPOSED_IDS = [2,3,4,5]
+  PERMITTED_IDS = [2,3]
+
+  def self.permitted
+    # Role types which can be changed by org admins
+    find(PERMITTED_IDS)
+  end
 
   def self.exposed
+    # Role types which are visible
     find(EXPOSED_IDS)
   end
 
   def self.none
+    # Default role type for org (used when user is only invited to project)
     self.find(1)
   end
 

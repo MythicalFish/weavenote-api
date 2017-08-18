@@ -22,7 +22,7 @@ class RolesController < ApplicationController
   private
 
   def roles
-    @invitable.roles.where(role_type_id:RoleType::EXPOSED_IDS)
+    @invitable.roles.where(role_type_id:RoleType::PERMITTED_IDS)
   end
 
   def set_role
@@ -32,7 +32,7 @@ class RolesController < ApplicationController
 
   def role_params
     p = params[:role]
-    unless RoleType::EXPOSED_IDS.include? p[:role_type_id]
+    unless RoleType::PERMITTED_IDS.include? p[:role_type_id]
       render_fatal "User attempted to assign unpermitted role_type_id"
     end
     p.permit(:role_type_id)

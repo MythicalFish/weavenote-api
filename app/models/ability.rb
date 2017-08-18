@@ -14,7 +14,7 @@ class Ability
   ALL_ACTIONS = [:index, :show, :create, :update, :destroy]
 
   DEFAULT_ABILITIES = {
-    'None' => [:index],
+    'None' => [],
     'Guest' => [:index, :show],
     'Contributor' => [:index, :show, :update],
     'Manager' => ALL_ACTIONS,
@@ -39,6 +39,7 @@ class Ability
     a['Comment'] = grant_all ALL_ACTIONS
     a['Invite'] = grant_all [:show]
     a['Organization'] = grant_all_only [:create]
+    a['Project'] = grant_all [:index]
 
     # Only Admin can manage Organization:
     a['Organization']['Admin'] = ALL_ACTIONS

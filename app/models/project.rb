@@ -48,6 +48,27 @@ class Project < ApplicationRecord
     a
   end
 
+  def avatar_list current_user
+    # merge project & org collaborators
+    p_ids = self.collaborators.ids
+    o_ids = self.organization.collaborators.ids
+    ids = (p_ids + o_ids).uniq
+    # exclude current user
+    c = ids.find_index(current_user.id)
+    ids.delete_at(c)
+    # return simple array of avatars & names
+    ids.map do |id| 
+      u = User.find(id)
+      { user_id: u.id, user_name: u.name, url: u.avatar }
+    end
+    u = User.find(1)
+    r = []
+    10.times do |i|
+      r << { user_id: u.id, user_name: u.name, url: u.avatar }
+    end
+    r
+  end
+
   private
 
   def set_defaults

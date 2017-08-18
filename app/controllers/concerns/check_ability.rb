@@ -4,15 +4,10 @@ module CheckAbility
   extend ActiveSupport::Concern
 
   def check_ability!
-    @ability = Ability.new(@user, roleable)
     action = action_name.to_sym
-    if [:index, :show].include? action
-      ability_check! :read, target_model
-    elsif [:update].include? action
-      ability_check! :update, target_model
-    elsif [:create, :destroy].include? action
-      ability_check! :create, target_model
-    end
+    return unless Ability::ALL_ACTIONS.include? action
+    @ability = Ability.new(@user, roleable)
+    ability_check! action, target_model
   end
 
   def ability_check! action, object_name = nil

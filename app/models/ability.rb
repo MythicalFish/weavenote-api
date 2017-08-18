@@ -11,34 +11,43 @@ class Ability
     'Material', 'Measurement', 'Organization', 'Project', 'Supplier', 'User', 'Undefined'
   ]
 
-  ALL_ACTIONS = [:create, :read, :update, :destroy]
+  ALL_ACTIONS = [:index, :show, :create, :update, :destroy]
 
   DEFAULT_ABILITIES = {
-    'None' => [],
-    'Guest' => [:read],
-    'Contributor' => [:read, :update],
+    'None' => [:index],
+    'Guest' => [:index, :show],
+    'Contributor' => [:index, :show, :update],
     'Manager' => ALL_ACTIONS,
     'Admin' => ALL_ACTIONS
   }
 
-  def base_abilities
-    MODELS.map { |m| [ m, DEFAULT_ABILITIES.dup ] }.to_h
-  end
-
   def abilities
-    a = base_abilities
+    
+    # Create an object which defines generic
+    # permissions for each model/role/action,
+    # based on the above constants:
+    a = MODELS.map { |m| [ m, DEFAULT_ABILITIES.dup ] }.to_h
+
+    # Deny everything if model is undefined:
     a['Undefined'] = grant_all_only []
+
+    # Some models are tied to the user, and
+    # have restrictions implemented elsewhere,
+    # so we permit actions on these models:
     a['User'] = grant_all ALL_ACTIONS
     a['Annotation'] = grant_all ALL_ACTIONS
     a['Comment'] = grant_all ALL_ACTIONS
-    a['Invite'] = grant_all [:read]
+    a['Invite'] = grant_all [:show]
     a['Organization'] = grant_all_only [:create]
+
+    # Only Admin can manage Organization:
     a['Organization']['Admin'] = ALL_ACTIONS
+
+    # Permit certain model actions for Contributor:
     a['Image']['Contributor'] = ALL_ACTIONS
-    a['Invite']['Contributor'] = [:read]
-    a['Role']['Contributor'] = [:read]
-    a['Invite']['Manager'] = [:read, :update]
-    a['Role']['Manager'] = [:read, :update]
+    a['Invite']['Contributor'] = [:show]
+    a['Role']['Contributor'] = [:show]
+    
     a
   end
 

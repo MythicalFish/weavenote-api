@@ -60,12 +60,15 @@ module AcceptInvitation
   end
 
   def assign_organization
+    # Invited user must have some kind of role for the organization
+    # Here we check this, and assign RoleType.none if not
+    # We also ensure the invited user is viewing this organization
     org = invited_organization
     user_org = @user.organizations.find_by_id(org.id)
     unless user_org
       org.roles.create!({
         user: @user,
-        role_type: RoleType.guest
+        role_type: RoleType.none 
       })
     end
     @user.update!( current_organization_id: org.id )

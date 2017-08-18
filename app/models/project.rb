@@ -61,12 +61,6 @@ class Project < ApplicationRecord
       u = User.find(id)
       { user_id: u.id, user_name: u.name, url: u.avatar }
     end
-    u = User.find(1)
-    r = []
-    10.times do |i|
-      r << { user_id: u.id, user_name: u.name, url: u.avatar }
-    end
-    r
   end
 
   private

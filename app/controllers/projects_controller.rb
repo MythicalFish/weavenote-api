@@ -58,7 +58,8 @@ class ProjectsController < ApplicationController
   end
 
   def check_project_ability!
-    #@ability = Ability.new(@user, @project)
+    # Same as in check_ability.rb, however @project
+    # has been set by now, so the result is different
     ability_check! action_name.to_sym
   end
 

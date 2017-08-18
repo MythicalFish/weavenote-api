@@ -22,7 +22,7 @@ class RolesController < ApplicationController
   private
 
   def roles
-    @invitable.roles.where(role_type_id:RoleType::PERMITTED_IDS)
+    @invitable.roles.permitted
   end
 
   def set_role

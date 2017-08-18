@@ -12,4 +12,7 @@ class Role < ApplicationRecord
     self.new role_type: RoleType.none 
   end
   
+  scope :permitted, -> { where(role_type_id: RoleType::PERMITTED_IDS) }
+  scope :exposed, -> { where(role_type_id: RoleType::EXPOSED_IDS) }
+
 end

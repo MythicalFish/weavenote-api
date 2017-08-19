@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :annotations, except: [:index, :show]
   
   resources :projects do
+    get '/export', to: 'projects#export_to_pdf'
+    get '/material_cost', to: 'projects#material_cost'
     get '/material_cost', to: 'projects#material_cost'
     get '/measurements', to: 'measurements#index'
     patch '/measurements', to: 'measurements#update'

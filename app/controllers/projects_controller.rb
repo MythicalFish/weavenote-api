@@ -43,7 +43,18 @@ class ProjectsController < ApplicationController
     render json: @project.material_cost
   end
 
+  def export_to_pdf
+    spec_sheet = SpecSheet.new(@project, pdf_name)
+    pdf = spec_sheet.create_pdf
+    send_file pdf, :type => 'text/html', :disposition => 'attachment'
+  end
+
   private
+
+  def pdf_name
+    t = Time.now.strftime('%Y-%m-%d_%I-%M')
+    "#{@project.name.split(' ').join('-')}__#{t}"
+  end
 
   def project_list
     archived = params[:archived] == "true" ? true : false

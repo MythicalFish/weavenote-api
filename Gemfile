@@ -57,6 +57,7 @@ gem 'fog'
 gem 'figaro'
 gem 'active_hash'
 gem 'letter_avatar'
+gem 'pandoc-ruby'
 group :production do
   gem 'newrelic_rpm'
 end

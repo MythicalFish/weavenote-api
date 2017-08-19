@@ -12,8 +12,8 @@ class SpecSheet
       'geometry:top=0.8in,right=0.8in,bottom=1.2in,left=0.8in,footskip=0.6in',
       'documentclass:scrartcl',
       'fontsize:17pt',
-      "mainfont:'Literata'",
-      "sansfont:'Bebas Neue'",
+      "mainfont:'Source Sans Pro'",
+      "sansfont:'Source Sans Pro'",
       "colorlinks:'true'",
 
       "title-meta:'#{@project.name}'",
@@ -31,7 +31,7 @@ class SpecSheet
 
   def create_pdf
 
-    filepath = "#{Rails.root}/tmp/#{@filename}.pdf"
+    filepath = "#{Rails.root}/tmp/#{@filename}"
 
     PandocRuby.convert(
       self.markdown,

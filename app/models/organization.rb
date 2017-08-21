@@ -10,4 +10,8 @@ class Organization < ApplicationRecord
   has_many :suppliers
   has_many :materials
 
+  def owner
+    roles.where(role_type_id: RoleType.admin.id).first.user
+  end
+
 end

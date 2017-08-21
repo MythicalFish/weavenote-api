@@ -1,0 +1,35 @@
+<header class="bb2 pb2">
+  <table>
+    <colgroup>
+      <col width="50%">
+      <col width="50%">
+    </colgroup>
+    <tr>
+      <td>
+        <h1><%= @title %></h1>
+      </td>
+      <td>
+        <table>
+          <tr>
+            <td><b>Name</b></td>
+            <td><%= @project.name %></td>
+            <td><b>Collection</b></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><b>Reference no.</b></td>
+            <td><%= @project.identifier %></td>
+            <td><b>Contact</b></td>
+            <td><%= @project.organization.owner.email %></td>
+          </tr>
+          <tr>
+            <td><b>Color code</b></td>
+            <td></td>
+            <td><b>Organization</b></td>
+            <td><%= @project.organization.name %></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</header>

@@ -15,7 +15,7 @@ class SpecSheetController < ApplicationController
   private
 
   def pdf_name
-    t = Time.now.strftime('%Y-%m-%d_%I-%M')
+    t = Time.now.strftime('%Y-%m-%d_%H-%M')
     "#{@project.name.split(' ').join('-')}__#{t}.pdf"
   end
 

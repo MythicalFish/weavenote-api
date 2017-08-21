@@ -1,6 +1,20 @@
-<table>
-  <tr>
-    <td><img src="<%= @project.images.first.file.url(:large) %>" /></td>
-    <td>blah blah</td>
-  </tr>
-</table>
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+  <%= render partial: 'pdfkit/header', locals: { :@title => 'Materials', :@project => @project } %>
+  <div class="pt2">
+    <table>
+      <colgroup>
+        <col width="50%">
+        <col width="50%">
+      </colgroup>
+      <tr>
+        <td><img id="main-img" src="<%= @project.images.first.file.url(:large) %>" /></td>
+        <td>blah blah</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

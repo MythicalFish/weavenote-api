@@ -1,13 +1,48 @@
+$b1: 1px solid #CCC;
+$b2: 2px solid #444;
+$p1: 25px;
+$p2: 50px;
+body {
+  font-size: 50px;
+  font-family: Arial, sans-serif;
+}
 header {
   
 }
 table {
   width: 100%;
-  border: 1px solid #666 ;
+  margin: 0;
+  border: 0;
 } 
-.pb1 {
-  padding-bottom: 10px;
+
+// Specifics
+
+#main-img {
+  width: 100%;
 }
-.bb1 {
-  border-bottom: 2px solid #444;
-}
+
+// Utils
+
+.p1 { padding: $p1; }
+.pt1 { padding-top: $p1; }
+.pr1 { padding-right: $p1; }
+.pb1 { padding-bottom: $p1; }
+.pl1 { padding-left: $p1; }
+
+.p2 { padding: $p2; }
+.pt2 { padding-top: $p2; }
+.pr2 { padding-right: $p2; }
+.pb2 { padding-bottom: $p2; }
+.pl2 { padding-left: $p2; }
+
+.b1 { border: $b1; }
+.bt1 { border-top: $b1; }
+.br1 { border-right: $b1; }
+.bb1 { border-bottom: $b1; }
+.bl1 { border-left: $b1; }
+
+.b2 { border: $b2; }
+.bt2 { border-top: $b2; }
+.br2 { border-right: $b2; }
+.bb2 { border-bottom: $b2; }
+.bl2 { border-left: $b2; }

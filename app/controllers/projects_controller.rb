@@ -43,23 +43,7 @@ class ProjectsController < ApplicationController
     render json: @project.material_cost
   end
 
-  def export_to_pdf
-    spec_sheet = SpecSheet.new(@project, pdf_name)
-    path = spec_sheet.create_pdf
-    file = File.open(path)
-    storage = Fog::Storage.new( Rails.configuration.fog )
-    headers = { "Content-Type" => 'application/pdf', "x-amz-acl" => "public-read" }
-    s = storage.put_object(ENV['WEAVENOTE__AWS_S3_BUCKET'], pdf_name, file, headers )
-    url = "https://#{s.host}#{s.path}"
-    render json: { url: url }
-  end
-
   private
-
-  def pdf_name
-    t = Time.now.strftime('%Y-%m-%d_%I-%M')
-    "#{@project.name.split(' ').join('-')}__#{t}.pdf"
-  end
 
   def project_list
     archived = params[:archived] == "true" ? true : false

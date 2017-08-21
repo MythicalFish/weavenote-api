@@ -11,6 +11,7 @@ require "action_view/railtie"
 require "action_cable/engine"
 # require "sprockets/railtie"
 require "rails/test_unit/railtie"
+require 'pdfkit'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -28,5 +29,9 @@ module WeavenoteApi
     config.api_only = true
     config.autoload_paths << "#{Rails.root}/lib"
     config.enable_dependency_loading = true
+
+    # PDF Kit
+    config.middleware.use PDFKit::Middleware
+
   end
 end

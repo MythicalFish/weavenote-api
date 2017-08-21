@@ -1,50 +1,27 @@
 class SpecSheet
 
-  require 'pandoc-ruby'
-
-  def initialize(project, filename)
-    @project = project
+  def initialize(filename, project)
     @filename = filename
+    @project = project
   end
 
   def config
-    [
-      'geometry:landscape,top=0.8in,right=0.8in,bottom=1.2in,left=0.8in,footskip=0.6in',
-      'documentclass:scrartcl',
-      'fontsize:17pt',
-      "mainfont:'Source Sans Pro'",
-      "sansfont:'Source Sans Pro'",
-      "colorlinks:'true'",
-      "title-meta:'#{@project.name}'",
-      "title:'#{@project.name}'",
-      "author-meta:'Weavenote'"
-
-    ].join(' -V ')
-  end
-
-  def markdown
-    c = ''
-    c << "# #{@project.name}\n\n"
-    c
+    {
+      orientation: 'Landscape',
+    }
   end
 
   def create_pdf
-
     filepath = "#{Rails.root}/tmp/#{@filename}"
+    kit = PDFKit.new(html, self.config)
+    kit.stylesheets << "#{Rails.root}/lib/pdfkit/style.css"
+    kit.to_file(filepath)
+  end
 
-    PandocRuby.convert(
-      self.markdown,
-      :s, {
-        :V => self.config,
-        :from => :markdown,
-        :o => filepath
-      },
-      'template' => Rails.root.join('lib','pandoc','template.tex'),
-      'latex-engine' => 'xelatex'
-    )
+  private
 
-    return filepath
-
+  def html
+    ActionController::Base.new.render_to_string("pdfkit/template.html.erb", locals: { :@project => @project})
   end
 
 end

@@ -27,3 +27,7 @@ config/newrelic.yml
 
 # Generated avatars
 /public/system/letter_avatars
+
+# PDF Kit Sass 
+/lib/pdfkit/node_modules
+/lib/pdfkit/.sass-cache

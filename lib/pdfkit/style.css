@@ -69,3 +69,6 @@ table {
 
 .bl2 {
   border-left: 2px solid #444; }
+
+.break {
+  page-break-before: always !important; }

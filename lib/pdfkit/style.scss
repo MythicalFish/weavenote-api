@@ -46,3 +46,5 @@ table {
 .br2 { border-right: $b2; }
 .bb2 { border-bottom: $b2; }
 .bl2 { border-left: $b2; }
+
+.break { page-break-before:always !important; }

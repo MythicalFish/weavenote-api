@@ -1,14 +1,16 @@
 $b1: 1px solid #ccc;
 $b2: 2px solid #444;
-$p1: 25px;
-$p2: 50px;
+$p1: 20px;
+$p2: 40px;
 body {
   font-size: 25px;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-}
-header {
+  * {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+  }
 }
 table {
   width: 100%;
@@ -92,8 +94,17 @@ table {
   page-break-before: always !important;
 }
 .page {
-  height: 419mm;
+  height: 418mm;
   width: 596mm;
+  padding: $p2;
+  position: relative;
+  .watermark {
+    position: absolute;
+    bottom: $p2;
+    left: $p2;
+    opacity: 0.3;
+    font-size: 1.5rem;
+  }
 }
 .bg1 {
   background: #eee;

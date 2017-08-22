@@ -1,5 +1,5 @@
 body {
-  font-size: 50px;
+  font-size: 20px;
   font-family: Arial, sans-serif; }
 
 table {
@@ -41,19 +41,19 @@ table {
   padding-left: 50px; }
 
 .b1 {
-  border: 1px solid #CCC; }
+  border: 1px solid #ccc; }
 
 .bt1 {
-  border-top: 1px solid #CCC; }
+  border-top: 1px solid #ccc; }
 
 .br1 {
-  border-right: 1px solid #CCC; }
+  border-right: 1px solid #ccc; }
 
 .bb1 {
-  border-bottom: 1px solid #CCC; }
+  border-bottom: 1px solid #ccc; }
 
 .bl1 {
-  border-left: 1px solid #CCC; }
+  border-left: 1px solid #ccc; }
 
 .b2 {
   border: 2px solid #444; }

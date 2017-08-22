@@ -5,24 +5,38 @@
   <title><%= @project.name %></title>
 </head>
 <body>
-  <div class="page bg1">
-    <%= render partial: 'pdfkit/header', locals: { :@title => 'Materials', :@project => @project } %>
-    <div class="pt2">
-      <table>
-        <colgroup>
-          <col width="50%">
-          <col width="50%">
-        </colgroup>
-        <tr>
-          <td><img id="main-img" src="<%= @project.images.first.file.url(:large) %>" /></td>
-          <td>material list</td>
+  <div class="page">
+    <div class="page-insides">
+      <table class="main">
+        <%= render partial: 'pdfkit/header', locals: { :@title => 'Materials', :@project => @project } %>
+        <tr class="body">
+          <td class="image">
+            <img src="<%= @project.images.first.file.url(:large) %>" />
+          </td>
+          <td class="content">
+            <table>
+              <tr>
+                <td>
+                  thing
+                </td>
+                <td>
+                  val
+                </td>
+              </tr>
+            </table>
+          </td>
         </tr>
       </table>
     </div>
     <div class="watermark">weavenote</div>
   </div>
   <div class="page bg2">
-    test
+    <header>
+      head
+    </header>
+    <div class="body">
+      <div>body</div>
+    </div>
   </div>
 </body>
 </html>

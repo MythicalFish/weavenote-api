@@ -1,0 +1,68 @@
+$b1: 1px solid #ccc;
+$b2: 2px solid #444;
+$p1: 20px;
+$p2: 40px;
+$dark1: rgba(0, 105, 255, 0.20);
+.p1 {
+  padding: $p1;
+}
+.pt1 {
+  padding-top: $p1;
+}
+.pr1 {
+  padding-right: $p1;
+}
+.pb1 {
+  padding-bottom: $p1;
+}
+.pl1 {
+  padding-left: $p1;
+}
+
+.p2 {
+  padding: $p2;
+}
+.pt2 {
+  padding-top: $p2;
+}
+.pr2 {
+  padding-right: $p2;
+}
+.pb2 {
+  padding-bottom: $p2;
+}
+.pl2 {
+  padding-left: $p2;
+}
+
+.b1 {
+  border: $b1;
+}
+.bt1 {
+  border-top: $b1;
+}
+.br1 {
+  border-right: $b1;
+}
+.bb1 {
+  border-bottom: $b1;
+}
+.bl1 {
+  border-left: $b1;
+}
+
+.b2 {
+  border: $b2;
+}
+.bt2 {
+  border-top: $b2;
+}
+.br2 {
+  border-right: $b2;
+}
+.bb2 {
+  border-bottom: $b2;
+}
+.bl2 {
+  border-left: $b2;
+}

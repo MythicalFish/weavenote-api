@@ -7,7 +7,7 @@ class SpecSheetController < ApplicationController
     file = spec_sheet.create_pdf
     storage = Fog::Storage.new( Rails.configuration.fog )
     headers = { "Content-Type" => 'application/pdf', "x-amz-acl" => "public-read" }
-    s = storage.put_object(ENV['WEAVENOTE__AWS_S3_BUCKET'], pdf_name, file, headers )
+    s = storage.put_object(ENV['WEAVENOTE__AWS_S3_BUCKET'], "#{pdf_path}#{pdf_name}", file, headers )
     url = "https://#{s.host}#{s.path}"
     render json: { url: url }
   end
@@ -17,6 +17,10 @@ class SpecSheetController < ApplicationController
   def pdf_name
     t = Time.now.strftime('%Y-%m-%d_%H-%M')
     "#{@project.name.split(' ').join('-')}__#{t}.pdf"
+  end
+
+  def pdf_path
+    'weavenote/exports/'
   end
 
   def set_project

@@ -11,7 +11,8 @@
         <%= render partial: 'pdfkit/header', locals: { :@title => 'Materials', :@project => @project } %>
         <tr class="body">
           <td class="image">
-            <img src="<%= @project.images.first.file.url(:large) %>" />
+            <div class="img" style="background-image:url('<%= @project.images.first.file.url(:large) %>');"></div>
+            <!--<img src="<%= @project.images.first.file.url(:large) %>" />-->
           </td>
           <td class="content">
             <table>

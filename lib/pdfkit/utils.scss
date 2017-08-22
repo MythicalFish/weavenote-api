@@ -1,10 +1,11 @@
-$b1: 2px solid #ccc;
-$b2: 4px solid #999;
 $p1: 10px;
 $p2: 20px;
 $p3: 40px;
-$dark1: rgba(0, 105, 255, 0.20);
-.p1 {
+$dark1: rgba(0, 0, 0, 0.10);
+$dark2: rgba(0, 0, 0, 0.20);
+$b1: 2px solid #EEE;
+$b2: 4px solid #CCC;
+.p1 {  
   padding: $p1;
 }
 .pt1 {

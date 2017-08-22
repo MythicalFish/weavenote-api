@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf8" />
+  <title><%= @project.name %></title>
+</head>
+<body>
+  <% if @project.components.length > 0 %>
+    <% @project.components.each_slice(3) do |components| %>
+      <%= render({
+        partial: 'spec_sheet/page', 
+        locals: { title: 'Materials', project: @project, data: components, view: 'components' }
+      }) %>
+    <% end %>
+  <% end %>
+</body>
+</html>

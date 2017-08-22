@@ -1,0 +1,13 @@
+<div class="page">
+  <table class="main">
+    <%= render partial: 'spec_sheet/header', locals: { title: title, project: project } %>
+    <tr class="body">
+      <td class="image">
+        <div class="img" style="background-image:url('<%= project.images.first.file.url(:large) %>');"></div>
+      </td>
+      <td class="content">
+        <%= render partial: "spec_sheet/#{view}", locals: { data: data } %>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -24,7 +24,7 @@ class SpecSheet
       margin_right: 0,
       margin_bottom: 0,
       margin_left: 0,
-      disable_smart_shrinking: Rails.env.development?,
+      #disable_smart_shrinking: Rails.env.development?,
       print_media_type: true,
       dpi: 300
     }
@@ -38,9 +38,9 @@ class SpecSheet
   end
 
   private
-
+  
   def html
-    ActionController::Base.new.render_to_string("pdfkit/template.html.erb", locals: { :@project => @project})
+    ActionController::Base.new.render_to_string("spec_sheet/index.html.erb", locals: { :@project => @project })
   end
 
 end

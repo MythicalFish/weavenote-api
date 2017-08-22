@@ -37,13 +37,17 @@ Rails.application.routes.draw do
   patch '/user', to: 'users#update'
   get '/reset_password', to: 'users#reset_password'
   get '/stats', to: 'organizations#stats'
-
+  
   # Static resources:
-
+  
   get '/material_types', to: 'static_resources#material_types'
   get '/colors', to: 'static_resources#colors'
   get '/currencies', to: 'static_resources#currencies'
   get '/care_labels', to: 'static_resources#care_labels'
   get '/role_types', to: 'static_resources#role_types'
+  
+  # PDF test page:
+  
+  get '/test', to: 'spec_sheet#test'
 
 end

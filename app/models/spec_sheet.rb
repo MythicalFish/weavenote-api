@@ -1,9 +1,10 @@
-class PDFKitHeadless(PDFKit)
-  def command(self, path=None)
-    if Rails.env.development?
-      return ['xvfb-run', '--'] + super().command(path)
+class PDFKitHeadless < PDFKit
+  def command path = nil
+    if Rails.env.production?
+      # prefix with xvfb in production to get it working
+      return 'xvfb-run ' + super
     else
-      return super().command(path)
+      return super
     end
   end
 end
@@ -23,7 +24,7 @@ class SpecSheet
 
   def create_pdf
     filepath = "#{Rails.root}/tmp/#{@filename}"
-    kit = PDFKitHeadless(PDFKit).new(html, self.config)
+    kit = PDFKitHeadless.new(html, self.config)
     kit.stylesheets << "#{Rails.root}/lib/pdfkit/style.css"
     kit.to_file(filepath)
   end

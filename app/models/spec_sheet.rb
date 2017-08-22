@@ -18,7 +18,15 @@ class SpecSheet
 
   def config
     {
+      page_size: 'A4',
       orientation: 'Landscape',
+      margin_top: 0,
+      margin_right: 0,
+      margin_bottom: 0,
+      margin_left: 0,
+      disable_smart_shrinking: true,
+      print_media_type: true,
+      dpi: 300
     }
   end
 

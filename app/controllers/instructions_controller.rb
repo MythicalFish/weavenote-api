@@ -4,8 +4,7 @@ class InstructionsController < ApplicationController
   before_action :set_instruction, only: [:show, :update, :destroy]
 
   def index
-    @instructions = @project.instructions.order('id DESC')
-    render json: @instructions
+    render json: list
   end
 
   def show
@@ -15,20 +14,24 @@ class InstructionsController < ApplicationController
   def create
     @instruction = @project.instructions.new(instruction_params)
     @instruction.save!
-    render json: @instruction, status: :created
+    render_success "Instruction created", @instruction
   end
 
   def update
     @instruction.update!(instruction_params)
-    render json: @instruction
+    render_success "Instruction updated", @instruction
   end
-
+  
   def destroy
     @instruction.destroy!
-    index
+    render_success "Instruction deleted", list
   end
 
   private
+
+  def list
+    @project.instructions.order('id DESC')
+  end
 
   def set_project
     @project = @user.projects.find(params[:project_id])

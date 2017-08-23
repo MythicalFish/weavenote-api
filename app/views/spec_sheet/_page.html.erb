@@ -6,12 +6,10 @@
       </td>
     </tr>
     <tr class="body">
-      <td class="image pt3">
-        <div class="img" style="background-image:url('<%= project.images.first.file.url(:large) %>');"></div>
-      </td>
-      <td class="content">
-        <%= render partial: "spec_sheet/#{view}", locals: { data: data } %>
-      </td>
+      <%= render partial: "spec_sheet/#{view}", locals: { data: data, project: project } %>
     </tr>
   </table>
+  <div class="page-number">
+    <%= "Page #{pagenumber}" %>
+  </div>
 </div>

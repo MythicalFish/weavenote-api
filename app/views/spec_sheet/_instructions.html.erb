@@ -1,0 +1,8 @@
+<% instructions = data %>
+<td colspan="2" class="vtop pt3">
+  <table>
+    <% instructions.each_slice(2) do |slice| %>
+      <%= render partial: "spec_sheet/instruction", locals: { slice: slice } %>
+    <% end %>
+  </table>
+</td>

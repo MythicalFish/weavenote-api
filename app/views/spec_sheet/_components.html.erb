@@ -1,6 +1,11 @@
 <% components = data %>
-<table class="rows">
-  <% components.each do |component| %>
-    <%= render partial: "spec_sheet/component", locals: { component: component } %>
-  <% end %>
-</table>
+<td class="image pt3">
+  <div class="img" style="background-image:url('<%= project.images.first.file.url(:large) %>');"></div>
+</td>
+<td class="content">
+  <table class="rows">
+    <% components.each do |component| %>
+      <%= render partial: "spec_sheet/component", locals: { component: component } %>
+    <% end %>
+  </table>
+</td>

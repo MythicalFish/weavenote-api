@@ -1,5 +1,7 @@
 @import 'utils';
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin: 0;
 }
 body {
@@ -78,7 +80,7 @@ table {
     bottom: $p3 * 2;
     right: $p3 * 2;
     opacity: 0.6;
-    font-size: 2rem;
+    font-size: 1.5rem;
     z-index: 2;
   }
 }
@@ -105,7 +107,7 @@ table.rows {
         table.data {
           tr:last-child {
             td {
-              padding-bottom: 0!important;
+              padding-bottom: 0 !important;
             }
           }
         }
@@ -117,7 +119,7 @@ table.rows {
         table.data {
           tr:first-child {
             td {
-              padding-top: 0!important;
+              padding-top: 0 !important;
             }
           }
         }
@@ -131,12 +133,12 @@ table.measurements {
   border-spacing: 8px 0;
   thead {
     td:first-child {
-      color: rgba(0,0,0,0.5);
+      color: rgba(0, 0, 0, 0.5);
     }
   }
   tr {
     td {
-      border: 2px solid #CCC;
+      border: 2px solid #ccc;
       padding: $p2;
     }
     &:not(:last-child) {

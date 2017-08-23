@@ -3,9 +3,9 @@ $p2: 20px;
 $p3: 40px;
 $dark1: rgba(0, 0, 0, 0.10);
 $dark2: rgba(0, 0, 0, 0.20);
-$b1: 2px solid #EEE;
-$b2: 4px solid #CCC;
-.p1 {  
+$b1: 2px solid #eee;
+$b2: 4px solid #ccc;
+.p1 {
   padding: $p1;
 }
 .pt1 {
@@ -83,4 +83,7 @@ $b2: 4px solid #CCC;
 }
 .bl2 {
   border-left: $b2;
+}
+.vtop {
+  vertical-align: top !important;
 }

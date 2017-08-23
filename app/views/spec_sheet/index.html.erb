@@ -1,3 +1,4 @@
+<% pagenumber = 1 %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,19 +6,28 @@
   <title><%= @project.name %></title>
 </head>
 <body>
-  <% if @project.components.length > 0 %>
+  <% if @project.components.any? %>
     <% @project.components.each_slice(3) do |components| %>
       <%= render({
         partial: 'spec_sheet/page', 
-        locals: { title: 'Materials', project: @project, data: components, view: 'components' }
+        locals: { title: 'Materials', project: @project, data: components, view: 'components', pagenumber: pagenumber }
       }) %>
+      <% pagenumber += 1 %>
     <% end %>
   <% end %>
-  <% if @project.measurement_values.length > 0 %>
+  <% if @project.measurement_values.any? %>
     <%= render({
       partial: 'spec_sheet/page', 
-      locals: { title: 'Measurements', project: @project, data: @project, view: 'measurements' }
+      locals: { title: 'Measurements', project: @project, data: @project, view: 'measurements', pagenumber: pagenumber }
     }) %>
+    <% pagenumber += 1 %>
+  <% end %>
+  <% if @project.instructions.any? %>
+    <%= render({
+      partial: 'spec_sheet/page', 
+      locals: { title: 'Instructions', project: @project, data: @project.instructions, view: 'instructions', pagenumber: pagenumber }
+    }) %>
+    <% pagenumber += 1 %>
   <% end %>
 </body>
 </html>

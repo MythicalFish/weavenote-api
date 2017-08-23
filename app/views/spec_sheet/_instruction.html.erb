@@ -5,6 +5,9 @@
       <div class="pt2 pb2">
         <%= instruction.description %>
       </div>
+      <% instruction.images.each do |image| %>
+        <img src="<%= image.file.url(:medium) %>" />
+      <% end %>
     </td>
   <% end %>
   <% if slice.size < 2 %>

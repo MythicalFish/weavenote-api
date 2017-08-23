@@ -25,6 +25,7 @@ class SpecSheet
       margin_bottom: 0,
       margin_left: 0,
       print_media_type: true,
+      disable_smart_shrinking: true,
       dpi: 300
     }
   end

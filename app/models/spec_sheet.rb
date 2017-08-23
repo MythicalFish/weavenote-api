@@ -25,7 +25,7 @@ class SpecSheet
       margin_bottom: 0,
       margin_left: 0,
       print_media_type: true,
-      disable_smart_shrinking: true,
+      disable_smart_shrinking: ENV['DISABLE_PDF_SHRINK'] ? true : false,
       dpi: 300
     }
   end

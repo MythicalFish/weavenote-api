@@ -13,5 +13,11 @@
       }) %>
     <% end %>
   <% end %>
+  <% if @project.measurement_values.length > 0 %>
+    <%= render({
+      partial: 'spec_sheet/page', 
+      locals: { title: 'Measurements', project: @project, data: @project, view: 'measurements' }
+    }) %>
+  <% end %>
 </body>
 </html>

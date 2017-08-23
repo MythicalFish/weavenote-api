@@ -73,6 +73,9 @@
 .bl2 {
   border-left: 4px solid #CCC; }
 
+h1, h2, h3 {
+  margin: 0; }
+
 body {
   color: #444;
   font-size: 25px;
@@ -98,10 +101,14 @@ table {
   overflow: hidden; }
   .page table.main {
     height: 100%; }
-    .page table.main tr.header {
-      height: auto; }
-      .page table.main tr.header table tr td {
-        padding: 20px; }
+    .page table.main td.header .app-title {
+      opacity: 0.5;
+      font-size: 2rem;
+      padding-bottom: 10px; }
+    .page table.main td.header .page-title {
+      text-transform: uppercase; }
+    .page table.main td.header table.project-info tr td {
+      padding: 10px; }
     .page table.main tr.body {
       height: 100%; }
       .page table.main tr.body > td {
@@ -120,12 +127,11 @@ table {
         padding-top: 40px;
         padding-left: 40px;
         vertical-align: top; }
-  .page:after {
-    content: 'weavenote';
+  .page .page-number {
     display: block;
     position: absolute;
     bottom: 80px;
-    left: 80px;
+    right: 80px;
     opacity: 0.6;
     font-size: 2rem;
     z-index: 2; }
@@ -144,3 +150,15 @@ table.rows > tbody > tr:not(:first-child) > td {
   padding-top: 40px; }
   table.rows > tbody > tr:not(:first-child) > td table.data tr:first-child td {
     padding-top: 0 !important; }
+
+table.measurements {
+  width: auto;
+  border-collapse: separate;
+  border-spacing: 8px 0; }
+  table.measurements thead td:first-child {
+    color: rgba(0, 0, 0, 0.5); }
+  table.measurements tr td {
+    border: 2px solid #CCC;
+    padding: 20px; }
+  table.measurements tr:not(:last-child) td {
+    border-bottom: none; }

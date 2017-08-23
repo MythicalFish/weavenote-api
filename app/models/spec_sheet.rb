@@ -24,7 +24,6 @@ class SpecSheet
       margin_right: 0,
       margin_bottom: 0,
       margin_left: 0,
-      #disable_smart_shrinking: Rails.env.development?,
       print_media_type: true,
       dpi: 300
     }

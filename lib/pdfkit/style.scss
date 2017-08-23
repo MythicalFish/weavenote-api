@@ -1,4 +1,7 @@
 @import 'utils';
+h1, h2, h3 {
+  margin: 0;
+}
 body {
   color: #444;
   font-size: 25px;
@@ -26,12 +29,19 @@ table {
   overflow: hidden;
   table.main {
     height: 100%;
-    tr.header {
-      height: auto;
-      table {
+    td.header {
+      .app-title {
+        opacity: 0.5;
+        font-size: 2rem;
+        padding-bottom: $p1;
+      }
+      .page-title {
+        text-transform: uppercase;
+      }
+      table.project-info {
         tr {
           td {
-            padding: $p2;
+            padding: $p1;
           }
         }
       }
@@ -62,12 +72,11 @@ table {
       }
     }
   }
-  &:after {
-    content: 'weavenote';
+  .page-number {
     display: block;
     position: absolute;
     bottom: $p3 * 2;
-    left: $p3 * 2;
+    right: $p3 * 2;
     opacity: 0.6;
     font-size: 2rem;
     z-index: 2;
@@ -112,6 +121,27 @@ table.rows {
             }
           }
         }
+      }
+    }
+  }
+}
+table.measurements {
+  width: auto;
+  border-collapse: separate;
+  border-spacing: 8px 0;
+  thead {
+    td:first-child {
+      color: rgba(0,0,0,0.5);
+    }
+  }
+  tr {
+    td {
+      border: 2px solid #CCC;
+      padding: $p2;
+    }
+    &:not(:last-child) {
+      td {
+        border-bottom: none;
       }
     }
   }

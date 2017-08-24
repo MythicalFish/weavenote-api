@@ -14,7 +14,7 @@ class MaterialsController < ApplicationController
     else
       set_material
     end
-    render json: @material
+    render json: serialized(@material)
   end
 
   def create

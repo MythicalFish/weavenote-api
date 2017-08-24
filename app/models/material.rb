@@ -7,6 +7,7 @@ class Material < ApplicationRecord
   has_and_belongs_to_many :care_labels
   belongs_to :supplier, optional: true
   accepts_nested_attributes_for :supplier
+  has_many :images, as: :imageable
 
   alias_attribute :type, :material_type
 

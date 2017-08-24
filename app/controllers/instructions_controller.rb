@@ -14,12 +14,12 @@ class InstructionsController < ApplicationController
   def create
     @instruction = @project.instructions.new(instruction_params)
     @instruction.save!
-    render_success "Instruction created", @instruction
+    render_success "Instruction created", serialized(@instruction)
   end
 
   def update
     @instruction.update!(instruction_params)
-    render_success "Instruction updated", @instruction
+    render_success "Instruction updated", serialized(list)
   end
   
   def destroy

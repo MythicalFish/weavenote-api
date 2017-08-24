@@ -4,7 +4,7 @@ class ComponentsController < ApplicationController
   before_action :set_component, only: [:show, :update, :destroy]
 
   def index
-    render json: @components
+    render json: list
   end
 
   def show
@@ -14,24 +14,27 @@ class ComponentsController < ApplicationController
   def create
     @component = @project.components.new(component_params)
     @component.save!
-    render_success "Material added", serialized(@component)
+    render_success "Material added", serialized(list)
   end
 
   def update
     @component.update!(component_params)
-    render_success "Material updated", serialized(@component)
+    render_success "Material updated", serialized(list)
   end
 
   def destroy
     @component.destroy!
-    render_success "Material deleted", @components
+    render_success "Material deleted", list
   end
 
   private
 
+  def list
+    @project.components.order('id DESC')
+  end
+
   def set_project
     @project = @user.projects.find(params[:project_id])
-    @components = @project.components.order('id DESC')
   end
 
   def set_component

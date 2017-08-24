@@ -13,6 +13,7 @@ class Image < ApplicationRecord
     :fog_host => "https://s3-#{ENV['WEAVENOTE__AWS_REGION']}.amazonaws.com/#{ENV['WEAVENOTE__AWS_S3_BUCKET']}",
     :styles => {
       :tiny =>     { :format => 'jpg', :time => 10, :geometry => "100x100#" },
+      :small =>   { :format => 'jpg', :time => 10, :geometry => "400x400>"  },
       :medium =>   { :format => 'jpg', :time => 10, :geometry => "800x800>"  },
       :large =>    { :format => 'jpg', :time => 10, :geometry => "1200x1200>"  }
     },

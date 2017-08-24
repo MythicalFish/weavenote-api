@@ -23,11 +23,13 @@
     <% pagenumber += 1 %>
   <% end %>
   <% if @project.instructions.any? %>
-    <%= render({
-      partial: 'spec_sheet/page', 
-      locals: { title: 'Instructions', project: @project, data: @project.instructions, view: 'instructions', pagenumber: pagenumber }
-    }) %>
-    <% pagenumber += 1 %>
+    <% @project.instructions.each_slice(4) do |instructions| %>
+      <%= render({
+        partial: 'spec_sheet/page', 
+        locals: { title: 'Instructions', project: @project, data: instructions, view: 'instructions', pagenumber: pagenumber }
+      }) %>
+      <% pagenumber += 1 %>
+    <% end %>
   <% end %>
 </body>
 </html>

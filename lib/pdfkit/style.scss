@@ -53,20 +53,6 @@ table {
       > td {
         width: 50%;
       }
-      td.image {
-        .img {
-          width: 100%;
-          height: 100%;
-          background-size: contain;
-          background-position: center top;
-          background-repeat: no-repeat;
-        }
-        img {
-          height: 100%;
-          max-height: 100%;
-          width: auto;
-        }
-      }
       td.content {
         padding-top: $p3;
         padding-left: $p3;
@@ -147,4 +133,54 @@ table.measurements {
       }
     }
   }
+}
+table.instructions {
+  width: 100%;
+  height: 100%;
+  > tbody {
+    > tr {
+      &:not(:last-child) {
+        > td {
+          padding-bottom: $p3;
+        }
+      }
+      > td {
+        padding-top: $p3;
+        vertical-align: top;
+        table.instruction {
+          height: 100%;
+          width: 100%;
+          > tbody {
+            tr {
+              td.instruction-text {
+                vertical-align: top;
+              }
+              &.instruction-images {
+                height: 100%;
+                td:not(:last-child) {
+                  padding-right: $p2;
+                }
+              }
+            }
+          }
+        }
+        &:first-child {
+          padding-right: $p3;
+        }
+        &:last-child {
+          padding-left: $p3;
+        }
+      }
+    }
+  }
+}
+.img {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+.img-left {
+  background-position: left top;
 }

@@ -1,8 +1,21 @@
 <% instructions = data %>
 <td colspan="2" class="vtop pt3">
-  <table>
+  <table class="instructions">
+    <colgroup>
+      <col width="50%">
+      <col width="50%">
+    </colgroup>
     <% instructions.each_slice(2) do |slice| %>
-      <%= render partial: "spec_sheet/instruction", locals: { slice: slice } %>
+      <tr>
+        <% slice.each do |instruction| %>
+          <td>
+            <%= render partial: "spec_sheet/instruction", locals: { instruction: instruction } %>
+          </td>
+        <% end %>
+        <% if slice.size < 2 %>
+          <td></td>
+        <% end %>
+      </tr>
     <% end %>
   </table>
 </td>

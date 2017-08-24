@@ -14,7 +14,7 @@ class InstructionsController < ApplicationController
   def create
     @instruction = @project.instructions.new(instruction_params)
     @instruction.save!
-    render_success "Instruction created", serialized(@instruction)
+    render_success "Instruction created", serialized(list)
   end
 
   def update
@@ -24,7 +24,7 @@ class InstructionsController < ApplicationController
   
   def destroy
     @instruction.destroy!
-    render_success "Instruction deleted", list
+    render_success "Instruction deleted", serialized(list)
   end
 
   private

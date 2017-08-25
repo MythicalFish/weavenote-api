@@ -1,13 +1,14 @@
+<% material = component.material %>
 <tr>
   <td>
     <table class="data">
       <tr>
         <td><b>Name</b></td>
-        <td><%= component.material.name %></td>
+        <td><%= material.name %></td>
       </tr>
       <tr>
         <td><b>Type</b></td>
-        <td><%= component.material.type.name %></td>
+        <td><%= material.type.name %></td>
       </tr>
       <tr>
         <td><b>Quantity</b></td>
@@ -15,19 +16,21 @@
       </tr>
       <tr>
         <td><b>Supplier</b></td>
-        <td><%= component.material.supplier.name %></td>
+        <td><%= material.supplier.name %></td>
       </tr>
       <tr>
         <td><b>Reference no.</b></td>
-        <td><%= component.material.identifier %></td>
+        <td><%= material.identifier %></td>
       </tr>
       <tr>
         <td><b>Color</b></td>
-        <td><%= component.material.color.name %></td>
+        <td><%= material.color.name %></td>
       </tr>
     </table>
   </td>
-  <td class="p1">
-    img
+  <td class="material-img">
+    <% if material.image %>
+      <div class="img img-right" style="background-image: url('<%= material.image.file.url(:small) %>');"></div>
+    <% end %>
   </td>
 </tr>

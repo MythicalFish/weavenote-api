@@ -18,6 +18,10 @@ class Material < ApplicationRecord
     cost_base + cost_delivery + cost_extra1 + cost_extra1
   end
 
+  def image
+    images.first
+  end
+
   private
 
   def configure_supplier

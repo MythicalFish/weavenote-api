@@ -29,6 +29,7 @@ class Image < ApplicationRecord
   def urls
     {
       tiny: file.url(:tiny),
+      small: file.url(:small),
       medium: file.url(:medium),
       large: file.url(:large),
     }

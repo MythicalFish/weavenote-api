@@ -3,10 +3,6 @@ class ImagesController < ApplicationController
   before_action :set_imageable, except: [:s3_url]
   before_action :set_image, only: [:destroy, :update]
 
-  def index
-    render json: images_response
-  end
-
   def create
     @image = @imageable.images.create!(create_image_params)
     attach_image! @image.url

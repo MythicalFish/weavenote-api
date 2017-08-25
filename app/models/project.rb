@@ -23,9 +23,13 @@ class Project < ApplicationRecord
   scope :active, -> { where(archived: false) }
   scope :archived, -> { where(archived: true) }
 
-  def thumbnail_url
+  def image_url size = :large
     i = images.order('id DESC').first
-    i.file.url(:tiny) if i
+    i.file.url(size) if i
+  end
+
+  def thumbnail_url
+    image_url :tiny
   end
 
   def material_cost

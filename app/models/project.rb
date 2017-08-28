@@ -28,7 +28,7 @@ class Project < ApplicationRecord
   end
 
   def image_url size = :large
-    i = images.order('id DESC').first
+    i = images.first
     i.file.url(size) if i
   end
 

@@ -22,6 +22,10 @@ module RoleMethods
       return r.type if r
     end
 
+    def role
+      organization_role_type.name
+    end
+
     def project_role project
       r = project_roles.find_by_roleable_id(project.id)
       return r if r

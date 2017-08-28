@@ -14,4 +14,15 @@ class ApplicationController < ActionController::API
     render json: {}
   end
 
+  def global_data
+    render json: {
+      stages: DevelopmentStage.all,
+      colors: Color.all.order('name ASC'),
+      materialTypes: MaterialType.all.order('name ASC'),
+      currencies: Currency.all,
+      careLabels: CareLabel.all,
+      roleTypes: RoleType.permitted.map { |rt| rt.attributes },
+    }
+  end
+
 end

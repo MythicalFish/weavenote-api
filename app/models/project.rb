@@ -70,9 +70,6 @@ class Project < ApplicationRecord
   private
 
   def set_defaults
-    if self.identifier.blank?
-      self.identifier = rand(36**4).to_s(36).upcase
-    end
     if self.development_stage_id.blank?
       self.development_stage_id = DevelopmentStage.first.id
     end

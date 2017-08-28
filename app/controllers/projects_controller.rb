@@ -64,10 +64,18 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(
-      :name, :identifier, :archived, :images, :description,
-      :development_stage_id, :category
+    sanitized_params.permit(
+      :name, :ref_number, :archived, :images, :notes,
+      :development_stage_id, :collection, :color_code, :target_fob
     )
+  end
+
+  def sanitized_params
+    p = params[:project]
+    if p[:development_stage]
+      p[:development_stage_id] = p[:development_stage][:id]
+    end
+    p
   end
 
 end

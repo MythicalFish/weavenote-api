@@ -11,6 +11,10 @@
       </td>
       <td>
         <table class="project-info">
+          <colgroup>
+            <col width="35%">
+            <col width="65%">
+          </colgroup>
           <tr>
             <td><b>Project name</b></td>
             <td><%= project.name %></td>
@@ -19,7 +23,7 @@
           </tr>
           <tr>
             <td><b>Reference no.</b></td>
-            <td><%= project.identifier %></td>
+            <td><%= project.ref_number %></td>
             <td><b>Contact</b></td>
             <td><%= project.organization.owner.email %></td>
           </tr>

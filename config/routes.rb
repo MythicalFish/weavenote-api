@@ -40,11 +40,7 @@ Rails.application.routes.draw do
   
   # Static resources:
   
-  get '/material_types', to: 'static_resources#material_types'
-  get '/colors', to: 'static_resources#colors'
-  get '/currencies', to: 'static_resources#currencies'
-  get '/care_labels', to: 'static_resources#care_labels'
-  get '/role_types', to: 'static_resources#role_types'
+  get '/global_data', to: 'application#global_data'
   
   # PDF test page:
   

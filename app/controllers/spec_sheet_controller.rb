@@ -1,10 +1,10 @@
 class SpecSheetController < ApplicationController
 
-  before_action :set_project, only: [:export_to_pdf]
+  before_action :set_project
+  before_action :check_ability!, only: [:create]
   skip_before_action :initialize_user!, only: [:test]
-  skip_before_action :check_ability!, only: [:test]
 
-  def export_to_pdf
+  def create
     spec_sheet = SpecSheet.new(pdf_name, @project)
     file = spec_sheet.create_pdf
     storage = Fog::Storage.new( Rails.configuration.fog )

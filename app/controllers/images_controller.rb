@@ -1,7 +1,10 @@
 class ImagesController < ApplicationController
 
   before_action :set_imageable, except: [:s3_url]
+  before_action :set_project, except: [:s3_url]
   before_action :set_image, only: [:destroy, :update]
+  
+  before_action :check_ability!
 
   def create
     @image = @imageable.images.create!(create_image_params)
@@ -62,6 +65,10 @@ class ImagesController < ApplicationController
 
   def update_image_params
     params.require(:image).permit(:name)
+  end
+
+  def set_project
+    @project = @imageable.try(:project)
   end
 
   def set_imageable

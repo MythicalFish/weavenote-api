@@ -23,6 +23,10 @@ class Project < ApplicationRecord
   scope :active, -> { where(archived: false) }
   scope :archived, -> { where(archived: true) }
 
+  def project
+    self # For simplifying set_project in several controllers
+  end
+
   def image_url size = :large
     i = images.order('id DESC').first
     i.file.url(size) if i

@@ -2,6 +2,8 @@ class MaterialsController < ApplicationController
 
   before_action :set_material, only: [:update, :destroy]
 
+  before_action :check_ability!
+
   def index
     @materials = @organization.materials
       .order('created_at DESC')

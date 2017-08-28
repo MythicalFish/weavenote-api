@@ -2,7 +2,9 @@ class RolesController < ApplicationController
 
   include ::Invitable
   before_action :set_invitable
+  before_action :set_project
   before_action :set_role, only: [:update, :destroy]
+  before_action :check_ability!
 
   def index
     render json: roles
@@ -20,6 +22,10 @@ class RolesController < ApplicationController
   end
 
   private
+
+  def set_project
+    @project = @invitable.try(:project)
+  end
 
   def roles
     @invitable.roles.permitted

@@ -1,6 +1,8 @@
 class OrganizationsController < ApplicationController
   
   before_action :set_organization, only: [:update, :destroy]
+  
+  before_action :check_ability!
 
   def create 
     @organization = Organization.create!(org_params)

@@ -8,7 +8,7 @@ class Ability
 
   MODELS = [ 
     'Role', 'Component', 'Image', 'Instruction', 'Invite', 'Comment', 'Annotation',
-    'Material', 'Measurement', 'Organization', 'Project', 'Supplier', 'User', 'Undefined'
+    'Material', 'Measurement', 'Organization', 'Project', 'Supplier', 'User', 'SpecSheet', 'Undefined'
   ]
 
   ALL_ACTIONS = [:index, :show, :create, :update, :destroy]

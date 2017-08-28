@@ -8,7 +8,7 @@ class Role < ApplicationRecord
 
   alias_attribute :type, :role_type
   
-  default_scope { where(role_type_id: RoleType::EXPOSED_IDS) }
+  scope :exposed, -> { where(role_type_id: RoleType::EXPOSED_IDS) }
   scope :permitted, -> { where(role_type_id: RoleType::PERMITTED_IDS) }
 
   def self.none

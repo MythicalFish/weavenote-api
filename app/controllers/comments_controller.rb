@@ -1,7 +1,10 @@
 class CommentsController < ApplicationController
 
   before_action :set_commentable
+  before_action :set_project
   before_action :set_comment, only: [:update, :destroy]
+
+  before_action :check_ability!
 
   def create
     @commentable.comments.create!(create_comment_params)
@@ -39,6 +42,10 @@ class CommentsController < ApplicationController
         render_fatal "Maximum comment depth is 1"
       end
     end
+  end
+  
+  def set_project
+    @project = @commentable.try(:project)
   end
 
   def set_comment

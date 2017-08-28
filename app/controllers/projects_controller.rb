@@ -2,8 +2,7 @@ class ProjectsController < ApplicationController
 
   before_action :set_project, except: [:index, :create]
   
-  skip_before_action :check_ability!, only: [ :show, :update ]
-  before_action :check_project_ability!, only: [ :show, :update ]
+  before_action :check_ability!
 
   def index
     render json: project_list, each_serializer: ProjectListSerializer
@@ -56,12 +55,6 @@ class ProjectsController < ApplicationController
   def set_project
     id = params[:project_id] || params[:id]
     @project = @user.projects.find(id)
-  end
-
-  def check_project_ability!
-    # Same as in check_ability.rb, however @project
-    # has been set by now, so the result is different
-    ability_check! action_name.to_sym
   end
 
   def project_params

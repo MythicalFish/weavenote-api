@@ -3,6 +3,8 @@ class ComponentsController < ApplicationController
   before_action :set_project
   before_action :set_component, only: [:show, :update, :destroy]
 
+  before_action :check_ability!
+
   def index
     render json: list
   end

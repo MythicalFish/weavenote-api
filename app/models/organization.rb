@@ -1,6 +1,6 @@
 class Organization < ApplicationRecord
   
-  has_many :roles, as: :roleable
+  has_many :roles, -> (o) { exposed }, as: :roleable
   has_many :collaborators, source: :user, through: :roles
   
   has_many :projects

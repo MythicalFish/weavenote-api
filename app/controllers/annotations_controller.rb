@@ -1,8 +1,10 @@
 class AnnotationsController < ApplicationController
 
   before_action :set_annotatable!
-  before_action :authorize_annotation!
+  before_action :set_project
   before_action :set_annotation, except: [:create]
+  
+  before_action :check_comment_ability!
 
   def create
     @annotatable.annotations.destroy_all
@@ -39,12 +41,12 @@ class AnnotationsController < ApplicationController
     raise "Missing annotatable" unless @annotatable
   end
 
-  def authorize_annotation!
+  def check_comment_ability!
     case @annotatable.class.name
     when 'Comment'
       raise "Comment not owned by user" unless @annotatable.user == @user
     when 'MeasurementName'
-      # ability check performed by CheckAbility
+      check_ability!
     else
       raise "Invalid Annotatable"
     end
@@ -52,6 +54,10 @@ class AnnotationsController < ApplicationController
 
   def set_annotation
     @annotation = @annotatable.annotations.find(params[:id])
+  end
+
+  def set_project
+    @project = @annotatable.try(:project)
   end
 
 end

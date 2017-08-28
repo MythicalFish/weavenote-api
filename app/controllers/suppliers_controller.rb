@@ -1,6 +1,8 @@
 class SuppliersController < ApplicationController
   
   before_action :set_supplier, only: [:destroy]
+  
+  before_action :check_ability!
 
   def index
     @suppliers = @organization.suppliers.order('id DESC')

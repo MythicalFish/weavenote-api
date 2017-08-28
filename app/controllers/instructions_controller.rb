@@ -3,6 +3,8 @@ class InstructionsController < ApplicationController
   before_action :set_project
   before_action :set_instruction, only: [:show, :update, :destroy]
 
+  before_action :check_ability!
+
   def index
     render json: list
   end

@@ -2,7 +2,7 @@ class MaterialsController < ApplicationController
 
   before_action :set_material, only: [:update, :destroy]
 
-  before_action :check_ability!
+  before_action :check_ability!, except: [:index]
 
   def index
     @materials = @organization.materials

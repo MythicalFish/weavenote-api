@@ -46,6 +46,9 @@ class Ability
 
     # Permit certain model actions for Contributor:
     a['Image']['Contributor'] = ALL_ACTIONS
+    a['Measurement']['Contributor'] = ALL_ACTIONS
+    a['Instruction']['Contributor'] = ALL_ACTIONS
+    a['SpecSheet']['Contributor'] = ALL_ACTIONS
     a['Invite']['Contributor'] = [:show]
     a['Role']['Contributor'] = [:show]
     

@@ -67,8 +67,17 @@ module ApiResponse
       end
     end
 
-    if e.class == Auth0::Unauthorized
+    if error_type(e) == 'auth'
       msg = "Unauthorized"
+    end
+
+    if error_type(e) == 'warning'
+      return {
+        json: {
+          message: msg,
+          response: nil
+        }
+      }
     end
 
     {

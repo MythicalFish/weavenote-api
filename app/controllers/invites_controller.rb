@@ -71,7 +71,7 @@ class InvitesController < ApplicationController
   end
 
   def invite_params
-    p = params
+    p = params[:invite]
     p[:inviter_id] = @user.id
     p[:role_type_id] = 3 unless p[:role_type_id]
     if p[:as_guest]

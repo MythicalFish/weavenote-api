@@ -52,14 +52,16 @@ class Project < ApplicationRecord
     a
   end
 
-  def avatar_list current_user
+  def avatar_list current_user = nil
     # merge project & org collaborators
     p_ids = self.collaborators.ids
     o_ids = self.organization.collaborators.ids
     ids = (p_ids + o_ids).uniq
     # exclude current user
-    c = ids.find_index(current_user.id)
-    ids.delete_at(c)
+    if current_user
+      c = ids.find_index(current_user.id)
+      ids.delete_at(c)
+    end
     # return simple array of avatars & names
     ids.map do |id| 
       u = User.find(id)

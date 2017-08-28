@@ -17,7 +17,7 @@ module AcceptInvitation
       else
         @invitable.roles.create!({
           user: @user,
-          role_type: @invite.role_type
+          role_type_id: @invite.role_type.id
         })
       end
       @invite.update!( accepted: true )
@@ -68,7 +68,7 @@ module AcceptInvitation
     unless user_org
       org.roles.create!({
         user: @user,
-        role_type: RoleType.none 
+        role_type_id: RoleType.none.id
       })
     end
     @user.update!( current_organization_id: org.id )

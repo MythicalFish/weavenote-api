@@ -28,7 +28,7 @@ class RolesController < ApplicationController
   end
 
   def roles
-    @invitable.roles.permitted
+    serialized(@invitable.roles.permitted)
   end
 
   def set_role

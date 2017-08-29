@@ -1,6 +1,6 @@
 class SpecSheetController < ApplicationController
 
-  before_action :set_project
+  before_action :set_project, only: [:create]
   before_action :check_ability!, only: [:create]
   skip_before_action :initialize_user!, only: [:test]
 

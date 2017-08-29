@@ -3,8 +3,9 @@ pagenumber = 1
 @components = @project.components
 @measurements = @project.measurement_values
 @instructions = @project.instructions
+@comments = @project.comments
 def anything?
-  @components.any? && @measurements.any? && @instructions.any?
+  @components.any? || @measurements.any? || @instructions.any? || @comments.any?
 end
 %><!doctype html>
 <html lang="en">
@@ -44,6 +45,16 @@ end
       <%= render({
         partial: 'spec_sheet/page', 
         locals: { title: 'Instructions', project: @project, data: slice, view: 'instructions', pagenumber: pagenumber }
+      }) %>
+      <% pagenumber += 1 %>
+    <% end %>
+  <% end %>
+
+  <% if @comments.any? %>
+    <% @comments.each_slice(4) do |slice| %>
+      <%= render({
+        partial: 'spec_sheet/page', 
+        locals: { title: 'Comments', project: @project, data: slice, view: 'comments', pagenumber: pagenumber }
       }) %>
       <% pagenumber += 1 %>
     <% end %>

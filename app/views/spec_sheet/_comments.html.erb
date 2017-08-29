@@ -1,0 +1,26 @@
+<% 
+comments = data 
+per_column = 2
+lastcount = comments.length - per_column
+lasttake = lastcount > 0 ? lastcount : 0
+%>
+<td colspan="2" class="vtop">
+  <table class="comments">
+    <colgroup>
+      <col width="50%">
+      <col width="50%">
+    </colgroup>
+    <tr>
+      <td>
+        <% comments.take(per_column).each do |comment| %>
+          <%= render partial: "spec_sheet/comment", locals: { comment: comment } %>
+        <% end %>
+      </td>
+      <td>
+        <% comments.last(lasttake).each do |comment| %>
+          <%= render partial: "spec_sheet/comment", locals: { comment: comment } %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</td>

@@ -179,6 +179,30 @@ table.instructions {
     table.instructions > tbody > tr > td:last-child {
       padding-left: 40px; }
 
+table.comments tr td {
+  vertical-align: top; }
+  table.comments tr td .comment {
+    border: 2px solid #ccc;
+    padding: 20px;
+    margin-top: 20px; }
+    table.comments tr td .comment .author {
+      margin-bottom: 20px;
+      color: #555; }
+      table.comments tr td .comment .author .date {
+        opacity: 0.8;
+        float: right;
+        font-size: 0.9em;
+        text-align: right;
+        min-width: 200px; }
+    table.comments tr td .comment .replies .comment {
+      border: 2px solid #eee; }
+    table.comments tr td .comment .comment-images {
+      height: 150px; }
+  table.comments tr td:first-child .comment {
+    margin-right: 10px; }
+  table.comments tr td:last-child .comment {
+    margin-left: 10px; }
+
 .img {
   width: 100%;
   height: 100%;
@@ -190,7 +214,7 @@ table.instructions {
   background-position: left top; }
 
 .img-right {
-  background-position: left top; }
+  background-position: right top; }
 
 td.material-img {
   position: relative; }

@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
   def create
     @project = @organization.projects.new(project_params)
     @project.save!
-    render_success "Project created", serialized(project_list)
+    index
   end
 
   def update

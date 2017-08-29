@@ -27,16 +27,12 @@ class ProjectsController < ApplicationController
 
   def update
     @project.update!(project_params)
-    if params[:index_after_update]
-      render_success "Project archived", serialized(project_list)
-    else 
-      render_success "Project updated", serialized(@project)
-    end
+    index
   end
 
   def destroy
     @project.destroy!
-    render_success "Project deleted", nil
+    index
   end
 
   def material_cost

@@ -18,12 +18,8 @@ class ImagesController < ApplicationController
   end
 
   def update
-    unless update_image_params[:name] == @image.name
-      @image.update!(update_image_params)
-      render_success "Image updated", images_response
-    else
-      render_success nil, images_response
-    end
+    @image.update!(update_image_params)
+    render_success "Image updated", images_response
   end
 
   def s3_url

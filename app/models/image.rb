@@ -5,6 +5,8 @@ class Image < ApplicationRecord
   belongs_to :imageable, polymorphic: true
   has_many :annotations, dependent: :destroy
   
+  before_save :set_primary
+
   default_scope { order(primary: :desc)}
 
   has_attached_file :file,
@@ -38,5 +40,12 @@ class Image < ApplicationRecord
   end
 
   private
+
+  def set_primary
+    # set siblings "primary" attr to false if this is changed to primary: true
+    if changed_attributes['primary'] != nil && primary?
+      imageable.images.where("id != #{id}").update_all(primary: false)
+    end
+  end
 
 end

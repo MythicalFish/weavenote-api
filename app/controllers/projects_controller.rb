@@ -26,9 +26,6 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    if project_params[:primary]
-      @project.images.update_all(primary: false)
-    end
     @project.update!(project_params)
     index
   end

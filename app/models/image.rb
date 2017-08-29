@@ -4,6 +4,8 @@ class Image < ApplicationRecord
   belongs_to :user
   belongs_to :imageable, polymorphic: true
   has_many :annotations, dependent: :destroy
+  
+  default_scope { order(primary: :desc)}
 
   has_attached_file :file,
     :path => "weavenote/uploads/organization-:organization_id/image-:id/:style/:basename.:extension",

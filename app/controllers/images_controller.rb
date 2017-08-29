@@ -64,7 +64,7 @@ class ImagesController < ApplicationController
   end
 
   def update_image_params
-    params.require(:image).permit(:name)
+    params.require(:image).permit(:name, :primary)
   end
 
   def set_project

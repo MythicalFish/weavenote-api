@@ -27,8 +27,12 @@ class Project < ApplicationRecord
     self # For simplifying set_project in several controllers
   end
 
+  def primary_image
+    images.where(primary: true).first || images.first
+  end
+
   def image_url size = :large
-    i = images.first
+    i = primary_image
     i.file.url(size) if i
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828074243) do
+ActiveRecord::Schema.define(version: 20170829083658) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -202,7 +202,7 @@ ActiveRecord::Schema.define(version: 20170828074243) do
     t.datetime "updated_at",                           null: false
     t.integer  "development_stage_id", default: 1,     null: false
     t.string   "collection"
-    t.string   "ref_number",                           null: false
+    t.string   "ref_number"
     t.string   "notes"
     t.boolean  "archived",             default: false
     t.integer  "organization_id",                      null: false

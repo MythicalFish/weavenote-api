@@ -57,7 +57,7 @@ class MaterialsController < ApplicationController
 
     def sanitized_params
       p = params[:material]
-      if p[:supplier]
+      if p[:supplier] && p[:supplier][:name]
         p[:supplier_attributes] = p[:supplier]
         p.delete(:supplier)
       end

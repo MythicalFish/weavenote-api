@@ -9,6 +9,11 @@ class Comment < ApplicationRecord
 
   validates :text, length: { minimum: 2 }
 
+  def project
+    c = commentable
+    return c if c.class.name == 'Project'
+  end
+
   def replies
     self.comments.order(created_at: :asc)
   end

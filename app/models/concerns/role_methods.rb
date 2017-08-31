@@ -23,7 +23,7 @@ module RoleMethods
     end
 
     def role
-      organization_role_type.name
+      organization_role_type.try(:name)
     end
 
     def project_role project

@@ -16,7 +16,7 @@
       </tr>
       <tr>
         <td><b>Supplier</b></td>
-        <td><%= material.supplier.name %></td>
+        <td><%= material.supplier.try(:name) %></td>
       </tr>
       <tr>
         <td><b>Reference no.</b></td>

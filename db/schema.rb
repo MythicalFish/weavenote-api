@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829113328) do
+ActiveRecord::Schema.define(version: 20170911090255) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -199,21 +199,21 @@ ActiveRecord::Schema.define(version: 20170829113328) do
   end
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name",                                 null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.integer  "development_stage_id", default: 1,     null: false
+    t.string   "name",                              null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "collection"
     t.string   "ref_number"
     t.string   "notes"
-    t.boolean  "archived",             default: false
-    t.integer  "organization_id",                      null: false
+    t.boolean  "archived",          default: false
+    t.integer  "organization_id",                   null: false
     t.string   "color_code"
     t.string   "target_fob"
+    t.string   "development_stage"
     t.index ["archived"], name: "index_projects_on_archived", using: :btree
     t.index ["collection"], name: "index_projects_on_collection", using: :btree
     t.index ["created_at"], name: "index_projects_on_created_at", using: :btree
-    t.index ["development_stage_id"], name: "index_projects_on_development_stage_id", using: :btree
+    t.index ["development_stage"], name: "index_projects_on_development_stage", using: :btree
     t.index ["name"], name: "index_projects_on_name", using: :btree
     t.index ["organization_id"], name: "index_projects_on_organization_id", using: :btree
     t.index ["ref_number"], name: "index_projects_on_ref_number", using: :btree

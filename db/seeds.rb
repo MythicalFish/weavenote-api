@@ -37,19 +37,19 @@ def currencies
   puts ''
 end
 
-def stages
-  puts ''
-  DevelopmentStage.all.destroy_all
-  ActiveRecord::Base.connection.execute("ALTER TABLE development_stages AUTO_INCREMENT = 1;")
-  DevelopmentStage.create([
-    { label: 'Sample' },
-    { label: 'Production' },
-    { label: 'Done' },
-  ]).each do |c|
-    puts "Created dev stage: #{c.label}"
-  end
-  puts ''
-end
+# def stages
+#   puts ''
+#   DevelopmentStage.all.destroy_all
+#   ActiveRecord::Base.connection.execute("ALTER TABLE development_stages AUTO_INCREMENT = 1;")
+#   DevelopmentStage.create([
+#     { label: 'Sample' },
+#     { label: 'Production' },
+#     { label: 'Done' },
+#   ]).each do |c|
+#     puts "Created dev stage: #{c.label}"
+#   end
+#   puts ''
+# end
 
 def colors
   puts ''

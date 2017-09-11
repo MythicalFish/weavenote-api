@@ -4,8 +4,6 @@ class Project < ApplicationRecord
   has_many :collaborators, source: :user, through: :roles
 
   belongs_to :organization
-  belongs_to :development_stage
-  alias_attribute :stage, :development_stage
   has_many :components, dependent: :destroy
   has_many :materials, through: :components
   has_many :images, as: :imageable, dependent: :destroy
@@ -15,13 +13,13 @@ class Project < ApplicationRecord
   has_many :instructions, dependent: :destroy
   has_many :invites, as: :invitable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
-  
-  before_validation :set_defaults
-
+    
   validates :name, length: { minimum: 3 }
-
+  
   scope :active, -> { where(archived: false) }
   scope :archived, -> { where(archived: true) }
+  
+  alias_attribute :stage, :development_stage
 
   def project
     self # For simplifying set_project in several controllers
@@ -78,11 +76,5 @@ class Project < ApplicationRecord
   end
 
   private
-
-  def set_defaults
-    if self.development_stage_id.blank?
-      self.development_stage_id = DevelopmentStage.first.id
-    end
-  end
 
 end

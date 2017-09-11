@@ -42,11 +42,6 @@ class OrganizationsController < ApplicationController
         },
       }
     }
-    DevelopmentStage.all.each do |s|
-      stage_count = @projects.where(development_stage_id: s.id).length
-      response[:projects][:counts][:by_stage] <<
-        { label: s.label, count: stage_count }
-    end
     render json: response
   end
 

@@ -15,7 +15,6 @@ class ApplicationController < ActionController::API
 
   def global_data
     render json: {
-      stages: DevelopmentStage.all,
       colors: Color.all.order('name ASC'),
       materialTypes: MaterialType.all.order('name ASC'),
       currencies: Currency.all,

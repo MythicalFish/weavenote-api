@@ -1,3 +1,0 @@
-class DevelopmentStage < ApplicationRecord
-  
-end

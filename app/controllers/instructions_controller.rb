@@ -14,8 +14,7 @@ class InstructionsController < ApplicationController
   end
 
   def create
-    @instruction = @project.instructions.new(instruction_params)
-    @instruction.save!
+    @instruction = @project.instructions.create!(instruction_params)
     render_success "Instruction created", serialized(list)
   end
 
@@ -44,7 +43,7 @@ class InstructionsController < ApplicationController
   end
 
   def instruction_params
-    params.require(:instruction).permit(:title, :description)
+    params.require(:instruction).permit(:title, :description, :image_ids => [])
   end
 
 end

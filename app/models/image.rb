@@ -2,10 +2,11 @@ class Image < ApplicationRecord
   
   belongs_to :organization
   belongs_to :user
-  belongs_to :imageable, polymorphic: true
+  belongs_to :imageable, polymorphic: true, optional: true
   has_many :annotations, dependent: :destroy
   
   before_save :set_primary
+  after_create :attach_with_paperclip
 
   default_scope { order(primary: :desc)}
 
@@ -46,6 +47,19 @@ class Image < ApplicationRecord
     if changed_attributes['primary'] != nil && primary?
       imageable.images.where("id != #{id}").update_all(primary: false)
     end
+  end
+
+  def attach_with_paperclip
+    # Image is initially created with just an image URL,
+    # here we attach it with paperclip to create styles.
+    extname = File.extname(self.url)
+    basename = File.basename(self.url, extname)
+    newfile = Tempfile.new([basename, extname])
+    newfile.binmode
+    open(URI.parse(self.url)) do |data|  
+      newfile.write data.read
+    end
+    self.update!(file: newfile)
   end
 
 end

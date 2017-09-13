@@ -1,14 +1,11 @@
 class ImagesController < ApplicationController
 
-  before_action :set_imageable, except: [:s3_url]
-  before_action :set_project, except: [:s3_url]
+  before_action :set_imageable
   before_action :set_image, only: [:destroy, :update]
-  
   before_action :check_ability!
 
   def create
-    @image = @imageable.images.create!(create_image_params)
-    attach_image! @image.url
+    @image = Image.create!(create_image_params)
     render_success "Image uploaded", images_response
   end
 
@@ -35,54 +32,47 @@ class ImagesController < ApplicationController
       signedUrl: url,
       url: url.split('?')[0]
     }
-
+    
   end
-
+  
   private
-
-  def attach_image! url
-    extname = File.extname(url)
-    basename = File.basename(url, extname)
-    newfile = Tempfile.new([basename, extname])
-    newfile.binmode
-    open(URI.parse(url)) do |data|  
-      newfile.write data.read
-    end
-    newfile.rewind
-    @image.update!(file:newfile)
-  end
-
+  
   def create_image_params
     p = params[:image]
+    i = params[:imageable]
+    p[:imageable_type] = i[:type]
+    p[:imageable_id] = i[:id] if i[:id]
     p[:organization_id] = @organization.id
     p[:user_id] = @user.id
-    p.permit(:url, :name, :organization_id, :user_id)
+    p.permit(:url, :name, :organization_id, :user_id, :imageable_id, :imageable_type)
   end
-
+  
   def update_image_params
     params.require(:image).permit(:name, :primary)
   end
-
-  def set_project
-    @project = @imageable.try(:project)
-  end
-
-  def set_imageable
-    imageable_class = Object.const_get(params[:imageable][:type])
-    @imageable = imageable_class.find(params[:imageable][:id])
-    unless @imageable.organization == @organization
-      raise "Imageable organization does not match the user's organization"
+  
+  def images_response
+    if @imageable
+      images = serialized(@imageable.images.order('id ASC'))
+      return { images: images, imageable: { id: @imageable.id, type: @imageable.class.name } }
+    else 
+      return { images: [serialized(@image)], imageable: params[:imageable] }
     end
-    raise "Missing imageable" unless @imageable
   end
-
+  
   def set_image
     @image = @imageable.images.find(params[:id])
   end
 
-  def images_response
-    images = serialized(@imageable.images.order('id ASC'))
-    return { images: images, imageable: { id: @imageable.id, type: @imageable.class.name } }
+  def set_imageable
+    p = params[:imageable]
+    return unless p && p[:id]
+    klass = Object.const_get(p[:type])
+    @imageable = klass.find(p[:id])
+    raise "Imageable not found" unless @imageable
+    unless @imageable.organization == @organization
+      raise "Imageable organization does not match the user's organization"
+    end
   end
 
 end

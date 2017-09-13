@@ -36,15 +36,15 @@ class MaterialsController < ApplicationController
 
   def destroy
     @material.destroy!
+    render_success "Material deleted", serialized(@organization.materials)
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_material
       @material = @organization.materials.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def material_params
       sanitized_params.permit(
         :color_id, :material_type_id, :currency_id, 

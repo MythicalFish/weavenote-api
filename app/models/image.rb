@@ -40,6 +40,13 @@ class Image < ApplicationRecord
     }
   end
 
+  def imageable_info
+    {
+      id: imageable.id,
+      type: imageable.class.name
+    }
+  end
+
   private
 
   def set_primary

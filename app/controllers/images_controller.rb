@@ -16,7 +16,7 @@ class ImagesController < ApplicationController
 
   def update
     @image.update!(update_image_params)
-    render_success "Image updated", images_response
+    render json: images_response
   end
 
   def s3_url

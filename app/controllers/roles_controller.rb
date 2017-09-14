@@ -16,6 +16,7 @@ class RolesController < ApplicationController
   end
   
   def destroy
+    fail_if_own_role
     @role.destroy!
     @collaborator.update!(current_organization_id: 0) if @invitable.class.name == 'Organization'
     render_success "Collaborator removed from #{@invitable.class.name}", roles
@@ -28,7 +29,7 @@ class RolesController < ApplicationController
   end
 
   def roles
-    serialized(@invitable.roles.permitted)
+    serialized(@invitable.roles.exposed)
   end
 
   def set_role
@@ -42,6 +43,12 @@ class RolesController < ApplicationController
       render_fatal "User attempted to assign unpermitted role_type_id"
     end
     p.permit(:role_type_id)
+  end
+
+  def fail_if_own_role
+    if @role.user == @user
+      render_denied "You cannot remove yourself"
+    end
   end
 
 end

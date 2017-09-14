@@ -13,12 +13,19 @@ class Ability
 
   ALL_ACTIONS = [:index, :show, :create, :update, :destroy]
 
+  # IDs as defined in the RoleType model
+  NONE = 1
+  GUEST = 2
+  MEMBER = 3
+  MANAGER = 4
+  ADMIN = 5
+
   DEFAULT_ABILITIES = {
-    'None' => [],
-    'Guest' => [:index, :show],
-    'Team Member' => [:index, :show, :update],
-    'Manager' => ALL_ACTIONS,
-    'Admin' => ALL_ACTIONS
+    NONE => [],
+    GUEST => [:index, :show],
+    MEMBER => [:index, :show, :update],
+    MANAGER => ALL_ACTIONS,
+    ADMIN => ALL_ACTIONS
   }
 
   def abilities
@@ -42,22 +49,22 @@ class Ability
     a['Project'] = grant_all [:index]
 
     # Only Admin can manage Organization:
-    a['Organization']['Admin'] = ALL_ACTIONS
+    a['Organization'][ADMIN] = ALL_ACTIONS
 
     # Permit certain model actions for Team Member:
-    a['Image']['Team Member'] = ALL_ACTIONS
-    a['Measurement']['Team Member'] = ALL_ACTIONS
-    a['Instruction']['Team Member'] = ALL_ACTIONS
-    a['SpecSheet']['Team Member'] = ALL_ACTIONS
-    a['Invite']['Team Member'] = [:show]
-    a['Role']['Team Member'] = [:show]
+    a['Image'][MEMBER] = ALL_ACTIONS
+    a['Measurement'][MEMBER] = ALL_ACTIONS
+    a['Instruction'][MEMBER] = ALL_ACTIONS
+    a['SpecSheet'][MEMBER] = ALL_ACTIONS
+    a['Invite'][MEMBER] = [:show]
+    a['Role'][MEMBER] = [:show]
     
     a
   end
 
   def user_abilities
     abilities.map { |model,abilities|
-      [model, abilities[@role_type.name]]
+      [model, abilities[@role_type.id]]
     }.to_h
   end
 
@@ -79,20 +86,20 @@ class Ability
   end
 
   def grant_all new_abilities
-    DEFAULT_ABILITIES.dup.map { |role,defaults|
+    DEFAULT_ABILITIES.dup.map { |role_id, defaults|
       abilities = defaults.dup
       new_abilities.each do |a|
         unless defaults.include? a
           abilities << a
         end
       end
-      [role,abilities]
+      [role_id, abilities]
     }.to_h
   end
 
   def grant_all_only new_abilities
-    DEFAULT_ABILITIES.dup.map { |role,defaults|
-      [role,new_abilities]
+    DEFAULT_ABILITIES.dup.map { |role_id, defaults|
+      [role_id, new_abilities]
     }.to_h
   end
 

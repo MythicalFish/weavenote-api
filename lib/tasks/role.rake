@@ -10,9 +10,9 @@ namespace :role do
     puts "Role is now: Guest"
   end
 
-  task contributor: :environment do
+  task member: :environment do
     User.first.organization_role.update!(role_type_id: 3)
-    puts "Role is now: Contributor"
+    puts "Role is now: Team Member"
   end
 
   task manager: :environment do

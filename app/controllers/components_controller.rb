@@ -26,7 +26,7 @@ class ComponentsController < ApplicationController
 
   def destroy
     @component.destroy!
-    render_success "Material deleted", list
+    render_success "Material deleted", serialized(list)
   end
 
   private

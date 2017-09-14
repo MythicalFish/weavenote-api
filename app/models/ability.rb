@@ -16,7 +16,7 @@ class Ability
   DEFAULT_ABILITIES = {
     'None' => [],
     'Guest' => [:index, :show],
-    'Contributor' => [:index, :show, :update],
+    'Team Member' => [:index, :show, :update],
     'Manager' => ALL_ACTIONS,
     'Admin' => ALL_ACTIONS
   }
@@ -44,13 +44,13 @@ class Ability
     # Only Admin can manage Organization:
     a['Organization']['Admin'] = ALL_ACTIONS
 
-    # Permit certain model actions for Contributor:
-    a['Image']['Contributor'] = ALL_ACTIONS
-    a['Measurement']['Contributor'] = ALL_ACTIONS
-    a['Instruction']['Contributor'] = ALL_ACTIONS
-    a['SpecSheet']['Contributor'] = ALL_ACTIONS
-    a['Invite']['Contributor'] = [:show]
-    a['Role']['Contributor'] = [:show]
+    # Permit certain model actions for Team Member:
+    a['Image']['Team Member'] = ALL_ACTIONS
+    a['Measurement']['Team Member'] = ALL_ACTIONS
+    a['Instruction']['Team Member'] = ALL_ACTIONS
+    a['SpecSheet']['Team Member'] = ALL_ACTIONS
+    a['Invite']['Team Member'] = [:show]
+    a['Role']['Team Member'] = [:show]
     
     a
   end

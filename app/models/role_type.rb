@@ -3,7 +3,7 @@ class RoleType < ActiveHash::Base
   self.data = [
     {:id => 1, :name => "None"},
     {:id => 2, :name => "Guest"},
-    {:id => 3, :name => "Contributor"},
+    {:id => 3, :name => "Team member"},
     {:id => 4, :name => "Manager"},
     {:id => 5, :name => "Admin"}
   ]
@@ -30,7 +30,7 @@ class RoleType < ActiveHash::Base
     self.find(2)
   end
 
-  def self.contributor
+  def self.member
     self.find(3)
   end
 

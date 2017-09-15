@@ -32,6 +32,14 @@ module UserAssociations
       end
       return org
     end
+    
+    def projects
+      unless organization_role_type.name == 'None'
+        return organization.projects
+      else
+        return assigned_projects
+      end
+    end
 
   end
 end

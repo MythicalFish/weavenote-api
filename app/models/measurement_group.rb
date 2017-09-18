@@ -4,6 +4,4 @@ class MeasurementGroup < ApplicationRecord
   has_many :measurement_names, through: :project
   has_many :measurement_values, dependent: :destroy
 
-  validates :name, length: { minimum: 1, maximum: 3 }
-
 end

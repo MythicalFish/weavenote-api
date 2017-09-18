@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170911090255) do
+ActiveRecord::Schema.define(version: 20170918122642) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(version: 20170911090255) do
   end
 
   create_table "measurement_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name",       null: false
+    t.string   "name"
     t.integer  "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(version: 20170911090255) do
   end
 
   create_table "measurement_names", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "value",      null: false
+    t.string   "value"
     t.integer  "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -183,11 +183,11 @@ ActiveRecord::Schema.define(version: 20170911090255) do
   end
 
   create_table "measurement_values", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.decimal  "value",                precision: 10, default: 0, null: false
-    t.integer  "measurement_group_id",                            null: false
-    t.integer  "measurement_name_id",                             null: false
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.integer  "value"
+    t.integer  "measurement_group_id", null: false
+    t.integer  "measurement_name_id",  null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.index ["measurement_group_id"], name: "index_measurement_values_on_measurement_group_id", using: :btree
     t.index ["measurement_name_id"], name: "index_measurement_values_on_measurement_name_id", using: :btree
     t.index ["value"], name: "index_measurement_values_on_value", using: :btree

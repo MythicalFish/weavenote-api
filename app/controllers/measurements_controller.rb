@@ -35,7 +35,7 @@ class MeasurementsController < ApplicationController
     end
 
     @m[:values].each do |v|
-      value_value = 0
+      value_value = nil
       if v[:id]
         value_value = @project.measurement_values.find(v[:id]).value
       end
@@ -63,8 +63,7 @@ class MeasurementsController < ApplicationController
     if @project.measurement_groups.length >= 6
       render_error "Maximum measurement groups is 6"
     end
-    @group = @project.measurement_groups.new(measurement_group_params)
-    @group.save!
+    @group = @project.measurement_groups.create!
     render_success "Measurement group created", measurements_response
   end
 

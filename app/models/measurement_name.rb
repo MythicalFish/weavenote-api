@@ -4,7 +4,6 @@ class MeasurementName < ApplicationRecord
   delegate :organization, to: :project
   has_many :measurement_values, dependent: :destroy
   has_many :annotations, as: :annotatable
-  validates :value, length: { minimum: 1 }
 
   def type
     self.class.name

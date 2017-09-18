@@ -5,6 +5,7 @@ class MeasurementsController < ApplicationController
   before_action :check_ability!
 
   def index
+    create_if_none_present
     render json: measurements_response
   end
 
@@ -60,8 +61,8 @@ class MeasurementsController < ApplicationController
 
   def create_group 
     check_ability! :create, 'Measurement'
-    if @project.measurement_groups.length >= 6
-      render_error "Maximum measurement groups is 6"
+    if @project.measurement_groups.length >= 15
+      render_error "Maximum measurement groups is 15"
     end
     @group = @project.measurement_groups.create!
     render_success "Measurement group created", measurements_response
@@ -72,8 +73,7 @@ class MeasurementsController < ApplicationController
     if @project.measurement_groups.length >= 26
       render_error "Maximum measurement names is 26"
     end    
-    @name = @project.measurement_names.new(measurement_name_params)
-    @name.save!
+    @name = @project.measurement_names.create!
     render_success "Measurement name created", measurements_response
   end
 
@@ -112,6 +112,13 @@ class MeasurementsController < ApplicationController
 
   def set_project
     @project = @user.projects.find(params[:project_id])
+  end
+
+  def create_if_none_present
+    unless @project.measurement_groups.any? || @project.measurement_names.any?
+      @project.measurement_groups.create!
+      10.times { @project.measurement_names.create! }
+    end
   end
 
 end

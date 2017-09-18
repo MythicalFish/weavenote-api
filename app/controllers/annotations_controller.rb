@@ -1,13 +1,16 @@
 class AnnotationsController < ApplicationController
 
-  before_action :set_project
-  before_action :set_annotatable
-  before_action :set_annotation, except: [:create]
+  before_action :set_associations
+  before_action :check_ability!
 
   def create
-    @annotatable.annotations.destroy_all
-    @annotation = @annotatable.annotations.create!(annotation_params)
-    render_success "Annotation created", serialized(@annotation.image)
+    if @annotatable
+      @annotatable.annotations.destroy_all
+      @annotation = @annotatable.annotations.create!(annotation_params)
+    else
+      @image.annotations.create!(annotation_params)
+    end
+    render_success "Annotation created", serialized(@image)
   end
 
   def destroy
@@ -24,9 +27,17 @@ class AnnotationsController < ApplicationController
       anchors_attributes: [:x, :y]
     )
   end
+  
+  def set_associations
+    @image = @organization.images.find(params[:annotation][:image_id])
+    @project = @image.imageable
+    set_annotatable
+  end
 
+  # Legacy
   def set_annotatable
     p = annotation_params
+    return nil unless p[:annotatable_type]
     klass = Object.const_get(p[:annotatable_type])
     @annotatable = klass.find(p[:annotatable_id])
     raise "Missing annotatable" unless @annotatable
@@ -38,10 +49,6 @@ class AnnotationsController < ApplicationController
     else
       raise "Invalid Annotatable"
     end
-  end
-
-  def set_project
-    @project = @annotatable.try(:project)
   end
 
 end

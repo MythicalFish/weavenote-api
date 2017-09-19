@@ -2,6 +2,8 @@ class MeasurementGroup < ApplicationRecord
   
   belongs_to :project
   has_many :measurement_names, through: :project
-  has_many :measurement_values, dependent: :destroy
+  has_many :measurement_values, dependent: :delete_all
+
+  default_scope { order(order: :asc) }
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918122642) do
+ActiveRecord::Schema.define(version: 20170919135943) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -166,7 +166,9 @@ ActiveRecord::Schema.define(version: 20170918122642) do
     t.integer  "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "order"
     t.index ["created_at"], name: "index_measurement_groups_on_created_at", using: :btree
+    t.index ["order"], name: "index_measurement_groups_on_order", using: :btree
     t.index ["project_id"], name: "index_measurement_groups_on_project_id", using: :btree
     t.index ["updated_at"], name: "index_measurement_groups_on_updated_at", using: :btree
   end
@@ -176,7 +178,9 @@ ActiveRecord::Schema.define(version: 20170918122642) do
     t.integer  "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "order"
     t.index ["created_at"], name: "index_measurement_names_on_created_at", using: :btree
+    t.index ["order"], name: "index_measurement_names_on_order", using: :btree
     t.index ["project_id"], name: "index_measurement_names_on_project_id", using: :btree
     t.index ["updated_at"], name: "index_measurement_names_on_updated_at", using: :btree
     t.index ["value"], name: "index_measurement_names_on_value", using: :btree

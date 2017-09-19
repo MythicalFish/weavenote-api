@@ -11,48 +11,28 @@ class MeasurementsController < ApplicationController
 
   def update
     
-    @m = params[:measurements]
-    @errors = []
-    @updates = { groups: [], names: [], values: [] }
+    m = params[:measurements]
 
-    @m[:groups].each do |g|
+    m[:groups].each_with_index do |g,i|
       group = @project.measurement_groups.find(g[:id])
-      next if g[:name] == group.name
-      if group.update({ name: g[:name] })
-        @updates[:groups] << group
-      else
-        @errors << group.errors
-      end
+      group.update!({ name: g[:name], order: i })
     end
 
-    @m[:names].each do |n|
+    m[:names].each_with_index do |n,i|
       name = @project.measurement_names.find(n[:id])
-      next if n[:value] == name.value
-      if name.update({ value: n[:value] })
-        @updates[:names] << name
-      else
-        @errors << name.errors
-      end
+      name.update!({ value: n[:value], order: i })
     end
 
-    @m[:values].each do |v|
-      value_value = nil
+    m[:values].each do |v|
       if v[:id]
-        value_value = @project.measurement_values.find(v[:id]).value
-      end
-      value_changed = value_value != v[:value]
-      if value_changed
-        new_value_attributes = {
+        value = @project.measurement_values.find(v[:id])
+        value.update!(value: v[:value])
+      else
+        MeasurementValue.create!({
           measurement_group_id: v[:measurement_group_id],
           measurement_name_id: v[:measurement_name_id],
           value: v[:value],
-        }
-        value = MeasurementValue.new(new_value_attributes)
-        if value.save
-          @updates[:values] << value
-        else
-          @errors << value.errors
-        end
+        })
       end
     end
 
@@ -79,8 +59,8 @@ class MeasurementsController < ApplicationController
 
   def delete_name
     check_ability! :destroy, 'Measurement'
-    n = @project.measurement_names.find(params[:id])
-    n.destroy!
+    name = @project.measurement_names.find(params[:id])
+    name.destroy!
     render_success "Measurement name deleted", measurements_response
   end
 
@@ -98,16 +78,17 @@ class MeasurementsController < ApplicationController
     {
       groups: @project.measurement_groups,
       names: serialized(@project.measurement_names),
-      values: @project.measurement_values!
+      values: @project.measurement_values!,
+      timestamp: Time.now.to_i, # Provided to cause reload client side
     }
   end
 
   def measurement_group_params
-    params.require(:group).permit(:name)
+    params.require(:group).permit(:name, :order)
   end
 
   def measurement_name_params
-    params.require(:name).permit(:value)
+    params.require(:name).permit(:value, :order)
   end
 
   def set_project

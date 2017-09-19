@@ -183,7 +183,7 @@ ActiveRecord::Schema.define(version: 20170918122642) do
   end
 
   create_table "measurement_values", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "value"
+    t.string   "value"
     t.integer  "measurement_group_id", null: false
     t.integer  "measurement_name_id",  null: false
     t.datetime "created_at",           null: false

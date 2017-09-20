@@ -13,17 +13,17 @@ class MeasurementsController < ApplicationController
     
     m = params[:measurements]
 
-    m[:groups].each_with_index do |g,i|
+    m[:groups].try(:each_with_index) do |g,i|
       group = @project.measurement_groups.find(g[:id])
       group.update!({ name: g[:name], order: i })
     end
 
-    m[:names].each_with_index do |n,i|
+    m[:names].try(:each_with_index) do |n,i|
       name = @project.measurement_names.find(n[:id])
       name.update!({ value: n[:value], order: i })
     end
 
-    m[:values].each do |v|
+    m[:values].try(:each) do |v|
       if v[:id]
         value = @project.measurement_values.find(v[:id])
         value.update!(value: v[:value])

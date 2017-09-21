@@ -5,7 +5,7 @@ class AnnotationsController < ApplicationController
 
   def create
     if @annotatable
-      @annotatable.annotations.destroy_all
+      @annotatable.annotations.destroy_all # One annotation per comment or measurement
       @annotation = @annotatable.annotations.create!(annotation_params)
     else
       @image.annotations.create!(annotation_params)
@@ -21,8 +21,10 @@ class AnnotationsController < ApplicationController
   private
 
   def annotation_params
-    params.require(:annotation).permit(
-      :image_id, :annotation_type, 
+    p = params[:annotation]
+    p[:user_id] = @user.id
+    p.permit(
+      :user_id, :image_id, :annotation_type, 
       :annotatable_id, :annotatable_type,
       anchors_attributes: [:x, :y]
     )

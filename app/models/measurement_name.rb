@@ -3,7 +3,6 @@ class MeasurementName < ApplicationRecord
   belongs_to :project
   delegate :organization, to: :project
   has_many :measurement_values, dependent: :delete_all
-  has_many :annotations, as: :annotatable
 
   before_create :put_last
 

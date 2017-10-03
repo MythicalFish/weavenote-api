@@ -6,6 +6,10 @@ class CommentsController < ApplicationController
 
   before_action :check_ability!
 
+  def index
+    render json: @commentable.comments
+  end
+
   def create
     @commentable.comments.create!(create_comment_params)
     render_success "Comment added", comments

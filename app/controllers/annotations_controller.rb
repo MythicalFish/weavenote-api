@@ -1,26 +1,27 @@
 class AnnotationsController < ApplicationController
 
   before_action :set_associations
+  before_action :set_annotation, except: [:create]
   before_action :check_ability!
 
   def create
-    if @annotatable
-      @annotatable.annotations.destroy_all # One annotation per comment or measurement
-      @annotation = @annotatable.annotations.create!(annotation_params)
-    else
-      @image.annotations.create!(annotation_params)
-    end
-    render_success "Annotation created", serialized(@image)
+    @image.annotations.create!(create_annotation_params)
+    render_success "Annotation created", annotations_response
   end
 
-  def destroy
-    @annotatable.annotations.find(params[:id])
-    render_success "Annotation deleted"
+  def update
+    @annotation.update!(update_annotation_params)
+    render_success "Annotation updated", annotations_response
+  end  
+  
+  def destroy    
+    @annotation.destroy!
+    render_success "Annotation deleted", annotations_response
   end
 
   private
 
-  def annotation_params
+  def create_annotation_params
     p = params[:annotation]
     p[:user_id] = @user.id
     p.permit(
@@ -29,28 +30,24 @@ class AnnotationsController < ApplicationController
       anchors_attributes: [:x, :y]
     )
   end
-  
+
+  def update_annotation_params
+    params.require(:annotation).permit(
+      anchors_attributes: [:id, :x, :y]
+    )
+  end
+
   def set_associations
     @image = @organization.images.find(params[:annotation][:image_id])
     @project = @image.imageable
-    set_annotatable
   end
 
-  # Legacy
-  def set_annotatable
-    p = annotation_params
-    return nil unless p[:annotatable_type]
-    klass = Object.const_get(p[:annotatable_type])
-    @annotatable = klass.find(p[:annotatable_id])
-    raise "Missing annotatable" unless @annotatable
-    case @annotatable.class.name
-    when 'Comment'
-      raise "Comment not owned by user" unless @annotatable.user == @user
-    when 'MeasurementName'
-      check_ability!
-    else
-      raise "Invalid Annotatable"
-    end
+  def set_annotation
+    @annotation = @image.annotations.find(params[:id])
+  end
+
+  def annotations_response
+    serialized(@image.annotations)
   end
 
 end

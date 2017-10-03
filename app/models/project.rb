@@ -7,6 +7,7 @@ class Project < ApplicationRecord
   has_many :components, dependent: :destroy
   has_many :materials, through: :components
   has_many :images, as: :imageable, dependent: :destroy
+  has_many :annotations, through: :images
   has_many :measurement_groups, dependent: :destroy
   has_many :measurement_names, dependent: :destroy
   has_many :measurement_values, through: :measurement_groups

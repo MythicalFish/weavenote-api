@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :organizations, except: [:index]
   resources :materials
   resources :suppliers
-  resources :comments, except: [:index]
+  resources :comments
   resources :images, except: [:index]
   resources :invites
   resources :roles, except: [:create]

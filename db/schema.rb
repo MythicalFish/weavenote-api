@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921095439) do
+ActiveRecord::Schema.define(version: 20171005083934) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -24,7 +24,8 @@ ActiveRecord::Schema.define(version: 20170921095439) do
     t.integer "image_id"
     t.string  "annotation_type"
     t.string  "annotatable_type"
-    t.integer "user_id",          null: false
+    t.integer "user_id",                      null: false
+    t.integer "color_id",         default: 1
     t.index ["annotatable_id", "annotatable_type"], name: "index_annotations_on_annotatable_id_and_annotatable_type", using: :btree
     t.index ["annotation_type"], name: "index_annotations_on_annotation_type", using: :btree
     t.index ["image_id"], name: "index_annotations_on_image_id", using: :btree
@@ -189,7 +190,7 @@ ActiveRecord::Schema.define(version: 20170921095439) do
   end
 
   create_table "measurement_values", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "value"
+    t.integer  "value"
     t.integer  "measurement_group_id", null: false
     t.integer  "measurement_name_id",  null: false
     t.datetime "created_at",           null: false

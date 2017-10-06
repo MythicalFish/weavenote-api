@@ -3,4 +3,5 @@ class CommentSerializer < ActiveModel::Serializer
   belongs_to :user, serializer: CollaboratorSerializer
   has_many :replies, serializer: CommentReplySerializer
   has_many :images, serializer: ImageSerializer
+  has_one :annotation, serializer: AnnotationSerializer
 end

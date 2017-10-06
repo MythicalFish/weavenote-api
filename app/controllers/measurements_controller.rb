@@ -15,12 +15,16 @@ class MeasurementsController < ApplicationController
 
     m[:groups].try(:each_with_index) do |g,i|
       group = @project.measurement_groups.find(g[:id])
-      group.update!({ name: g[:name], order: i })
+      attributes = { name: g[:name] }
+      attributes[:order] = i if m[:groups].length > 1
+      group.update!(attributes)
     end
 
     m[:names].try(:each_with_index) do |n,i|
       name = @project.measurement_names.find(n[:id])
-      name.update!({ value: n[:value], order: i })
+      attributes = { value: n[:value] }
+      attributes[:order] = i if m[:names].length > 1
+      name.update!(attributes)
     end
 
     m[:values].try(:each) do |v|
@@ -36,7 +40,7 @@ class MeasurementsController < ApplicationController
       end
     end
 
-    render_success "Measurement updated", measurements_response
+    render json: measurements_response
   end
 
   def create_group 
@@ -79,7 +83,6 @@ class MeasurementsController < ApplicationController
       groups: @project.measurement_groups,
       names: serialized(@project.measurement_names),
       values: @project.measurement_values!,
-      timestamp: Time.now.to_i, # Provided to cause reload client side
     }
   end
 

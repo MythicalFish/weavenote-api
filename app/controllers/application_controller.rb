@@ -19,6 +19,7 @@ class ApplicationController < ActionController::API
       materialTypes: MaterialType.all.order('name ASC'),
       currencies: Currency.all,
       careLabels: CareLabel.all,
+      unitTypes: UnitType.all.map { |ut| ut.attributes },
       roleTypes: RoleType.permitted.map { |rt| rt.attributes },
     }
   end

@@ -47,7 +47,7 @@ class AnnotationsController < ApplicationController
   end
 
   def annotations_response
-    serialized(@image.annotations)
+    serialized(@project.annotations)
   end
 
 end

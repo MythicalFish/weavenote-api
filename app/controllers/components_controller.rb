@@ -14,8 +14,8 @@ class ComponentsController < ApplicationController
   end
 
   def create
-    @component = @project.components.new(component_params)
-    @component.save!
+    new_components = params[:ids].map { |id| {material_id: id} }
+    @project.components.create!(new_components)
     render_success "Material added", serialized(list)
   end
 

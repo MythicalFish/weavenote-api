@@ -27,7 +27,7 @@ class MaterialsController < ApplicationController
     m = @material.amoeba_dup
     m.name = "Duplicate of #{@material.name}"
     m.save!
-    render json: material_list
+    index
   end
 
   def update
@@ -41,7 +41,7 @@ class MaterialsController < ApplicationController
 
   def destroy
     @material.destroy!
-    render_success "Material deleted", serialized(@organization.materials)
+    index
   end
 
   private

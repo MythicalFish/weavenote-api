@@ -36,7 +36,7 @@ class MaterialsController < ApplicationController
       @material.supplier_id = s[:id] if s[:id]
     end
     @material.update!(material_params)
-    render_success "Material updated", serialized(@material)
+    render json: serialized(@material)
   end
 
   def destroy
@@ -56,7 +56,7 @@ class MaterialsController < ApplicationController
 
   def material_params
     sanitized_params.permit(
-      :color_id, :material_type_id, :currency_id, 
+      :color, :material_type_id, :currency_id, 
       :name, :identifer, :composition, :size, :length, :opening_type, :identifier, :subtype,
       :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 ,
       supplier_attributes: [ :id, :name, :agent, :ref, :color_ref, :minimum_order, :comments ],
@@ -73,10 +73,6 @@ class MaterialsController < ApplicationController
     if p[:type]
       p[:material_type_id] = p[:type][:id]
       p.delete(:type)
-    end
-    if p[:color]
-      p[:color_id] = p[:color][:id]
-      p.delete(:color)
     end
     if p[:currency]
       p[:currency_id] = p[:currency][:id]

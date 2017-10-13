@@ -36,6 +36,13 @@ class ProjectsController < ApplicationController
     index
   end
 
+  def duplicate
+    p = @project.amoeba_dup
+    p.name = "Duplicate of #{@project.name}"
+    p.save!
+    index
+  end
+
   def material_cost
     render json: @project.material_cost
   end

@@ -3,13 +3,17 @@ class Material < ApplicationRecord
   belongs_to :organization
   belongs_to :material_type
   alias_attribute :type, :material_type
-  belongs_to :color
   belongs_to :currency
   has_and_belongs_to_many :care_labels
   belongs_to :supplier, optional: true
   accepts_nested_attributes_for :supplier
   has_many :images, as: :imageable, before_add: :destroy_images
   has_one :unit_type
+
+  amoeba do
+    enable
+    exclude_association :unit_type
+  end
 
   before_validation :set_currency
   before_validation :configure_supplier

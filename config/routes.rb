@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   resources :organizations, except: [:index]
   resources :materials
+  post 'materials/:id', to: 'materials#duplicate'
   resources :suppliers
   resources :comments
   resources :images, except: [:index]
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
       delete '/images/:id', to: 'instructions#destroy_image'
     end
   end
+  post '/projects/:id', to: 'projects#duplicate'
 
   # Misc:
 

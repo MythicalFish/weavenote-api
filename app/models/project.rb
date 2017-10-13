@@ -15,6 +15,8 @@ class Project < ApplicationRecord
   has_many :invites, as: :invitable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
     
+  amoeba { enable }
+
   validates :name, length: { minimum: 3 }
   
   scope :active, -> { where(archived: false) }

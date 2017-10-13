@@ -1,13 +1,11 @@
 class MaterialsController < ApplicationController
 
-  before_action :set_material, only: [:update, :destroy]
+  before_action :set_material, only: [:update, :destroy, :duplicate]
 
   before_action :check_ability!, except: [:index]
 
   def index
-    @materials = @organization.materials
-      .order('created_at DESC')
-    render json: @materials
+    render json: material_list
   end
 
   def show
@@ -25,6 +23,13 @@ class MaterialsController < ApplicationController
     render_success "Material created", serialized(@material)
   end
 
+  def duplicate
+    m = @material.amoeba_dup
+    m.name = "Duplicate of #{@material.name}"
+    m.save!
+    render json: material_list
+  end
+
   def update
     if s = material_params[:supplier_attributes]
       @material.supplier_id = nil unless s[:id]
@@ -40,48 +45,52 @@ class MaterialsController < ApplicationController
   end
 
   private
-    
-    def set_material
-      @material = @organization.materials.find(params[:id])
-    end
+  
+  def material_list
+    @organization.materials.order('created_at DESC')
+  end
 
-    def material_params
-      sanitized_params.permit(
-        :color_id, :material_type_id, :currency_id, 
-        :name, :identifer, :composition, :size, :length, :opening_type, :identifier, :subtype,
-        :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 ,
-        supplier_attributes: [ :id, :name, :agent, :ref, :color_ref, :minimum_order, :comments ],
-        :care_label_ids => []
-      )
-    end
+  def set_material
+    @material = @organization.materials.find(params[:id])
+  end
 
-    def sanitized_params
-      p = params[:material]
-      if p[:supplier] && p[:supplier][:name]
-        p[:supplier_attributes] = p[:supplier]
-        p.delete(:supplier)
-      end
-      if p[:type]
-        p[:material_type_id] = p[:type][:id]
-        p.delete(:type)
-      end
-      if p[:color]
-        p[:color_id] = p[:color][:id]
-        p.delete(:color)
-      end
-      if p[:currency]
-        p[:currency_id] = p[:currency][:id]
-        p.delete(:currency)
-      end
-      if p[:care_labels]
-        ids = []
-        p[:care_labels].each do |l|
-          ids << l[:id]
-        end
-        p.delete(:care_labels)
-        p[:care_label_ids] = ids
-      end
-      p
+  def material_params
+    sanitized_params.permit(
+      :color_id, :material_type_id, :currency_id, 
+      :name, :identifer, :composition, :size, :length, :opening_type, :identifier, :subtype,
+      :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 ,
+      supplier_attributes: [ :id, :name, :agent, :ref, :color_ref, :minimum_order, :comments ],
+      :care_label_ids => []
+    )
+  end
+
+  def sanitized_params
+    p = params[:material]
+    if p[:supplier] && p[:supplier][:name]
+      p[:supplier_attributes] = p[:supplier]
+      p.delete(:supplier)
     end
+    if p[:type]
+      p[:material_type_id] = p[:type][:id]
+      p.delete(:type)
+    end
+    if p[:color]
+      p[:color_id] = p[:color][:id]
+      p.delete(:color)
+    end
+    if p[:currency]
+      p[:currency_id] = p[:currency][:id]
+      p.delete(:currency)
+    end
+    if p[:care_labels]
+      ids = []
+      p[:care_labels].each do |l|
+        ids << l[:id]
+      end
+      p.delete(:care_labels)
+      p[:care_label_ids] = ids
+    end
+    p
+  end
 
 end

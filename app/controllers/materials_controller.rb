@@ -78,14 +78,6 @@ class MaterialsController < ApplicationController
       p[:currency_id] = p[:currency][:id]
       p.delete(:currency)
     end
-    if p[:care_labels]
-      ids = []
-      p[:care_labels].each do |l|
-        ids << l[:id]
-      end
-      p.delete(:care_labels)
-      p[:care_label_ids] = ids
-    end
     p
   end
 

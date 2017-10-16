@@ -5,10 +5,14 @@ class ImagesController < ApplicationController
   before_action :check_ability!
 
   def create
-    if multiple?
-      @imageable.images.create!(create_image_params)
+    if @imageable
+      if multiple_images?
+        @imageable.images.create!(create_image_params)
+      else
+        @imageable.image = Image.create!(create_image_params)
+      end
     else
-      @imageable.image = Image.create!(create_image_params)
+      @image = Image.create!(create_image_params)
     end
     render_success "Image uploaded", images_response
   end
@@ -53,17 +57,21 @@ class ImagesController < ApplicationController
   end
   
   def images_response
-    r = { imageable: { id: @imageable.id, type: @imageable.class.name } }
-    if multiple?
-      r[:images] = serialized(@imageable.images.order('id ASC'))
-    else
-      r[:image] = serialized(@imageable.image)
+    if @imageable
+      r = { imageable: { id: @imageable.id, type: @imageable.class.name } }
+      if multiple_images?
+        r[:images] = serialized(@imageable.images.order('id ASC'))
+      else
+        r[:image] = serialized(@imageable.image)
+      end
+      return r
+    elsif @image
+      return { image: serialized(@image), imageable: {} }
     end
-    r
   end
   
   def set_image
-    if multiple?
+    if multiple_images?
       @image = @imageable.images.find(params[:id])
     else 
       @image = @imageable.image
@@ -81,7 +89,8 @@ class ImagesController < ApplicationController
     end
   end
 
-  def multiple?
+  def multiple_images?
+    return false unless @imageable
     !!@imageable.try(:images)
   end
 

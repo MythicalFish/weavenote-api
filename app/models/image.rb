@@ -41,6 +41,7 @@ class Image < ApplicationRecord
   end
 
   def imageable_info
+    return nil unless imageable
     {
       id: imageable.id,
       type: imageable.class.name

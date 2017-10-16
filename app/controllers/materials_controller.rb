@@ -58,18 +58,13 @@ class MaterialsController < ApplicationController
     sanitized_params.permit(
       :color, :material_type_id, :currency_id, 
       :name, :identifer, :composition, :size, :length, :opening_type, :identifier, :subtype,
-      :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 ,
-      supplier_attributes: [ :id, :name, :agent, :ref, :color_ref, :minimum_order, :comments ],
+      :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 , :supplier_name,
       :care_label_ids => []
     )
   end
 
   def sanitized_params
     p = params[:material]
-    if p[:supplier] && p[:supplier][:name]
-      p[:supplier_attributes] = p[:supplier]
-      p.delete(:supplier)
-    end
     if p[:type]
       p[:material_type_id] = p[:type][:id]
       p.delete(:type)

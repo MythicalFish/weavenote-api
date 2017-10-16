@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009130716) do
+ActiveRecord::Schema.define(version: 20171016174107) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -160,6 +160,8 @@ ActiveRecord::Schema.define(version: 20171009130716) do
     t.string   "weight"
     t.string   "width"
     t.integer  "unit_type_id"
+    t.string   "supplier_name"
+    t.string   "supplier_email"
     t.index ["identifier"], name: "index_materials_on_identifier", using: :btree
     t.index ["material_type_id"], name: "index_materials_on_material_type_id", using: :btree
     t.index ["name"], name: "index_materials_on_name", using: :btree
@@ -194,7 +196,7 @@ ActiveRecord::Schema.define(version: 20171009130716) do
   end
 
   create_table "measurement_values", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "value"
+    t.integer  "value"
     t.integer  "measurement_group_id", null: false
     t.integer  "measurement_name_id",  null: false
     t.datetime "created_at",           null: false

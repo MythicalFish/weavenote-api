@@ -8,6 +8,6 @@ class MaterialSerializer < ActiveModel::Serializer
   belongs_to :currency
   belongs_to :supplier
   has_many :care_labels
-  has_many :images
+  has_one :image
 
 end

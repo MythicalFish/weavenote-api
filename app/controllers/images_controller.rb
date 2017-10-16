@@ -5,7 +5,11 @@ class ImagesController < ApplicationController
   before_action :check_ability!
 
   def create
-    @image = Image.create!(create_image_params)
+    if multiple?
+      @imageable.images.create!(create_image_params)
+    else
+      @imageable.image = Image.create!(create_image_params)
+    end
     render_success "Image uploaded", images_response
   end
 
@@ -39,12 +43,9 @@ class ImagesController < ApplicationController
   
   def create_image_params
     p = params[:image]
-    i = params[:imageable]
-    p[:imageable_type] = i[:type]
-    p[:imageable_id] = i[:id] if i[:id]
     p[:organization_id] = @organization.id
     p[:user_id] = @user.id
-    p.permit(:url, :name, :organization_id, :user_id, :imageable_id, :imageable_type)
+    p.permit(:url, :name, :organization_id, :user_id)
   end
   
   def update_image_params
@@ -52,16 +53,21 @@ class ImagesController < ApplicationController
   end
   
   def images_response
-    if @imageable
-      images = serialized(@imageable.images.order('id ASC'))
-      return { images: images, imageable: { id: @imageable.id, type: @imageable.class.name } }
-    else 
-      return { images: [serialized(@image)], imageable: params[:imageable] }
+    r = { imageable: { id: @imageable.id, type: @imageable.class.name } }
+    if multiple?
+      r[:images] = serialized(@imageable.images.order('id ASC'))
+    else
+      r[:image] = serialized(@imageable.image)
     end
+    r
   end
   
   def set_image
-    @image = @imageable.images.find(params[:id])
+    if multiple?
+      @image = @imageable.images.find(params[:id])
+    else 
+      @image = @imageable.image
+    end
   end
 
   def set_imageable
@@ -73,6 +79,10 @@ class ImagesController < ApplicationController
     unless @imageable.organization == @organization
       raise "Imageable organization does not match the user's organization"
     end
+  end
+
+  def multiple?
+    !!@imageable.try(:images)
   end
 
 end

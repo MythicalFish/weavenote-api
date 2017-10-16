@@ -7,7 +7,7 @@ class Material < ApplicationRecord
   has_and_belongs_to_many :care_labels
   belongs_to :supplier, optional: true
   accepts_nested_attributes_for :supplier
-  has_many :images, as: :imageable, before_add: :destroy_images
+  has_one :image, as: :imageable
   has_one :unit_type
 
   amoeba do
@@ -20,10 +20,6 @@ class Material < ApplicationRecord
 
   def cost_total
     (cost_base||0) + (cost_delivery||0) + (cost_extra1||0) + (cost_extra2||0)
-  end
-
-  def image
-    images.first
   end
 
   private
@@ -40,14 +36,6 @@ class Material < ApplicationRecord
     unless self.currency_id
       self.currency_id = Currency.find_by_iso_code('GBP').id
     end
-  end
-
-  def destroy_images image
-    # Material should only have 1 image, so we
-    # destroy all images before adding a new one.
-    # This is easier than modifying images_controller
-    # to work with has_one.
-    images.destroy_all
   end
 
 end

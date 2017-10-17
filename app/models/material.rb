@@ -8,19 +8,12 @@ class Material < ApplicationRecord
   belongs_to :supplier, optional: true
   accepts_nested_attributes_for :supplier
   has_one :image, as: :imageable
-  has_one :unit_type
+  belongs_to :unit_type
 
-  amoeba do
-    enable
-    exclude_association :unit_type
-  end
+  amoeba { enable }
 
   before_validation :set_currency
   before_validation :configure_supplier
-
-  def unit_type
-    self.unit_type.attributes
-  end
 
   def cost_total
     (cost_base||0) + (cost_delivery||0) + (cost_extra1||0) + (cost_extra2||0)

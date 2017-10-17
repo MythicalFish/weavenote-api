@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171017125152) do
+ActiveRecord::Schema.define(version: 20171017173946) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 20171017125152) do
   create_table "materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "material_type_id",                                          null: false
     t.string   "name",                                                      null: false
-    t.string   "identifier",                                                null: false
+    t.string   "reference"
     t.datetime "created_at",                                                null: false
     t.datetime "updated_at",                                                null: false
     t.integer  "currency_id",                                               null: false
@@ -162,10 +162,10 @@ ActiveRecord::Schema.define(version: 20171017125152) do
     t.integer  "unit_type_id"
     t.string   "supplier_name"
     t.string   "supplier_email"
-    t.index ["identifier"], name: "index_materials_on_identifier", using: :btree
     t.index ["material_type_id"], name: "index_materials_on_material_type_id", using: :btree
     t.index ["name"], name: "index_materials_on_name", using: :btree
     t.index ["organization_id"], name: "index_materials_on_organization_id", using: :btree
+    t.index ["reference"], name: "index_materials_on_reference", using: :btree
     t.index ["supplier_id"], name: "index_materials_on_supplier_id", using: :btree
     t.index ["unit_type_id"], name: "index_materials_on_unit_type_id", using: :btree
   end

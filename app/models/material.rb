@@ -15,6 +15,8 @@ class Material < ApplicationRecord
   before_validation :set_currency
   before_validation :configure_supplier
 
+  validates :name, length: { minimum: 3 }
+
   def cost_total
     (cost_base||0) + (cost_delivery||0) + (cost_extra1||0) + (cost_extra2||0)
   end

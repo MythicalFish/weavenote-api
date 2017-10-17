@@ -31,10 +31,6 @@ class MaterialsController < ApplicationController
   end
 
   def update
-    if s = material_params[:supplier_attributes]
-      @material.supplier_id = nil unless s[:id]
-      @material.supplier_id = s[:id] if s[:id]
-    end
     @material.update!(material_params)
     render json: serialized(@material)
   end
@@ -58,7 +54,7 @@ class MaterialsController < ApplicationController
     sanitized_params.permit(
       :color, :material_type_id, :currency_id, 
       :name, :identifer, :composition, :size, :length, :opening_type, :identifier, :subtype,
-      :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 , :supplier_name,
+      :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 , :supplier_name, :supplier_email,
       :care_label_ids => []
     )
   end

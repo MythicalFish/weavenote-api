@@ -1,12 +1,4 @@
 
-#unless User.find_by_email('jake@mythical.fish')
-#  User.create({
-#    name: 'jake',
-#    email: 'jake@mythical.fish',
-#    auth0_id: 'auth0|58fa28e05ae79b35893d826a'
-#  })
-#end
-
 def care_labels
   puts ''
   CareLabel.all.destroy_all
@@ -36,20 +28,6 @@ def currencies
   end
   puts ''
 end
-
-# def stages
-#   puts ''
-#   DevelopmentStage.all.destroy_all
-#   ActiveRecord::Base.connection.execute("ALTER TABLE development_stages AUTO_INCREMENT = 1;")
-#   DevelopmentStage.create([
-#     { label: 'Sample' },
-#     { label: 'Production' },
-#     { label: 'Done' },
-#   ]).each do |c|
-#     puts "Created dev stage: #{c.label}"
-#   end
-#   puts ''
-# end
 
 def colors
   puts ''
@@ -83,7 +61,7 @@ def material_types
   puts ''
   MaterialType.all.destroy_all
   ActiveRecord::Base.connection.execute("ALTER TABLE material_types AUTO_INCREMENT = 1;")
-  types = MaterialType.create([
+  MaterialType.create([
     { name: 'Fabric' },
     { name: 'Leather' },
     { name: 'Knit' },
@@ -102,8 +80,24 @@ def material_types
   puts ''
 end
 
+def unit_types
+  puts ''
+  UnitType.all.destroy_all
+  ActiveRecord::Base.connection.execute("ALTER TABLE unit_types AUTO_INCREMENT = 1;")
+  UnitType.create([
+    {:name => "Unit"},
+    {:name => "Metre"},
+    {:name => "Foot"},
+    {:name => "Gram"},
+    {:name => "Yarn"},
+  ]).each do |t|
+    puts "Created unit type: #{t.name}"
+  end
+  puts ''
+end
+
 care_labels
 currencies
-stages
 colors
 material_types
+unit_types

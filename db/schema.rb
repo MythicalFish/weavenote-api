@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016174107) do
+ActiveRecord::Schema.define(version: 20171017125152) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -196,7 +196,7 @@ ActiveRecord::Schema.define(version: 20171016174107) do
   end
 
   create_table "measurement_values", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "value"
+    t.string   "value"
     t.integer  "measurement_group_id", null: false
     t.integer  "measurement_name_id",  null: false
     t.datetime "created_at",           null: false
@@ -259,6 +259,10 @@ ActiveRecord::Schema.define(version: 20171016174107) do
     t.index ["name"], name: "index_suppliers_on_name", using: :btree
     t.index ["organization_id"], name: "index_suppliers_on_organization_id", using: :btree
     t.index ["updated_at"], name: "index_suppliers_on_updated_at", using: :btree
+  end
+
+  create_table "unit_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string "name", null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

@@ -13,7 +13,6 @@ class ProjectsController < ApplicationController
       project: serialized(@project),
       images: serialized(@project.images),
       annotations: serialized(@project.annotations),
-      comments: serialized(@project.comments.order(created_at: :desc)),
       user_role: @user.project_role_type(@project).name,
       abilities: Ability.new(@user, @project).list,
       avatar_list: @project.avatar_list(@user)

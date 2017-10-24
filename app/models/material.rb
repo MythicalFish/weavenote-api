@@ -9,7 +9,9 @@ class Material < ApplicationRecord
   accepts_nested_attributes_for :supplier
   has_one :image, as: :imageable
   belongs_to :unit_type
-
+  has_many :components, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
+  
   amoeba { enable }
 
   before_validation :set_currency

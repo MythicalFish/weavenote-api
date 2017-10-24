@@ -28,8 +28,8 @@ class CommentsController < ApplicationController
 
   def comments_response
     { 
-      commentable: @commentable.class.name,
-      comments: serialized(@commentable.comments.order(created_at: :desc))
+      commentable: @parent_model.class.name,
+      comments: serialized(@parent_model.comments.order(created_at: :desc))
     }
   end
 
@@ -47,11 +47,7 @@ class CommentsController < ApplicationController
     unless @commentable.organization == @organization
       render_fatal "Unable to comment on a different organization"
     end
-    if @commentable.class.name == 'Comment'
-      if @commentable.commentable.class.name == 'Comment'
-        render_fatal "Maximum comment depth is 1"
-      end
-    end
+    @parent_model = is_reply? ? @commentable.commentable : @commentable
   end
 
   def set_comment
@@ -67,6 +63,10 @@ class CommentsController < ApplicationController
 
   def update_comment_params
     params.require(:comment).permit(:text)
+  end
+
+  def is_reply?
+    @commentable.class.name == 'Comment'
   end
 
 end

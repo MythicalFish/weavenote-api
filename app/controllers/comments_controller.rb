@@ -1,31 +1,37 @@
 class CommentsController < ApplicationController
 
   before_action :set_commentable
-  before_action :set_project
   before_action :set_comment, only: [:update, :destroy]
 
   before_action :check_ability!
 
   def index
-    render json: @commentable.comments
+    render json: response
   end
 
   def create
     @commentable.comments.create!(create_comment_params)
-    render_success "Comment added", comments
+    render_success "Comment added", response
   end
 
   def update
     @comment.update!(update_comment_params)
-    render_success "Comment updated", comments
+    render_success "Comment updated", response
   end
   
   def destroy
     @comment.destroy!
-    render_success "Comment removed", comments
+    render_success "Comment removed", response
   end
 
   private
+
+  def response
+    { 
+      commentable: @commentable.class.name,
+      comments: @commentable.comments
+    }
+  end
 
   def comments
     c = @commentable
@@ -46,10 +52,6 @@ class CommentsController < ApplicationController
         render_fatal "Maximum comment depth is 1"
       end
     end
-  end
-  
-  def set_project
-    @project = @commentable.try(:project)
   end
 
   def set_comment

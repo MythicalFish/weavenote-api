@@ -6,30 +6,30 @@ class CommentsController < ApplicationController
   before_action :check_ability!
 
   def index
-    render json: response
+    render json: comments_response
   end
 
   def create
     @commentable.comments.create!(create_comment_params)
-    render_success "Comment added", response
+    render_success "Comment added", comments_response
   end
 
   def update
     @comment.update!(update_comment_params)
-    render_success "Comment updated", response
+    render_success "Comment updated", comments_response
   end
   
   def destroy
     @comment.destroy!
-    render_success "Comment removed", response
+    render_success "Comment removed", comments_response
   end
 
   private
 
-  def response
+  def comments_response
     { 
       commentable: @commentable.class.name,
-      comments: @commentable.comments
+      comments: serialized(@commentable.comments.order(created_at: :desc))
     }
   end
 

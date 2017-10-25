@@ -4,8 +4,11 @@ pagenumber = 1
 @measurements = @project.measurement_values
 @instructions = @project.instructions
 @comments = @project.comments
-def anything?
+def nothing?
   @components.any? || @measurements.any? || @instructions.any? || @comments.any?
+end
+def anything?
+  !nothing?
 end
 %><!doctype html>
 <html lang="en">
@@ -15,14 +18,14 @@ end
 </head>
 <body>
 
-  <% unless anything? %>
+  <% if anything? && @options[:basics] %>
     <%= render({
       partial: 'spec_sheet/page', 
       locals: { title: 'New project', project: @project, data: @project, view: 'new', pagenumber: pagenumber }
     }) %>
   <% end %>
 
-  <% if @components.any? %>
+  <% if @components.any? && @options[:materials] %>
     <% @components.each_slice(3) do |slice| %>
       <%= render({
         partial: 'spec_sheet/page', 
@@ -32,7 +35,7 @@ end
     <% end %>
   <% end %>
 
-  <% if @measurements.any? %>
+  <% if @measurements.any? && @options[:measurements] %>
     <%= render({
       partial: 'spec_sheet/page', 
       locals: { title: 'Measurements', project: @project, data: @project, view: 'measurements', pagenumber: pagenumber }
@@ -40,7 +43,7 @@ end
     <% pagenumber += 1 %>
   <% end %>
 
-  <% if @instructions.any? %>
+  <% if @instructions.any? && @options[:instructions] %>
     <% @instructions.each_slice(4) do |slice| %>
       <%= render({
         partial: 'spec_sheet/page', 

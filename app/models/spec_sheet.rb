@@ -40,7 +40,7 @@ class SpecSheet
 
   private
   
-  def html options
+  def html
     ActionController::Base.new.render_to_string(
       "spec_sheet/index.html.erb", 
       locals: { 

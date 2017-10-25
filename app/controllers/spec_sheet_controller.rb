@@ -5,8 +5,7 @@ class SpecSheetController < ApplicationController
   skip_before_action :initialize_user!, only: [:test]
 
   def create
-    spec_sheet = SpecSheet.new(pdf_name, @project, params[:options])
-    file = spec_sheet.create_pdf
+    file = SpecSheet.new(pdf_name, @project, spec_sheet_params).create_pdf
     storage = Fog::Storage.new( Rails.configuration.fog )
     headers = { "Content-Type" => 'application/pdf', "x-amz-acl" => "public-read" }
     s = storage.put_object(ENV['WEAVENOTE__AWS_S3_BUCKET'], "#{pdf_path}#{pdf_name}", file, headers )
@@ -17,12 +16,21 @@ class SpecSheetController < ApplicationController
   def test
     return nil if Rails.env.production?
     @project = Project.last
-    pdf = SpecSheet.new(pdf_name, @project).create_pdf
-    f = File.read(pdf)
+    pdf = SpecSheet.new(pdf_name, @project, spec_sheet_params).create_pdf
     send_data pdf, filename: 'test.pdf', type: :pdf, disposition: :inline
   end
 
   private
+
+  def spec_sheet_params
+    permitted_params.map { |p|
+      [p,!params.key?(p) || params[p] == 'true']
+    }.to_h.symbolize_keys
+  end
+
+  def permitted_params
+    [:basics, :measurements, :instructions, :materials, :comments]
+  end
 
   def pdf_name
     t = Time.now.strftime('%Y-%m-%d_%H-%M')

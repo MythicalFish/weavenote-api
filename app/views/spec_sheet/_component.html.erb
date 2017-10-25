@@ -2,6 +2,10 @@
 <tr>
   <td>
     <table class="data">
+      <colgroup>
+        <col width="30%">
+        <col width="70%">
+      </colgroup>
       <tr>
         <td><b>Name</b></td>
         <td><%= material.name %></td>
@@ -28,9 +32,9 @@
       </tr>
     </table>
   </td>
-  <td class="material-img">
+  <!--<td class="material-img">
     <% if material.image %>
       <div class="img img-right" style="background-image: url('<%= material.image.file.url(:small) %>');"></div>
     <% end %>
-  </td>
+  </td>-->
 </tr>

@@ -11,9 +11,10 @@ end
 
 class SpecSheet
 
-  def initialize(filename, project)
+  def initialize(filename, project, options)
     @filename = filename
     @project = project
+    @options = options
   end
 
   def config
@@ -39,8 +40,14 @@ class SpecSheet
 
   private
   
-  def html
-    ActionController::Base.new.render_to_string("spec_sheet/index.html.erb", locals: { :@project => @project })
+  def html options
+    ActionController::Base.new.render_to_string(
+      "spec_sheet/index.html.erb", 
+      locals: { 
+        :@project => @project,
+        :@options => @options
+      }
+    )
   end
 
 end

@@ -50,7 +50,7 @@ end
     <% end %>
   <% end %>
 
-  <% if @comments.any? %>
+  <% if @comments.any? && @options[:comments] %>
     <% @comments.each_slice(4) do |slice| %>
       <%= render({
         partial: 'spec_sheet/page', 

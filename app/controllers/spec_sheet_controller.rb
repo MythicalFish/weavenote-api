@@ -5,7 +5,7 @@ class SpecSheetController < ApplicationController
   skip_before_action :initialize_user!, only: [:test]
 
   def create
-    spec_sheet = SpecSheet.new(pdf_name, @project)
+    spec_sheet = SpecSheet.new(pdf_name, @project, params[:options])
     file = spec_sheet.create_pdf
     storage = Fog::Storage.new( Rails.configuration.fog )
     headers = { "Content-Type" => 'application/pdf', "x-amz-acl" => "public-read" }

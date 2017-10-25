@@ -226,3 +226,7 @@ td.material-img {
     left: 0;
     height: auto;
     width: auto; }
+
+.y-fill {
+  height: 100%;
+  box-sizing: border-box; }

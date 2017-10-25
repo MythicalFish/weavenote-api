@@ -1,0 +1,11 @@
+<td colspan="2" class="vtop">
+  <table class="data y-fill">
+    <tr>
+      <% data.each do |image| %>
+        <td class="image pt3">
+          <div class="img" style="background-image:url('<%= image.file.url(:medium) %>');"></div>
+        </td>
+      <% end %>
+    </tr>
+  </table>
+</td>

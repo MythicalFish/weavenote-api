@@ -4,11 +4,9 @@ pagenumber = 1
 @measurements = @project.measurement_values
 @instructions = @project.instructions
 @comments = @project.comments
-def nothing?
-  @components.any? || @measurements.any? || @instructions.any? || @comments.any?
-end
+@images = @project.images
 def anything?
-  !nothing?
+  @components.any? || @measurements.any? || @instructions.any? || @comments.any?
 end
 %><!doctype html>
 <html lang="en">
@@ -18,7 +16,7 @@ end
 </head>
 <body>
 
-  <% if anything? && @options[:basics] %>
+  <% unless anything? %>
     <%= render({
       partial: 'spec_sheet/page', 
       locals: { title: 'New project', project: @project, data: @project, view: 'new', pagenumber: pagenumber }
@@ -58,6 +56,16 @@ end
       <%= render({
         partial: 'spec_sheet/page', 
         locals: { title: 'Comments', project: @project, data: slice, view: 'comments', pagenumber: pagenumber }
+      }) %>
+      <% pagenumber += 1 %>
+    <% end %>
+  <% end %>
+
+  <% if @images.length > 1 && @options[:secondary_images] %>
+    <% @images.drop(1).each_slice(2) do |slice| %>
+      <%= render({
+        partial: 'spec_sheet/page', 
+        locals: { title: 'Secondary images', project: @project, data: slice, view: 'images', pagenumber: pagenumber }
       }) %>
       <% pagenumber += 1 %>
     <% end %>

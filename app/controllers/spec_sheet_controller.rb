@@ -29,7 +29,7 @@ class SpecSheetController < ApplicationController
   end
 
   def permitted_params
-    [:basics, :measurements, :instructions, :materials, :comments]
+    [:measurements, :instructions, :materials, :comments, :secondary_images]
   end
 
   def pdf_name

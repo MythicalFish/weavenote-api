@@ -9,6 +9,8 @@ class Comment < ApplicationRecord
 
   validates :text, length: { minimum: 2 }
 
+  scope :annotated, -> { joins(:annotation) }
+
   def project
     c = commentable
     return c if c.class.name == 'Project'

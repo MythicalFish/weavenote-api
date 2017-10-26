@@ -47,12 +47,16 @@ end
         partial: 'spec_sheet/page', 
         locals: { title: 'Instructions', project: @project, data: slice, view: 'instructions', pagenumber: pagenumber }
       }) %>
-      <% pagenumber += 1 %>
-    <% end %>
-  <% end %>
+      <% pagenumber += 1
+    end
+  end
 
-  <% if @comments.any? && @options[:comments] %>
-    <% @comments.each_slice(4) do |slice| %>
+  if @options[:comments] == "Annotated"
+    @comments = @comments.annotated
+  end
+
+  if @comments.any? && @options[:comments]
+    @comments.each_slice(4) do |slice| %>
       <%= render({
         partial: 'spec_sheet/page', 
         locals: { title: 'Comments', project: @project, data: slice, view: 'comments', pagenumber: pagenumber }

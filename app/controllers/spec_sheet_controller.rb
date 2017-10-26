@@ -23,13 +23,24 @@ class SpecSheetController < ApplicationController
   private
 
   def spec_sheet_params
-    permitted_params.map { |p|
+    # Set each export option as true if 'true' or not present
+    opts = boolean_options.map { |p|
       [p,!params.key?(p) || params[p] == 'true']
     }.to_h.symbolize_keys
+    # Set :comments as key if present (eg. 'Annotated')
+    case params[:comments]
+      when 'None'
+        opts[:comments] = false
+      when 'Annotated'
+        opts[:comments] = 'Annotated'
+      else
+        opts[:comments] = true
+    end
+    opts
   end
 
-  def permitted_params
-    [:measurements, :instructions, :materials, :comments, :secondary_images]
+  def boolean_options
+    [:measurements, :instructions, :materials, :secondary_images]
   end
 
   def pdf_name

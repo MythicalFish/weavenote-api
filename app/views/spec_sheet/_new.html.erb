@@ -1,5 +1,5 @@
 <td class="image pt3">
-  <div class="img" style="background-image:url('<%= project.image_url %>');"></div>
+  <%= render partial: "spec_sheet/image", locals: { src: project.image_url } %>
 </td>
 <td class="content">
   <p>It looks like this is a new project!</p>

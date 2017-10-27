@@ -3,7 +3,7 @@
     <tr>
       <% data.each do |image| %>
         <td class="image pt3">
-          <div class="img" style="background-image:url('<%= image.file.url(:medium) %>');"></div>
+          <%= render partial: "spec_sheet/image", locals: { src: image.file.url(:medium) } %>
         </td>
       <% end %>
     </tr>

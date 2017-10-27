@@ -208,7 +208,21 @@ table.comments tr td {
   height: 100%;
   background-size: contain;
   background-position: center top;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+  position: relative; }
+  .img .anchor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 999px;
+    height: 5px;
+    width: 5px;
+    background: lime; }
+    .img .anchor.dot {
+      width: 40px;
+      height: 40px;
+      background: aqua;
+      border: 5px solid white; }
 
 .img-left {
   background-position: left top; }

@@ -1,0 +1,9 @@
+<div class="img" style="background-image:url('<%= src %>');">
+  <% if annotations
+    annotations.each do |a| 
+      a.anchors.each do |o| %>
+        <div class="anchor <%= a.type %>" style="top: <%= o.y_percent %>; left: <%= o.x_percent %>;"></div>
+      <% end
+    end
+  end %>
+</div>

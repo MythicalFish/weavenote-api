@@ -83,6 +83,95 @@
   height: 100%;
   box-sizing: border-box; }
 
+h1,
+h2,
+h3 {
+  margin: 0; }
+
+body {
+  color: #444;
+  font-size: 25px;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0; }
+  body * {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box; }
+
+.page {
+  height: 419.5mm;
+  width: 596mm;
+  padding: 80px;
+  position: relative;
+  overflow: hidden; }
+  .page table.main {
+    height: 100%; }
+    .page table.main td.header .app-title {
+      opacity: 0.5;
+      font-size: 2rem;
+      padding-bottom: 10px; }
+    .page table.main td.header .page-title {
+      text-transform: uppercase; }
+    .page table.main td.header table.project-info tr td {
+      padding: 10px; }
+    .page table.main tr.body {
+      height: 100%; }
+      .page table.main tr.body > td {
+        width: 50%; }
+      .page table.main tr.body td.content {
+        padding-left: 40px;
+        vertical-align: top; }
+  .page .page-number {
+    display: block;
+    position: absolute;
+    bottom: 80px;
+    right: 80px;
+    opacity: 0.6;
+    font-size: 1.5rem;
+    z-index: 2; }
+
+.img {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center top;
+  background-repeat: no-repeat;
+  position: relative; }
+  .img .anchor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 999px;
+    height: 5px;
+    width: 5px;
+    background: lime; }
+    .img .anchor.dot {
+      width: 40px;
+      height: 40px;
+      background: aqua;
+      border: 5px solid white; }
+
+.img-left {
+  background-position: left top; }
+
+.img-right {
+  background-position: right top; }
+
+table {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+table.data > tbody > tr > td {
+  padding: 10px; }
+table.data > tbody > tr:not(:last-child) td {
+  border-bottom: 2px solid #eee; }
+
+thead {
+  font-weight: bold; }
+
 table.comments tr td {
   vertical-align: top; }
   table.comments tr td .comment {
@@ -148,102 +237,6 @@ table.measurements {
   table.measurements tr:not(:last-child) td {
     border-bottom: none; }
 
-h1,
-h2,
-h3 {
-  margin: 0; }
-
-body {
-  color: #444;
-  font-size: 25px;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0; }
-  body * {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box; }
-
-table {
-  width: 100%;
-  margin: 0;
-  border: 0;
-  border-collapse: collapse;
-  border-spacing: 0; }
-
-.page {
-  height: 419.5mm;
-  width: 596mm;
-  padding: 80px;
-  position: relative;
-  overflow: hidden; }
-  .page table.main {
-    height: 100%; }
-    .page table.main td.header .app-title {
-      opacity: 0.5;
-      font-size: 2rem;
-      padding-bottom: 10px; }
-    .page table.main td.header .page-title {
-      text-transform: uppercase; }
-    .page table.main td.header table.project-info tr td {
-      padding: 10px; }
-    .page table.main tr.body {
-      height: 100%; }
-      .page table.main tr.body > td {
-        width: 50%; }
-      .page table.main tr.body td.content {
-        padding-left: 40px;
-        vertical-align: top; }
-  .page .page-number {
-    display: block;
-    position: absolute;
-    bottom: 80px;
-    right: 80px;
-    opacity: 0.6;
-    font-size: 1.5rem;
-    z-index: 2; }
-
-table.data > tbody > tr > td {
-  padding: 10px; }
-table.data > tbody > tr:not(:last-child) td {
-  border-bottom: 2px solid #eee; }
-
-table.rows > tbody > tr > td {
-  padding-top: 40px; }
-table.rows > tbody > tr:not(:last-child) > td {
-  padding-bottom: 40px;
-  border-bottom: 4px solid #ccc; }
-  table.rows > tbody > tr:not(:last-child) > td table.data tr:last-child td {
-    padding-bottom: 0 !important; }
-table.rows > tbody > tr:not(:first-child) > td table.data tr:first-child td {
-  padding-top: 0 !important; }
-
-.img {
-  width: 100%;
-  height: 100%;
-  background-size: contain;
-  background-position: center top;
-  background-repeat: no-repeat;
-  position: relative; }
-  .img .anchor {
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 999px;
-    height: 5px;
-    width: 5px;
-    background: lime; }
-    .img .anchor.dot {
-      width: 40px;
-      height: 40px;
-      background: aqua;
-      border: 5px solid white; }
-
-.img-left {
-  background-position: left top; }
-
-.img-right {
-  background-position: right top; }
-
 td.material-img {
   position: relative; }
   td.material-img .img {
@@ -254,6 +247,3 @@ td.material-img {
     left: 0;
     height: auto;
     width: auto; }
-
-thead {
-  font-weight: bold; }

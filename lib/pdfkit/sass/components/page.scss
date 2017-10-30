@@ -1,0 +1,46 @@
+.page {
+  height: 419.5mm;
+  width: 596mm;
+  padding: $p3 * 2;
+  position: relative;
+  overflow: hidden;
+  table.main {
+    height: 100%;
+    td.header {
+      .app-title {
+        opacity: 0.5;
+        font-size: 2rem;
+        padding-bottom: $p1;
+      }
+      .page-title {
+        text-transform: uppercase;
+      }
+      table.project-info {
+        tr {
+          td {
+            padding: $p1;
+          }
+        }
+      }
+    }
+    tr.body {
+      height: 100%;
+      > td {
+        width: 50%;
+      }
+      td.content {
+        padding-left: $p3;
+        vertical-align: top;
+      }
+    }
+  }
+  .page-number {
+    display: block;
+    position: absolute;
+    bottom: $p3 * 2;
+    right: $p3 * 2;
+    opacity: 0.6;
+    font-size: 1.5rem;
+    z-index: 2;
+  }
+}

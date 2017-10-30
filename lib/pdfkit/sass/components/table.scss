@@ -1,0 +1,24 @@
+table {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+table.data {
+  > tbody {
+    > tr {
+      > td {
+        padding: $p1;
+      }
+      &:not(:last-child) {
+        td {
+          border-bottom: $b1;
+        }
+      }
+    }
+  }
+}
+thead {
+  font-weight: bold;
+}

@@ -1,0 +1,12 @@
+td.material-img {
+  position: relative;
+  .img {
+    position: absolute;
+    top: $p3;
+    right: 0;
+    bottom: $p3;
+    left: 0;
+    height: auto;
+    width: auto;
+  }
+}

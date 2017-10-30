@@ -1,0 +1,17 @@
+<div class="page">
+  <table class="cover">
+    <tr>
+      <td>
+        <%= render partial: 'spec_sheet/image', locals: { src: project.image_url } %>
+      </td>
+    </tr>
+    <tr>
+      <td class="center">
+        <div class="pt3">
+          <h1 class="pb3"><%= project.name %></h1>
+          <%= project.ref_number %>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

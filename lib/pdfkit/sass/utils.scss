@@ -1,8 +1,8 @@
 $p1: 10px;
 $p2: 20px;
 $p3: 40px;
-$dark1: rgba(0, 0, 0, 0.10);
-$dark2: rgba(0, 0, 0, 0.20);
+$dark1: rgba(0, 0, 0, 0.1);
+$dark2: rgba(0, 0, 0, 0.2);
 $b1: 2px solid #eee;
 $b2: 4px solid #ccc;
 $b3: 2px solid #ccc;
@@ -87,4 +87,11 @@ $b3: 2px solid #ccc;
 }
 .vtop {
   vertical-align: top !important;
+}
+.center {
+  text-align: center;
+}
+.y-fill {
+  height: 100%;
+  box-sizing: border-box;
 }

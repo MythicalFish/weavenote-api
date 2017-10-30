@@ -5,9 +5,6 @@ pagenumber = 1
 @instructions = @project.instructions
 @comments = @project.comments
 @images = @project.images
-def anything?
-  @components.any? || @measurements.any? || @instructions.any? || @comments.any?
-end
 %><!doctype html>
 <html lang="en">
 <head>
@@ -16,15 +13,10 @@ end
 </head>
 <body>
 
-  <% unless anything? %>
-    <%= render({
-      partial: 'spec_sheet/page', 
-      locals: { title: 'New project', project: @project, data: @project, view: 'new', pagenumber: pagenumber }
-    }) %>
-  <% end %>
+  <%= render({ partial: 'spec_sheet/cover', locals: { project: @project }}) %>
 
   <% if @components.any? && @options[:materials] %>
-    <% @components.each_slice(3) do |slice| %>
+    <% @components.each_slice(20) do |slice| %>
       <%= render({
         partial: 'spec_sheet/page', 
         locals: { title: 'Materials', project: @project, data: slice, view: 'components', pagenumber: pagenumber }

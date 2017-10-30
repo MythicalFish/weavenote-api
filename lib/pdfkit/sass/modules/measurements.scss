@@ -1,0 +1,21 @@
+table.measurements {
+  width: auto;
+  border-collapse: separate;
+  border-spacing: 8px 0;
+  thead {
+    td:first-child {
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  tr {
+    td {
+      border: 2px solid #ccc;
+      padding: $p2;
+    }
+    &:not(:last-child) {
+      td {
+        border-bottom: none;
+      }
+    }
+  }
+}

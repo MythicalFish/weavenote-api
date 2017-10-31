@@ -1,5 +1,15 @@
+table.materials {
+  thead {
+    tr {
+      td {
+        padding-bottom: 20px;
+      }
+    }
+  }
+}
 td.material-img {
   position: relative;
+  height: 50px;
   .img {
     position: absolute;
     top: $p3;

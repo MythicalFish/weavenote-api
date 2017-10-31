@@ -59,22 +59,25 @@
   border-left: 2px solid #eee; }
 
 .b2 {
-  border: 4px solid #ccc; }
+  border: 4px solid #eee; }
 
 .bt2 {
-  border-top: 4px solid #ccc; }
+  border-top: 4px solid #eee; }
 
 .br2 {
-  border-right: 4px solid #ccc; }
+  border-right: 4px solid #eee; }
 
 .bb2 {
-  border-bottom: 4px solid #ccc; }
+  border-bottom: 4px solid #eee; }
 
 .bl2 {
-  border-left: 4px solid #ccc; }
+  border-left: 4px solid #eee; }
 
 .vtop {
   vertical-align: top !important; }
+
+.vbottom {
+  vertical-align: bottom !important; }
 
 .center {
   text-align: center; }
@@ -136,14 +139,15 @@ body {
   background-size: contain;
   background-position: center top;
   background-repeat: no-repeat;
-  position: relative; }
+  position: relative;
+  background-color: fuchsia; }
   .img .anchor {
     position: absolute;
     top: 0;
     left: 0;
     border-radius: 999px;
-    height: 5px;
-    width: 5px;
+    height: 15px;
+    width: 15px;
     background: lime; }
     .img .anchor.dot {
       width: 40px;
@@ -196,12 +200,11 @@ table.comments tr td {
   table.comments tr td:last-child .comment {
     margin-left: 10px; }
 
-table.cover {
-  height: 100%; }
-  table.cover > tbody tr:first-child {
-    height: 70%; }
-  table.cover > tbody tr:nth-child(2) {
-    height: 30%; }
+ul.project-info {
+  list-style: none;
+  margin: 0; }
+  ul.project-info li {
+    margin-bottom: 8px; }
 
 table.instructions {
   width: 100%;
@@ -237,8 +240,12 @@ table.measurements {
   table.measurements tr:not(:last-child) td {
     border-bottom: none; }
 
+table.materials thead tr td {
+  padding-bottom: 20px; }
+
 td.material-img {
-  position: relative; }
+  position: relative;
+  height: 50px; }
   td.material-img .img {
     position: absolute;
     top: 40px;

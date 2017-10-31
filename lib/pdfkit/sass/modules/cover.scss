@@ -1,13 +1,7 @@
-table.cover {
-  height: 100%;
-  > tbody {
-    tr {
-      &:first-child {
-        height: 70%;
-      }
-      &:nth-child(2) {
-        height: 30%;
-      }
-    }
+ul.project-info {
+  list-style: none;
+  margin: 0;
+  li {
+    margin-bottom: 8px;
   }
 }

@@ -6,34 +6,10 @@
     </colgroup>
     <tr>
       <td>
-        <div class="app-title">weavenote</div>
+        <div class="app-title"><%= project.name %></div>
         <h1 class="page-title"><%= title %></h1>
       </td>
       <td>
-        <table class="project-info">
-          <colgroup>
-            <col width="35%">
-            <col width="65%">
-          </colgroup>
-          <tr>
-            <td><b>Project name</b></td>
-            <td><%= project.name %></td>
-            <td><b>Collection</b></td>
-            <td><%= project.collection %></td>
-          </tr>
-          <tr>
-            <td><b>Reference no.</b></td>
-            <td><%= project.ref_number %></td>
-            <td><b>Contact</b></td>
-            <td><%= project.organization.owner.email %></td>
-          </tr>
-          <tr>
-            <td><b>Color code</b></td>
-            <td><%= project.color_code %></td>
-            <td><b>Organization</b></td>
-            <td><%= project.organization.name %></td>
-          </tr>
-        </table>
       </td>
     </tr>
   </table>

@@ -4,7 +4,7 @@ $p3: 40px;
 $dark1: rgba(0, 0, 0, 0.1);
 $dark2: rgba(0, 0, 0, 0.2);
 $b1: 2px solid #eee;
-$b2: 4px solid #ccc;
+$b2: 4px solid #eee;
 $b3: 2px solid #ccc;
 .p1 {
   padding: $p1;
@@ -87,6 +87,9 @@ $b3: 2px solid #ccc;
 }
 .vtop {
   vertical-align: top !important;
+}
+.vbottom {
+  vertical-align: bottom !important;
 }
 .center {
   text-align: center;

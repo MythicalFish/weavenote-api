@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171017173946) do
+ActiveRecord::Schema.define(version: 20171101144821) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -24,10 +24,12 @@ ActiveRecord::Schema.define(version: 20171017173946) do
     t.integer "image_id"
     t.string  "annotation_type"
     t.string  "annotatable_type"
-    t.integer "user_id",                      null: false
+    t.integer "user_id",                          null: false
     t.integer "color_id",         default: 1
+    t.boolean "archived",         default: false
     t.index ["annotatable_id", "annotatable_type"], name: "index_annotations_on_annotatable_id_and_annotatable_type", using: :btree
     t.index ["annotation_type"], name: "index_annotations_on_annotation_type", using: :btree
+    t.index ["archived"], name: "index_annotations_on_archived", using: :btree
     t.index ["image_id"], name: "index_annotations_on_image_id", using: :btree
     t.index ["user_id"], name: "index_annotations_on_user_id", using: :btree
   end
@@ -50,13 +52,15 @@ ActiveRecord::Schema.define(version: 20171017173946) do
   end
 
   create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "text",             null: false
+    t.string   "text",                             null: false
     t.integer  "user_id"
-    t.integer  "commentable_id",   null: false
-    t.string   "commentable_type", null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "commentable_id",                   null: false
+    t.string   "commentable_type",                 null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "organization_id"
+    t.boolean  "archived",         default: false
+    t.index ["archived"], name: "index_comments_on_archived", using: :btree
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
     t.index ["organization_id"], name: "index_comments_on_organization_id", using: :btree
     t.index ["user_id"], name: "index_comments_on_user_id", using: :btree

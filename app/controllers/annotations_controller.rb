@@ -6,17 +6,17 @@ class AnnotationsController < ApplicationController
 
   def create
     @image.annotations.create!(create_annotation_params)
-    render_success "Annotation created", annotations_response
+    render json: annotations_response
   end
 
   def update
     @annotation.update!(update_annotation_params)
-    render_success "Annotation updated", annotations_response
+    render json: annotations_response
   end  
   
   def destroy    
     @annotation.destroy!
-    render_success "Annotation deleted", annotations_response
+    render json: annotations_response
   end
 
   private
@@ -47,7 +47,7 @@ class AnnotationsController < ApplicationController
   end
 
   def annotations_response
-    serialized(@project.annotations)
+    serialized(@project.annotations.active)
   end
 
 end

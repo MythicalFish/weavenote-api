@@ -11,25 +11,26 @@ class CommentsController < ApplicationController
 
   def create
     @commentable.comments.create!(create_comment_params)
-    render_success "Comment added", comments_response
+    render json: comments_response
   end
 
   def update
     @comment.update!(update_comment_params)
-    render_success "Comment updated", comments_response
+    render json: comments_response
   end
   
   def destroy
-    @comment.destroy!
-    render_success "Comment removed", comments_response
+    @comment.update!(archived: true)
+    render json: comments_response
   end
 
   private
 
   def comments_response
+    archived = params[:archived] == "true" ? true : false
     { 
       commentable: @parent_model.class.name,
-      comments: serialized(@parent_model.comments.order(created_at: :desc))
+      comments: serialized(@parent_model.comments.where(archived: archived).order(created_at: :desc))
     }
   end
 

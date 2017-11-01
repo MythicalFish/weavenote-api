@@ -9,7 +9,11 @@ class Comment < ApplicationRecord
 
   validates :text, length: { minimum: 2 }
 
+  scope :active, -> { where(archived: false)} 
+  scope :archived, -> { where(archived: true)} 
   scope :annotated, -> { joins(:annotation) }
+
+  after_update :update_annotation
 
   def project
     c = commentable
@@ -34,6 +38,14 @@ class Comment < ApplicationRecord
       return rid if c.id == self.id
       rid += 1
     end
+  end
+
+  private
+
+  def update_annotation
+    return unless annotation.present?
+    return unless changed_attributes.include? :archived
+    annotation.update!(archived: archived)
   end
 
 end

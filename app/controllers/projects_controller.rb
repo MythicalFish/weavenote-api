@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
     render json: {
       project: serialized(@project),
       images: serialized(@project.images),
-      annotations: serialized(@project.annotations),
+      annotations: serialized(@project.annotations.active),
       user_role: @user.project_role_type(@project).name,
       abilities: Ability.new(@user, @project).list,
       avatar_list: @project.avatar_list(@user)

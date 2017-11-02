@@ -1,8 +1,13 @@
 class AnnotationsController < ApplicationController
 
-  before_action :set_associations
-  before_action :set_annotation, except: [:create]
+  before_action :set_associations, except: [:index]
+  before_action :set_annotation, except: [:index, :create]
   before_action :check_ability!
+
+  def index
+    @project = @organization.projects.find(params[:project_id])
+    render json: annotations_response
+  end
 
   def create
     @image.annotations.create!(create_annotation_params)
@@ -15,7 +20,7 @@ class AnnotationsController < ApplicationController
   end  
   
   def destroy    
-    @annotation.destroy!
+    @annotation.update!(archived: true)
     render json: annotations_response
   end
 

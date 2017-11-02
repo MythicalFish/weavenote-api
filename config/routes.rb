@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :images, except: [:index]
   resources :invites
   resources :roles, except: [:create]
-  resources :annotations, except: [:index, :show]
+  resources :annotations, except: [:show]
   
   resources :projects do
     get '/export', to: 'spec_sheet#create'

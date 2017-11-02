@@ -10,4 +10,15 @@ class Annotation < ApplicationRecord
   scope :active, -> { where(archived: false)} 
   scope :archived, -> { where(archived: true)} 
 
+  after_update :update_annotatable
+
+  private
+
+  def update_annotatable
+    return unless annotatable.present?
+    return unless changed_attributes.include? :archived
+    annotatable.update!(archived: archived)
+  end
+
+
 end

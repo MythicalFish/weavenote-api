@@ -6,7 +6,7 @@ class ComponentsController < ApplicationController
   before_action :check_ability!
 
   def index
-    render json: list
+    render json: serialized(list)
   end
 
   def show
@@ -16,17 +16,17 @@ class ComponentsController < ApplicationController
   def create
     new_components = params[:ids].map { |id| {material_id: id} }
     @project.components.create!(new_components)
-    render_success "Material added", serialized(list)
+    render json: serialized(list)
   end
 
   def update
     @component.update!(component_params)
-    render_success "Material updated", serialized(list)
+    render json: serialized(list)
   end
 
   def destroy
     @component.destroy!
-    render_success "Material deleted", serialized(list)
+    render json: serialized(list)
   end
 
   private

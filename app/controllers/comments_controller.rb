@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
   def comments_response
     archived = params[:archived] == "true" ? true : false
     { 
-      commentable: @parent_model.class.name,
+      commentable: { id: @parent_model.id, type: @parent_model.class.name },
       comments: serialized(@parent_model.comments.where(archived: archived).order(created_at: :desc))
     }
   end

@@ -1,3 +1,4 @@
+# usage: rake test_invite[2,Project]
 task :test_invite, [:role_type_id, :invitable_type] => :environment do |t,args|
   
   invitable_type = args[:invitable_type] || 'Organization'

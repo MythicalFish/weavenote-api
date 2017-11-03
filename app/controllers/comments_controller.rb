@@ -20,7 +20,8 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    @comment.update!(archived: true)
+    @comment.update!(archived: true) unless @comment.is_reply
+    @comment.destroy! if @comment.is_reply
     render json: comments_response
   end
 
@@ -63,7 +64,7 @@ class CommentsController < ApplicationController
   end
 
   def update_comment_params
-    params.require(:comment).permit(:text)
+    params.require(:comment).permit(:text, :archived)
   end
 
   def is_reply?

@@ -40,6 +40,10 @@ class Comment < ApplicationRecord
     end
   end
 
+  def archived
+    attributes['archived'] || is_reply && commentable.attributes['archived']
+  end
+
   private
 
   def update_annotation

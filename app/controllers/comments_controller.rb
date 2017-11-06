@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_action :set_commentable
   before_action :set_comment, only: [:update, :destroy]
 
-  before_action :check_ability!
+  before_action :check_ownership_or_ability
 
   def index
     render json: comments_response
@@ -69,6 +69,22 @@ class CommentsController < ApplicationController
 
   def is_reply?
     @commentable.class.name == 'Comment'
+  end
+
+  def is_own_comment?
+    @comment.user == @user
+  end
+
+  def check_ownership_or_ability
+    if action_name == 'update'
+      # Only owner can edit comment
+      deny! unless is_own_comment?
+    elsif action_name == 'destroy'
+      # Only owner or admin can delete (archived)
+      deny! unless is_own_comment? || @user.is_admin? || @user.is_member
+    else
+      check_ability!
+    end
   end
 
 end

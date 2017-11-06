@@ -9,10 +9,12 @@ module CheckAbility
     @target = target_model || controller_name.classify
     @roleable = @project || @organization
     @ability = Ability.new(@user, @roleable)
-    unless @ability.to? @action, @target
-      msg = "You don't have permission to #{@action} this #{@target}"
-      render_denied(msg)
-    end
+    deny! unless @ability.to? @action, @target
+  end
+
+  def deny!
+    msg = "You don't have permission to #{@action} this #{@target}"
+    render_denied(msg)
   end
   
 end

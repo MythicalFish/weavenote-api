@@ -2,7 +2,7 @@ class AnnotationsController < ApplicationController
 
   before_action :set_associations, except: [:index]
   before_action :set_annotation, except: [:index, :create]
-  before_action :check_ability!
+  before_action :check_ownership_or_ability
 
   def index
     @project = @organization.projects.find(params[:project_id])
@@ -53,6 +53,22 @@ class AnnotationsController < ApplicationController
 
   def annotations_response
     serialized(@project.annotations.active)
+  end
+
+  def is_own_annotation?
+    @annotation.user == @user
+  end
+
+  def check_ownership_or_ability
+    if action_name == 'update'
+      # Only owner can edit comment
+      deny! unless is_own_annotation?
+    elsif action_name == 'destroy'
+      # Only owner or admin can delete (archived)
+      deny! unless is_own_annotation? || @user.is_admin? || @user.is_member
+    else
+      check_ability!
+    end
   end
 
 end

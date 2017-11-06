@@ -40,5 +40,9 @@ module RoleMethods
       organization_role_type == RoleType.admin
     end
 
+    def is_member?
+      organization_role_type == RoleType.member
+    end
+
   end
 end

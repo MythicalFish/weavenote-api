@@ -2,7 +2,7 @@ class ImagesController < ApplicationController
 
   before_action :set_imageable
   before_action :set_image, only: [:destroy, :update]
-  before_action :check_ability!
+  before_action :check_ownership_or_ability
 
   def create
     if @imageable
@@ -92,6 +92,12 @@ class ImagesController < ApplicationController
   def multiple_images?
     return false unless @imageable
     !!@imageable.try(:images)
+  end
+
+  def check_ownership_or_ability
+    unless @imageable.try(:user) == @user
+      check_ability!
+    end
   end
 
 end

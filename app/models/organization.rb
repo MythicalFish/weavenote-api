@@ -14,4 +14,8 @@ class Organization < ApplicationRecord
     roles.where(role_type_id: RoleType.admin.id).first.user
   end
 
+  def role_types
+    RoleType.find([3,5]).map { |r| r.attributes }
+  end
+
 end

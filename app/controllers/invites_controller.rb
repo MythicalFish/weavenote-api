@@ -77,7 +77,7 @@ class InvitesController < ApplicationController
     if p[:as_guest]
       p[:role_type_id] = 2
     end
-    unless RoleType::PERMITTED_IDS.include? p[:role_type_id]
+    unless RoleType::EXPOSED_IDS.include? p[:role_type_id]
       render_fatal "User attempted to assign unpermitted role_type_id"
     end
     p.permit(:email, :name, :role_type_id, :inviter_id)

@@ -20,7 +20,6 @@ class ApplicationController < ActionController::API
       currencies: Currency.all,
       careLabels: CareLabel.all,
       unitTypes: UnitType.all.map { |ut| ut.attributes },
-      roleTypes: RoleType.permitted.map { |rt| rt.attributes },
     }
   end
 

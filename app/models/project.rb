@@ -24,6 +24,10 @@ class Project < ApplicationRecord
   
   alias_attribute :stage, :development_stage
 
+  def role_types
+    RoleType.find([2,3]).map{ |r| r.attributes }
+  end
+
   def project
     self # For simplifying set_project in several controllers
   end

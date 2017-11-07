@@ -21,7 +21,7 @@ class Ability
   ADMIN = 5
 
   DEFAULT_ABILITIES = {
-    #NONE => [],
+    NONE => [],
     GUEST => [:index, :show],
     MEMBER => [:index, :show, :update],
     MANAGER => ALL_ACTIONS,

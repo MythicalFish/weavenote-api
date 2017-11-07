@@ -16,10 +16,12 @@ task :test_invite, [:role_type_id, :invitable_type] => :environment do |t,args|
     invitable_type: invitable_type,
   }
   if invitable_type == 'Organization'
-    params[:invitable_id] = inviter.organizations.first.id
+    invitable = inviter.organizations.first
   else
-    params[:invitable_id] = inviter.projects.last.id
+    invitable = inviter.projects.last
   end
+  invitable.invites.destroy_all
+  params[:invitable_id] = invitable.id
   i = Invite.create!(params)
   i.update(key:'test')
   puts i.invite_link

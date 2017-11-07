@@ -79,12 +79,36 @@
 .vbottom {
   vertical-align: bottom !important; }
 
+.vcenter {
+  vertical-align: center !important; }
+
 .center {
   text-align: center; }
 
 .y-fill {
   height: 100%;
   box-sizing: border-box; }
+
+.middle-content {
+  position: relative; }
+  .middle-content > span {
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%); }
+
+.pink {
+  background: fuchsia; }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2; }
 
 h1,
 h2,
@@ -141,25 +165,35 @@ body {
   background-repeat: no-repeat;
   position: relative;
   background-color: fuchsia; }
-  .img .anchor {
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 999px;
-    height: 15px;
-    width: 15px;
-    background: lime; }
-    .img .anchor.dot {
-      width: 40px;
-      height: 40px;
-      background: aqua;
-      border: 5px solid white; }
+  .img .img-left {
+    background-position: left top; }
+  .img .img-right {
+    background-position: right top; }
 
-.img-left {
-  background-position: left top; }
+.img-container {
+  position: relative;
+  line-height: 0;
+  display: inline-block;
+  width: auto; }
 
-.img-right {
-  background-position: right top; }
+.anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 999px;
+  height: 15px;
+  width: 15px;
+  background: lime; }
+  .anchor.dot {
+    width: 40px;
+    height: 40px;
+    background: aqua;
+    border: 5px solid white; }
+
+.line {
+  position: absolute;
+  height: 2px;
+  background: lime; }
 
 table {
   width: 100%;

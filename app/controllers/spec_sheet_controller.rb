@@ -30,6 +30,7 @@ class SpecSheetController < ApplicationController
     # Set :comments as key if present (eg. 'Annotated')
     case params[:comments]
       when 'None'
+      when 'false'
         opts[:comments] = false
       when 'Annotated'
         opts[:comments] = 'Annotated'

@@ -1,10 +1,17 @@
-<div class="img" style="background-image:url('<%= src %>');">
-  <img src="<%= src %>"> />
-  <% if defined?(annotations)
-    annotations.each do |a| 
-      a.anchors.each do |o| %>
-        <div class="anchor <%= a.type %>" style="top: <%= o.y_percent %>; left: <%= o.x_percent %>;"></div>
-      <% end
-    end
-  end %>
-</div>
+<span>
+  <div class="img-container pink">
+    <img src="<%= src %>">
+    <div class="overlay">
+      <% if defined?(annotations)
+        annotations.each do |a| 
+          a.anchors.each do |o| %>
+            <div class="anchor <%= a.type %>" style="top: <%= o.y_percent %>%; left: <%= o.x_percent %>%;"></div>
+          <% end
+          if a.anchors.size > 1 %>
+            <div class="line <%= a.type %>" style="<%= a.line_css %>"></div>
+          <% end
+        end
+      end %>
+    </div>
+  </div>
+</span>

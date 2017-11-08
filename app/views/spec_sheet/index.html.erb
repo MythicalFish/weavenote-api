@@ -49,17 +49,15 @@ pagenumber = 1
     end
   end
 
-  if @options[:comments] == "Annotated"
-    @comments = @comments.annotated
-  end
-
-  if @comments.any? && @options[:comments]
-    @comments.each_slice(4) do |slice| %>
-      <%= render({
-        partial: 'spec_sheet/page', 
-        locals: { title: 'Comments', project: @project, data: slice, view: 'comments', pagenumber: pagenumber }
-      }) %>
-      <% pagenumber += 1 %>
+  if @options[:comments]
+    if @options[:comments] == 'Annotated'
+      @images.with_comment_annotations.each do |i| %>
+        <%= render({
+          partial: 'spec_sheet/page', 
+          locals: { title: 'Comments', project: @project, data: i, view: 'comments', pagenumber: pagenumber }
+        }) %>
+        <% pagenumber += 1 %>
+      <% end %>
     <% end %>
   <% end %>
 

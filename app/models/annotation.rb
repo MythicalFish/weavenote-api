@@ -30,15 +30,18 @@ class Annotation < ApplicationRecord
   def create_line x1, y1, x2, y2 
     if x1 > x2
       x = x1
-      y = y1
       x1 = x2
-      y1 = y2
       x2 = x
+      y = y1
+      y1 = y2
       y2 = y
     end
     length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))
     angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math::PI
-    "left: #{x1}%; top: #{y1}%; width: #{length}%; -webkit-transform: rotate(#{angle}deg);"
+    { 
+      anchor: "left: #{x1}%; top: #{y1}%;",
+      line: "width: #{length}%; -webkit-transform: rotate(#{angle}deg);"
+    }
   end
 
   #left1 = x1 < x2 ? x1 : x2

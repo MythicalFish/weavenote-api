@@ -2,9 +2,10 @@
   groups = data.measurement_groups
   names = data.measurement_names
   values = data.measurement_values
+  image = project.primary_image
 %>
 <td class="pt3">
-  <%= render partial: "spec_sheet/image", locals: { src: project.image_url, annotations: project.measurement_annotations } %>
+  <%= render partial: "spec_sheet/image", locals: { src: image.file.url(:large), annotations: image.annotations.where(type:'line') } %>
 </td>
 <td class="content pt3">
   <table class="measurements">

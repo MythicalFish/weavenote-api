@@ -10,6 +10,12 @@ pagenumber = 1
 <head>
   <meta charset="utf8" />
   <title><%= @project.name %></title>
+  <% if @options[:link_stylesheet] 
+    f = File.open("#{Rails.root}/lib/pdfkit/style.css") %>
+    <style>
+      <%= f.read %>
+    </style>
+  <% end %>
 </head>
 <body>
 

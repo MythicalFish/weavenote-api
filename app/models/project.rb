@@ -65,14 +65,6 @@ class Project < ApplicationRecord
     a
   end
 
-  def measurement_annotations
-    annotations.where(type: ['line', 'arrow'])
-  end
-
-  def comment_annotations
-    annotations.where(type: 'dot')
-  end
-
   def avatar_list current_user = nil
     # merge project & org collaborators
     p_ids = self.collaborators.ids

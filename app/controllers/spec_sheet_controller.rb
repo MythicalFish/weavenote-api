@@ -2,7 +2,7 @@ class SpecSheetController < ApplicationController
 
   before_action :set_project, only: [:create]
   before_action :check_ability!, only: [:create]
-  skip_before_action :initialize_user!, only: [:test]
+  skip_before_action :initialize_user!, only: [:test, :test2]
 
   def create
     file = SpecSheet.new(pdf_name, @project, spec_sheet_params).create_pdf
@@ -18,6 +18,19 @@ class SpecSheetController < ApplicationController
     @project = Project.last
     pdf = SpecSheet.new(pdf_name, @project, spec_sheet_params).create_pdf
     send_data pdf, filename: 'test.pdf', type: :pdf, disposition: :inline
+  end
+  
+  def test2
+    return nil if Rails.env.production?
+    @project = Project.last
+    s = ActionController::Base.new.render_to_string(
+      "spec_sheet/index.html.erb", 
+      locals: { 
+        :@project => @project,
+        :@options => spec_sheet_params.merge({link_stylesheet: true})
+      }
+    )
+    render html: s
   end
 
   private

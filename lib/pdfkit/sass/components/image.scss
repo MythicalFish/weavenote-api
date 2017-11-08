@@ -16,21 +16,25 @@
 .img-container {
   position: relative;
   line-height: 0;
-  width: 100%;
+  width: auto;
+  display: inline-block;
   img {
   }
 }
 .anchor {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
-  border-radius: 999px;
-  height: 15px;
-  width: 15px;
-  background: lime;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  &.dot {
+  &.line-anchor {
+    border-radius: 999px;
+    height: 10px;
+    width: 10px;
+    background: lime;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+  }
+  &.dot-anchor {
+    border-radius: 999px;
     width: 40px;
     height: 40px;
     background: aqua;
@@ -38,9 +42,9 @@
   }
 }
 .line {
-  position: absolute;
+  position: relative;
   height: 2px;
   background: lime;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
+  transform-origin: left;
+  -webkit-transform-origin: left;
 }

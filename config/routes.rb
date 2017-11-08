@@ -47,5 +47,6 @@ Rails.application.routes.draw do
   # PDF test page:
   
   get '/test', to: 'spec_sheet#test'
+  get '/test2', to: 'spec_sheet#test2'
 
 end

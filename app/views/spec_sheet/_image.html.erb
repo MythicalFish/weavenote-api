@@ -7,7 +7,7 @@
             <div class="anchor <%= a.type %>-anchor" style="top: <%= o.y_percent %>%; left: <%= o.x_percent %>%;"></div>
           <% end
           if a.anchors.size > 1 %>
-            <div class="line <%= a.type %>-line" style="<%= a.line_css %>"></div>
+            <div class="line <%= a.type %>-line" style="<%= a.line_css[:line] %><%= a.line_css[:anchor] %>"></div>
           <% end
         end
       end %>

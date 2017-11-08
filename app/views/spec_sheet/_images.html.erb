@@ -2,7 +2,7 @@
   <table class="data y-fill">
     <tr>
       <% data.each do |image| %>
-        <td class="image pt3">
+        <td class="pt3">
           <%= render partial: "spec_sheet/image", locals: { src: image.file.url(:medium) } %>
         </td>
       <% end %>

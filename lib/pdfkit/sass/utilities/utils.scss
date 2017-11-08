@@ -103,17 +103,18 @@ $b3: 2px solid #ccc;
 }
 .middle-content {
   position: relative;
-  > span {
+  > * {
     display: inline-block;
     text-align: center;
     position: absolute;
+    width: 100%;
     top: 50%;
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
   }
 }
 .pink {
-  background: fuchsia;
+  background: rgba(255, 0, 255, 0.6);
 }
 .overlay {
   position: absolute;

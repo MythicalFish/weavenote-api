@@ -1,17 +1,15 @@
-<span>
-  <div class="img-container pink">
+  <div class="img-container">
     <img src="<%= src %>">
     <div class="overlay">
       <% if defined?(annotations)
         annotations.each do |a| 
           a.anchors.each do |o| %>
-            <div class="anchor <%= a.type %>" style="top: <%= o.y_percent %>%; left: <%= o.x_percent %>%;"></div>
+            <div class="anchor <%= a.type %>-anchor" style="top: <%= o.y_percent %>%; left: <%= o.x_percent %>%;"></div>
           <% end
           if a.anchors.size > 1 %>
-            <div class="line <%= a.type %>" style="<%= a.line_css %>"></div>
+            <div class="line <%= a.type %>-line" style="<%= a.line_css %>"></div>
           <% end
         end
       end %>
     </div>
   </div>
-</span>

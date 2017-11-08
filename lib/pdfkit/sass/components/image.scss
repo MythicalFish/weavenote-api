@@ -16,8 +16,9 @@
 .img-container {
   position: relative;
   line-height: 0;
-  display: inline-block;
-  width: auto;
+  width: 100%;
+  img {
+  }
 }
 .anchor {
   position: absolute;
@@ -27,6 +28,8 @@
   height: 15px;
   width: 15px;
   background: lime;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
   &.dot {
     width: 40px;
     height: 40px;
@@ -38,4 +41,6 @@
   position: absolute;
   height: 2px;
   background: lime;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
 }

@@ -1,7 +1,7 @@
 class Project < ApplicationRecord
 
   has_many :roles, as: :roleable
-  has_many :collaborators, source: :user, through: :roles
+  has_many :direct_collaborators, source: :user, through: :roles
 
   belongs_to :organization
   has_many :components, dependent: :destroy
@@ -65,20 +65,15 @@ class Project < ApplicationRecord
     a
   end
 
-  def avatar_list current_user = nil
+  def collaborators
     # merge project & org collaborators
-    p_ids = self.collaborators.ids
+    p_ids = self.direct_collaborators.ids
     o_ids = self.organization.collaborators.ids
     ids = (p_ids + o_ids).uniq
-    # exclude current user
-    if current_user
-      c = ids.find_index(current_user.id)
-      ids.delete_at(c)
-    end
     # return simple array of avatars & names
     ids.map do |id| 
       u = User.find(id)
-      { user_id: u.id, user_name: u.name, url: u.avatar }
+      { id: u.id, name: u.name, avatar_src: u.avatar, display: u.name }
     end
   end
 

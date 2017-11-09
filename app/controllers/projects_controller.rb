@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
       annotations: serialized(@project.annotations.active),
       user_role: @user.project_role_type(@project).name,
       abilities: Ability.new(@user, @project).list,
-      avatar_list: @project.avatar_list(@user)
+      collaborators: @project.collaborators
     }
   end
 

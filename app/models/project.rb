@@ -73,7 +73,7 @@ class Project < ApplicationRecord
     # return simple array of avatars & names
     ids.map do |id| 
       u = User.find(id)
-      { id: u.id, name: u.name, avatar_src: u.avatar, display: u.name }
+      { name: u.name, avatar_src: u.avatar, display: u.name, id: u.username }
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171109101049) do
+ActiveRecord::Schema.define(version: 20171109144908) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -293,10 +293,12 @@ ActiveRecord::Schema.define(version: 20171109101049) do
     t.datetime "updated_at",              null: false
     t.string   "auth0_id",                null: false
     t.integer  "current_organization_id"
+    t.string   "username"
     t.index ["auth0_id"], name: "index_users_on_auth0_id", using: :btree
     t.index ["created_at"], name: "index_users_on_created_at", using: :btree
     t.index ["name"], name: "index_users_on_name", using: :btree
     t.index ["updated_at"], name: "index_users_on_updated_at", using: :btree
+    t.index ["username"], name: "index_users_on_username", using: :btree
   end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102212534) do
+ActiveRecord::Schema.define(version: 20171109101049) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -208,6 +208,23 @@ ActiveRecord::Schema.define(version: 20171102212534) do
     t.index ["measurement_group_id"], name: "index_measurement_values_on_measurement_group_id", using: :btree
     t.index ["measurement_name_id"], name: "index_measurement_values_on_measurement_name_id", using: :btree
     t.index ["value"], name: "index_measurement_values_on_value", using: :btree
+  end
+
+  create_table "notifications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer  "creator_id"
+    t.integer  "receiver_id"
+    t.string   "concern_type"
+    t.integer  "concern_id"
+    t.integer  "type"
+    t.boolean  "unread",       default: true
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["concern_type", "concern_id"], name: "index_notifications_on_concern_type_and_concern_id", using: :btree
+    t.index ["created_at"], name: "index_notifications_on_created_at", using: :btree
+    t.index ["creator_id"], name: "index_notifications_on_creator_id", using: :btree
+    t.index ["receiver_id"], name: "index_notifications_on_receiver_id", using: :btree
+    t.index ["type"], name: "index_notifications_on_type", using: :btree
+    t.index ["unread"], name: "index_notifications_on_unread", using: :btree
   end
 
   create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

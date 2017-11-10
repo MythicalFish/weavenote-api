@@ -4,7 +4,7 @@ class Component < ApplicationRecord
   belongs_to :material
 
   def material_cost
-    material.cost_total * quantity
+    (material.cost_total || 0) * (quantity || 0)
   end
 
 end

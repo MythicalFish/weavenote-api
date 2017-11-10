@@ -1,0 +1,16 @@
+- img_count = instruction.images.length
+- img_count = 1 unless img_count > 0
+- img_width = "#{100 / img_count}%"
+%table.instruction
+  %colgroup
+    - img_count.times do |i|
+      %col{:width => img_width}/
+  %tr.instruction-text
+    %td{:colspan => img_count}
+      %h2= instruction.title
+      .pt2.pb2
+        = instruction.description
+  %tr.instruction-images
+    - instruction.images.each do |image|
+      %td
+        .img.img-left{:style => "background-image: url('#{image.file.url(:small)}');"}

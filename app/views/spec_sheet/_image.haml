@@ -1,0 +1,9 @@
+.img-container
+  %img{:src => src}
+  .overlay
+    - if defined?(annotations)
+      - annotations.each do |a|
+        - a.anchors.each do |o|
+          %div{:class => "anchor #{a.type}-anchor", :style => "top: #{o.y_percent}%; left: #{o.x_percent}%;"}
+        - if a.anchors.size > 1
+          %div{:class => "line #{a.type}-line", :style => "#{a.line_css[:line]}#{a.line_css[:anchor]}"}

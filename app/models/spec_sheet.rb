@@ -42,7 +42,7 @@ class SpecSheet
   
   def html
     ActionController::Base.new.render_to_string(
-      "spec_sheet/index.html.erb", 
+      "spec_sheet/index.haml", 
       locals: { 
         :@project => @project,
         :@options => @options

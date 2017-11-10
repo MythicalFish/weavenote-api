@@ -1,0 +1,21 @@
+- components = data
+%td.vtop.pt3{:colspan => "2"}
+  %table.materials.data
+    %thead
+      %tr
+        %td Name
+        %td Type
+        %td Quantity
+        %td Supplier
+        %td Reference
+        %td Color
+    %tbody
+      - components.each do |component|
+        - material = component.material
+        %tr
+          %td= material.name
+          %td= material.type.name
+          %td= component.quantity
+          %td= material.supplier_name
+          %td= material.reference
+          %td= material.color

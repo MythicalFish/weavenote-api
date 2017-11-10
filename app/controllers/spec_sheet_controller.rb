@@ -24,7 +24,7 @@ class SpecSheetController < ApplicationController
     return nil if Rails.env.production?
     @project = Project.last
     s = ActionController::Base.new.render_to_string(
-      "spec_sheet/index.html.erb", 
+      "spec_sheet/index.haml", 
       locals: { 
         :@project => @project,
         :@options => spec_sheet_params.merge({link_stylesheet: true})

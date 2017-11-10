@@ -1,0 +1,8 @@
+- image = data
+- annotations = image.annotations.where(annotatable_type:'Comment')
+- comments = annotations.map { |a| a.annotatable }
+%td
+  = render partial: "spec_sheet/image", locals: { src: image.file.url(:large), annotations: annotations }
+%td
+  - comments.each do |comment|
+    = render partial: "spec_sheet/comment", locals: { comment: comment }

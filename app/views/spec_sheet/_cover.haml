@@ -1,0 +1,24 @@
+.page
+  %table.main
+    %tr.body
+      %td
+        = render partial: 'spec_sheet/image', locals: { src: project.image_url }
+      %td.center
+        .pt3
+          %h1.page-title.pb3= project.name
+          %ul.project-info
+            %li
+              %b Collection:
+              = project.collection
+            %li
+              %b Reference no:
+              = project.ref_number
+            %li
+              %b Contact:
+              = project.organization.owner.email
+            %li
+              %b Color code:
+              = project.color_code
+            %li
+              %b Organization:
+              = project.organization.name

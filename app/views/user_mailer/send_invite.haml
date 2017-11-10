@@ -1,0 +1,9 @@
+- if @invite.name
+  Hi #{@invite.name},
+- else
+  Hello there,
+%p
+  = "#{@invite.inviter.name} invited you to join the #{@invite.invitable.name} #{@invite.invitable_type}!"
+Click here to accept the invitation:
+%br
+%a{:href => "#{@invite.invite_link}"}= @invite.invite_link

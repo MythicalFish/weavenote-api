@@ -1,0 +1,46 @@
+- pagenumber = 1
+- @components = @project.components
+- @measurements = @project.measurement_values
+- @instructions = @project.instructions
+- @comments = @project.comments
+- @images = @project.images
+!!!
+%html
+  %head
+
+    %meta{:charset => "utf8"}/
+    %title= @project.name 
+    - if @options[:link_stylesheet]
+      - f = File.open("#{Rails.root}/lib/pdfkit/style.css")
+      :css
+        #{f.read}
+      
+  %body
+
+    = render({ partial: 'spec_sheet/cover', locals: { project: @project }})
+
+    - if @components.any? && @options[:materials]
+      - @components.each_slice(20) do |slice|
+        = render partial: 'spec_sheet/page', locals: { title: 'Materials', project: @project, data: slice, view: 'materials', pagenumber: pagenumber } 
+                                                                                                            
+        - pagenumber += 1
+
+    - if @measurements.any? && @options[:measurements]
+      = render partial: 'spec_sheet/page', locals: { title: 'Measurements', project: @project, data: @project, view: 'measurements', pagenumber: pagenumber } 
+      - pagenumber += 1
+
+    - if @instructions.any? && @options[:instructions]
+      - @instructions.each_slice(4) do |slice|
+        = render partial: 'spec_sheet/page', locals: { title: 'Instructions', project: @project, data: slice, view: 'instructions', pagenumber: pagenumber } 
+        - pagenumber += 1
+        
+    - if @options[:comments]
+      - if @options[:comments] == 'Annotated'
+        - @images.with_comment_annotations.each do |i|
+          = render partial: 'spec_sheet/page', locals: { title: 'Comments', project: @project, data: i, view: 'comments', pagenumber: pagenumber }
+          - pagenumber += 1
+          
+    - if @images.length > 1 && @options[:secondary_images]
+      - @images.drop(1).each_slice(2) do |slice|
+        = render partial: 'spec_sheet/page', locals: { title: 'Secondary images', project: @project, data: slice, view: 'images', pagenumber: pagenumber } 
+        - pagenumber += 1

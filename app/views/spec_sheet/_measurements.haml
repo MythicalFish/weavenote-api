@@ -1,0 +1,24 @@
+- groups = data.measurement_groups
+- names = data.measurement_names
+- values = data.measurement_values
+- image = project.primary_image
+%td.pt3
+  = render partial: "spec_sheet/image", locals: { src: image.file.url(:large), annotations: image.annotations.where(type:'line') }
+%td.content.pt3
+  %table.measurements
+    %thead
+      %tr
+        %td Description
+        - groups.each do |group|
+          %td= group.name
+    %tbody
+      - names.each do |name|
+        %tr
+          %td
+            %b.pr1= name.identifier
+            = name.value
+          - groups.each do |group|
+            - data.measurement_values!.each do |value|
+              - next unless value.group.id == group.id
+              - next unless value.name.id == name.id
+              %td= value.value

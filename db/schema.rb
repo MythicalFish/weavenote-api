@@ -211,20 +211,20 @@ ActiveRecord::Schema.define(version: 20171109144908) do
   end
 
   create_table "notifications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
-    t.integer  "creator_id"
     t.integer  "receiver_id"
     t.string   "concern_type"
     t.integer  "concern_id"
-    t.integer  "type"
-    t.boolean  "unread",       default: true
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.string   "notification_type"
+    t.boolean  "seen",              default: false
+    t.boolean  "email_sent",        default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.index ["concern_type", "concern_id"], name: "index_notifications_on_concern_type_and_concern_id", using: :btree
     t.index ["created_at"], name: "index_notifications_on_created_at", using: :btree
-    t.index ["creator_id"], name: "index_notifications_on_creator_id", using: :btree
+    t.index ["email_sent"], name: "index_notifications_on_email_sent", using: :btree
+    t.index ["notification_type"], name: "index_notifications_on_notification_type", using: :btree
     t.index ["receiver_id"], name: "index_notifications_on_receiver_id", using: :btree
-    t.index ["type"], name: "index_notifications_on_type", using: :btree
-    t.index ["unread"], name: "index_notifications_on_unread", using: :btree
+    t.index ["seen"], name: "index_notifications_on_seen", using: :btree
   end
 
   create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

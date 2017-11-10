@@ -6,6 +6,7 @@ class ApplicationController < ActionController::API
   include InitializeAuth0
   include InitializeUser
   include CheckAbility
+  include Notify
 
   before_action :initialize_user!
 

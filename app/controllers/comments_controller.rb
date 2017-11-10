@@ -10,12 +10,14 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @commentable.comments.create!(create_comment_params)
+    @comment = @commentable.comments.create!(create_comment_params)
+    handle_mentions
     render json: comments_response
   end
 
   def update
     @comment.update!(update_comment_params)
+    handle_mentions
     render json: comments_response
   end
   
@@ -26,6 +28,14 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def handle_mentions
+    return unless params[:mentions]
+    receivers = @organization.users.where(username: params[:mentions])
+    receivers.each do |receiver|
+      notify(receiver, :mention, @comment) 
+    end
+  end
 
   def comments_response
     archived = params[:archived] == "true" ? true : false

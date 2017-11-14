@@ -18,6 +18,7 @@ class Comment < ApplicationRecord
   def project
     c = commentable
     return c if c.class.name == 'Project'
+    return c.commentable
   end
 
   def replies

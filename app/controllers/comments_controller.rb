@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
 
+  include ActionView::Helpers::TextHelper
+
   before_action :set_commentable
   before_action :set_comment, only: [:update, :destroy]
 
@@ -30,8 +32,8 @@ class CommentsController < ApplicationController
   private
 
   def handle_mentions
-    return unless params[:mentions]
-    receivers = @organization.users.where(username: params[:mentions])
+    return unless params[:mentioned]
+    receivers = @organization.collaborators.where(username: params[:mentioned])
     receivers.each do |receiver|
       notify(receiver, :mention, @comment) 
     end
@@ -70,6 +72,7 @@ class CommentsController < ApplicationController
     p = params[:comment]
     p[:user_id] = @user.id
     p[:organization_id] = @organization.id
+    p[:text] = simple_format(p[:text])
     p.permit(:user_id, :organization_id, :text)
   end
 

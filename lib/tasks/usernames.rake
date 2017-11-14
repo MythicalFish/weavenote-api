@@ -1,7 +1,7 @@
 task usernames: :environment do
   User.all.each do |u|
-    n = u.email.split('@')[0]
-    u.update!(username: n)
+    u.set_username
+    u.save
     puts u.username
   end
 end

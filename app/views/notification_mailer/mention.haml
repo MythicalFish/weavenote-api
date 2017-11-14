@@ -1,1 +1,6 @@
-Mention content
+%p= "#{@notification.creator.name} mentioned you:"
+
+= @notification.concern.text.html_safe
+
+%p
+  %a{href: @notification.url} Click here to see it

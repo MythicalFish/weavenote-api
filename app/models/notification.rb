@@ -10,6 +10,11 @@ class Notification < ApplicationRecord
   def creator
     concern.try(:user)
   end
+  
+  def url
+    domain = ENV['WEAVENOTE__SITE_URL']
+    "#{domain}/projects/#{concern.project.id}"
+  end
 
   # private
 

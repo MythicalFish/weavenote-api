@@ -17,10 +17,8 @@ class User < ApplicationRecord
     "#{ENV['WEAVENOTE__API_URL']}#{self.avatar_url}"
   end
 
-  private
-
   def set_username
-    username = self.email.split('@')[0]
+    username = self.email.split('@')[0].gsub('.','')
     return self.username = username unless username_exists?(username)
     i = 2
     begin
@@ -29,6 +27,8 @@ class User < ApplicationRecord
     end while username_exists?(un)
     self.username = un
   end
+
+  private
 
   def username_exists? username
     User.where(username: username).exists?

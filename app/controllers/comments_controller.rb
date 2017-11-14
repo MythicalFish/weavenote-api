@@ -77,7 +77,9 @@ class CommentsController < ApplicationController
   end
 
   def update_comment_params
-    params.require(:comment).permit(:text, :archived)
+    p = params[:comment]
+    p[:text] = simple_format(p[:text])
+    p.permit(:text, :archived)
   end
 
   def is_reply?

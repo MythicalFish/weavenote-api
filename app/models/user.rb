@@ -5,6 +5,8 @@ class User < ApplicationRecord
   require "letter_avatar/has_avatar"
   include LetterAvatar::HasAvatar
   validates_uniqueness_of :email
+  validates :name, length: { minimum: 2 }
+  validate :username_is_valid
 
   before_create :set_username
 
@@ -30,8 +32,16 @@ class User < ApplicationRecord
 
   private
 
+  def username_is_valid
+    if username.length < 2
+      errors.add(:username, ' must be at least 2 chars')
+    elsif username_exists?(username)
+      errors.add(:username, ' is taken')
+    end
+  end
+
   def username_exists? username
-    User.where(username: username).exists?
+    User.where('username = ? AND id != ?', username, id).exists?
   end
 
 end

@@ -23,7 +23,6 @@
 
 # Env
 config/application.yml
-config/newrelic.yml
 
 # Generated avatars
 /public/system/letter_avatars

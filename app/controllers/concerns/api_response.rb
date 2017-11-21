@@ -42,8 +42,8 @@ module ApiResponse
     msg << e.backtrace.join("\n")
     msg << "\n\n\n\n"
     logger.error msg
-    if defined? NewRelic
-      NewRelic::Agent.notice_error(e)
+    if defined? Rollbar
+      Rollbar.error(e)
     end
   end
 

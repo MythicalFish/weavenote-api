@@ -254,7 +254,6 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     mysql2 (0.4.5)
-    newrelic_rpm (4.1.0.333)
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
@@ -303,6 +302,8 @@ GEM
       json (>= 1.8)
       nokogiri (~> 1.5)
       trollop (~> 2.1)
+    rollbar (2.15.5)
+      multi_json
     ruby_parser (3.10.1)
       sexp_processor (~> 4.9)
     sexp_processor (4.10.0)
@@ -347,13 +348,13 @@ DEPENDENCIES
   letter_avatar
   listen (~> 3.0.5)
   mysql2
-  newrelic_rpm
   paperclip
   pdfkit
   puma (~> 3.0)
   rack-cors
   rails (~> 5.0.2)
   rb-readline
+  rollbar
   spring
   spring-watcher-listen (~> 2.0.0)
 

@@ -1,8 +1,5 @@
 class NotificationMailer < ApplicationMailer
 
-  FROM_NAME = "Weavenote"
-  default from: "\"#{FROM_NAME}\" <noreply@#{ENV['WEAVENOTE__DOMAIN']}>"
-
   def send_notification notification
     @notification = notification 
     @concern = notification.concern

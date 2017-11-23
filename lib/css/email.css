@@ -125,3 +125,9 @@ body {
   body * {
     box-sizing: border-box;
     -webkit-box-sizing: border-box; }
+
+.container {
+  max-width: 542px;
+  background-color: #FFF;
+  margin: 0 auto;
+  padding: 20px; }

@@ -1,7 +1,5 @@
 class UserMailer < ApplicationMailer
 
-  default from: "\"Weavenote\" <noreply@#{ENV['WEAVENOTE__DOMAIN']}>"
-
   def send_invite invite
     @invite = invite
     mail({

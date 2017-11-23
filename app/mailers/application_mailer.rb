@@ -1,4 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  FROM_NAME = "Weavenote"
+  default from: "\"#{FROM_NAME}\" <noreply@#{ENV['WEAVENOTE__DOMAIN']}>"
   layout 'mailer'
 end

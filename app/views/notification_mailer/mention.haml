@@ -1,10 +1,11 @@
-%p{style: "opacity: 0.8;"}
-  %b= @notification.creator.name
-  mentioned you:
+.container
+  %p{style: "opacity: 0.8;"}
+    %b= @notification.creator.name
+    mentioned you:
 
-= @notification.concern.text.html_safe
+  = @notification.concern.text.html_safe
 
-%p{style: "opacity: 0.8;"}
-  You can reply to this email or  
-  %a{href: @notification.url} click here
-  to go to the project.
+  %p{style: "opacity: 0.8;"}
+    You can reply to this email or  
+    %a{href: @notification.url} click here
+    to go to the project.

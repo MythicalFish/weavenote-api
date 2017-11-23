@@ -1,8 +1,10 @@
 class CommentsController < ApplicationController
 
   include ActionView::Helpers::TextHelper
+  include SendgridInbound
 
-  before_action :set_commentable
+  skip_before_action :initialize_user!, only: [:parse_email]
+  before_action :set_commentable, except: [:parse_email]
   before_action :set_comment, only: [:update, :destroy]
 
   before_action :check_ownership_or_ability
@@ -27,6 +29,11 @@ class CommentsController < ApplicationController
     @comment.update!(archived: true) unless @comment.is_reply
     @comment.destroy! if @comment.is_reply
     render json: comments_response
+  end
+
+  def parse_email
+    @comment = Comment.new(parse_comment_reply)
+    @comment.save! if @comment.valid?
   end
 
   private

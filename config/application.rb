@@ -27,7 +27,7 @@ module WeavenoteApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-    config.autoload_paths << "#{Rails.root}/lib"
+    config.autoload_paths << "#{Rails.root}/app/modules"
     config.enable_dependency_loading = true
 
     # PDF Kit

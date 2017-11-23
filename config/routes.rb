@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post 'materials/:id', to: 'materials#duplicate'
   resources :suppliers
   resources :comments
+  post '/comments/parse_email', to: 'comments#parse_email'
   resources :images, except: [:index]
   resources :invites
   resources :roles, except: [:create]

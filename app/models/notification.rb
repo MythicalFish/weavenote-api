@@ -18,8 +18,6 @@ class Notification < ApplicationRecord
     end
   end
 
-  # private
-
   def send_notification
     email = NotificationMailer.send_notification(self)
     email.deliver_now 

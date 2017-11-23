@@ -32,6 +32,7 @@ gem 'active_hash'
 gem 'letter_avatar'
 gem 'pdfkit'
 gem 'haml-rails'
+gem 'nokogiri'
 
 group :production do
   gem 'rollbar' 

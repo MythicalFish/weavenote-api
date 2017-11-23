@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171109144908) do
+ActiveRecord::Schema.define(version: 20171123145322) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -60,8 +60,10 @@ ActiveRecord::Schema.define(version: 20171109144908) do
     t.datetime "updated_at",                                     null: false
     t.integer  "organization_id"
     t.boolean  "archived",                       default: false
+    t.string   "key"
     t.index ["archived"], name: "index_comments_on_archived", using: :btree
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+    t.index ["key"], name: "index_comments_on_key", unique: true, using: :btree
     t.index ["organization_id"], name: "index_comments_on_organization_id", using: :btree
     t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end

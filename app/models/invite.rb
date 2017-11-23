@@ -22,7 +22,7 @@ class Invite < ApplicationRecord
   def generate_key
     begin
       key = SecureRandom.hex(8).upcase
-    end while Object.const_get(self.model_name.human).where(:key => key).exists?
+    end while Invite.where(:key => key).exists?
     self.key = key
   end
 

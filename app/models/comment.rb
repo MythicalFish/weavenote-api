@@ -14,6 +14,7 @@ class Comment < ApplicationRecord
   scope :annotated, -> { joins(:annotation) }
 
   after_update :update_annotation
+  before_create :generate_key
 
   def project
     c = commentable
@@ -51,6 +52,13 @@ class Comment < ApplicationRecord
     return unless annotation.present?
     return unless changed_attributes.include? :archived
     annotation.update!(archived: archived)
+  end
+
+  def generate_key
+    begin
+      key = SecureRandom.hex(8)
+    end while Comment.where(:key => key).exists?
+    self.key = key
   end
 
 end

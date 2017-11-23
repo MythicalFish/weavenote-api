@@ -11,7 +11,7 @@
     %meta{:charset => "utf8"}/
     %title= @project.name 
     - if @options[:link_stylesheet]
-      - f = File.open("#{Rails.root}/lib/pdfkit/style.css")
+      - f = File.open("#{Rails.root}/lib/css/pdf.css")
       :css
         #{f.read}
       

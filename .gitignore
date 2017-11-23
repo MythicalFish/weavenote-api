@@ -30,3 +30,5 @@ config/application.yml
 # PDF Kit Sass 
 /lib/pdfkit/node_modules
 /lib/pdfkit/.sass-cache
+
+ngrok

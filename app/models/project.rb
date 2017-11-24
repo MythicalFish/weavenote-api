@@ -1,7 +1,7 @@
 class Project < ApplicationRecord
 
   has_many :roles, as: :roleable
-  has_many :direct_collaborators, source: :user, through: :roles
+  has_many :collaborators, source: :user, through: :roles
 
   belongs_to :organization
   has_many :components, dependent: :destroy
@@ -19,6 +19,7 @@ class Project < ApplicationRecord
 
   validates :name, length: { minimum: 3 }
   
+  default_scope { order('created_at DESC') }
   scope :active, -> { where(archived: false) }
   scope :archived, -> { where(archived: true) }
   
@@ -65,9 +66,9 @@ class Project < ApplicationRecord
     a
   end
 
-  def collaborators
+  def all_collaborators
     # merge project & org collaborators
-    p_ids = self.direct_collaborators.ids
+    p_ids = self.collaborators.ids
     o_ids = self.organization.collaborators.ids
     ids = (p_ids + o_ids).uniq
     # return simple array of avatars & names

@@ -5,7 +5,7 @@ class MaterialsController < ApplicationController
   before_action :check_ability!, except: [:index]
 
   def index
-    render json: material_list
+    render json: material_list, each_serializer: MaterialListSerializer
   end
 
   def show
@@ -32,7 +32,7 @@ class MaterialsController < ApplicationController
 
   def update
     @material.update!(material_params)
-    render json: serialized(@material)
+    index
   end
 
   def destroy
@@ -43,7 +43,9 @@ class MaterialsController < ApplicationController
   private
   
   def material_list
-    @organization.materials.order('created_at DESC')
+    list = @organization.materials
+    return list.archived if params[:archived] == "true"
+    return list.active
   end
 
   def set_material
@@ -52,7 +54,7 @@ class MaterialsController < ApplicationController
 
   def material_params
     sanitized_params.permit(
-      :color, :material_type_id, :currency_id, 
+      :color, :material_type_id, :currency_id, :archived,
       :name, :reference, :composition, :size, :length, :opening_type, :identifier, :subtype,
       :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 , :supplier_name, :supplier_email, :unit_type_id, 
       :care_label_ids => [], 

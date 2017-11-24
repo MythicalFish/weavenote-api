@@ -49,10 +49,9 @@ class ProjectsController < ApplicationController
   private
 
   def project_list
-    archived = params[:archived] == "true" ? true : false
-    @user.projects
-      .order('created_at DESC')
-      .where(archived: archived)
+    list = @user.projects
+    return list.archived if params[:archived] == "true"
+    return list.active
   end
 
   def set_project

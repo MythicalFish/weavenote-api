@@ -19,6 +19,10 @@ class Material < ApplicationRecord
 
   validates :name, length: { minimum: 3 }
 
+  default_scope { order('created_at DESC') }
+  scope :active, -> { where(archived: false) }
+  scope :archived, -> { where(archived: true) }
+
   def cost_total
     t = (cost_base||0) + (cost_delivery||0) + (cost_extra1||0) + (cost_extra2||0)
     t || 0

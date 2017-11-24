@@ -13,7 +13,18 @@ module SendgridInbound
     text = simple_format(divs.first.content) if divs.any?
     text = params['text'] unless divs.any?
     
-    return nil unless comment && user && text
+    unless comment && user && text
+      msg = "\n\n\n\n"
+      msg << "<!--- Email parse failed --->"
+      msg << "\n\n"
+      msg << "Envelope: #{envelope}\n"
+      msg << "User: #{user.try(:email)}\n"
+      msg << "Comment ID: #{comment.try(:id)}\n"
+      msg << "Text: #{text}"
+      msg = "\n\n\n\n"
+      logger.error msg
+      return false
+    end
 
     return {
       user: user,

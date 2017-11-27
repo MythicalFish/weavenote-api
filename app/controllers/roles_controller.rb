@@ -17,8 +17,11 @@ class RolesController < ApplicationController
   
   def destroy
     fail_if_own_role
+    if @invitable.class.name == 'Organization'
+      # Destroy all roles related to Organization
+      @role.user.roles.where({roleable_id: @organization.projects.ids, roleable_type: 'Project'}).destroy_all
+    end
     @role.destroy!
-    @collaborator.update!(current_organization_id: 0) if @invitable.class.name == 'Organization'
     render_success "Collaborator removed from #{@invitable.class.name}", roles
   end
 

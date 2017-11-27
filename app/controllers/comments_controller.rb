@@ -40,7 +40,7 @@ class CommentsController < ApplicationController
 
   def handle_mentions
     return unless params[:mentioned]
-    receivers = @organization.collaborators.where(username: params[:mentioned])
+    receivers = @organization.collaborators_and_guests.where(username: params[:mentioned])
     receivers.each do |receiver|
       notify(receiver, :mention, @comment) 
     end

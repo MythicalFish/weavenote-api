@@ -19,7 +19,11 @@ class User < ApplicationRecord
     "#{ENV['WEAVENOTE__API_URL']}#{self.avatar_url}"
   end
 
+  private
+
   def set_username
+    # Method for automatically creating a unique username
+    # on user creation.
     username = self.email.split('@')[0].gsub('.','')
     return self.username = username unless username_exists?(username)
     i = 2
@@ -29,8 +33,6 @@ class User < ApplicationRecord
     end while username_exists?(un)
     self.username = un
   end
-
-  private
 
   def username_is_valid
     if username.length < 2

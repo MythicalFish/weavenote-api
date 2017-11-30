@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  include RenderRedirect
+  include RescueWithRedirect
   include ApplicationHelper
   include InitializeAuth0
   include InitializeUser

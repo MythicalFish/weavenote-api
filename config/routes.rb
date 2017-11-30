@@ -76,6 +76,7 @@ Rails.application.routes.draw do
 
   constraints(BillingSubdomain) do
     root to: 'billing#dashboard'
+    resources :subscriptions
     mount Payola::Engine => '/payola', as: :payola
   end
 

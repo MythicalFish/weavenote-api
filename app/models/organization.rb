@@ -1,5 +1,6 @@
 class Organization < ApplicationRecord
   
+  belongs_to :subscription, optional: true, class_name: Payola::Subscription
   has_many :roles, as: :roleable
   has_many :collaborators_and_guests, source: :user, through: :roles
 

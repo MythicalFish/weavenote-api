@@ -1,1 +1,6 @@
-Billing dash
+%h1= "#{@organization.name} [Billing]"
+- if @subscription && @subscription.active?
+  %p Active subscription!
+  = "Expires: #{@subscription.current_period_end}"
+- else
+  %a{href:new_subscription_path} New

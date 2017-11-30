@@ -1,0 +1,29 @@
+= form_tag('/subscriptions',                       |
+    class: 'payola-onestep-subscription-form',   |
+    'data-payola-base-path' => '/payola',        |
+    'data-payola-plan-type' => @plan.plan_class, |
+    'data-payola-plan-id' => @plan.id            |
+  ) do |f|                                         |
+  %span.payola-payment-error
+  %p
+    Email:
+    %br
+    %input{"data-payola" => "email", :name => "stripeEmail", :type => "email", :value => 'jakey.bt@gmail.com'}
+  %p
+    Card Number
+    %br
+    %input{"data-stripe" => "number", :type => "text", :value => '4242424242424242' }
+  %p
+    Exp Month
+    %br
+    %input{"data-stripe" => "exp_month", :type => "text", :value => '12'}
+  %p
+    Exp Year
+    %br
+    %input{"data-stripe" => "exp_year", :type => "text", :value => '2018'}
+  %p
+    CVC
+    %br
+    %input{"data-stripe" => "cvc", :type => "text", :value => '123'}
+  %p
+    %input{:type => "submit"}

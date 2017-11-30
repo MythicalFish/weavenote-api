@@ -6,6 +6,7 @@
     %title= 'Billing | Weavenote'
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
+    = render 'payola/transactions/stripe_header'
     = favicon_link_tag 'favicon.png'
     = csrf_meta_tags
   %body

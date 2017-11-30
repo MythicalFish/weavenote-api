@@ -1,5 +1,7 @@
 class User < ApplicationRecord
 
+  has_many :subscriptions, ->(sub) { where.not(stripe_id: nil) }, class_name: Payola::Subscription, foreign_key: :owner_id
+
   include UserAssociations
   include RoleMethods
   require "letter_avatar/has_avatar"

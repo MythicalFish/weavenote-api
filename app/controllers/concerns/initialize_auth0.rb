@@ -38,12 +38,12 @@ module InitializeAuth0
       if params[:access_token]
         # Set the cookie & remove param
         cookies[:access_token] = params[:access_token]
-        render_redirect request.fullpath.split('?')[0]
+        rescue_with_redirect request.fullpath.split('?')[0]
       else
         # Return cookie token if present
         return cookies[:access_token] if cookies[:access_token]
         # Go back to main app if no token in billing mode.
-        render_redirect ENV['WEAVENOTE__SITE_URL']
+        rescue_with_redirect ENV['WEAVENOTE__SITE_URL']
       end
     else
       raise "Neither API nor Billing mode"

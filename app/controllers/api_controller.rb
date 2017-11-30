@@ -1,5 +1,6 @@
 class ApiController < ActionController::API
   
+  include ApplicationHelper
   include ApiResponse
   include Serializer
 

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   
   constraints(ApiSubdomain) do
 
-    root to: 'application#root'
+    root to: 'api#root'
     
     resources :organizations, except: [:index]
     resources :materials
@@ -75,7 +75,8 @@ Rails.application.routes.draw do
   end
 
   constraints(BillingSubdomain) do
-
+    root to: 'billing#dashboard'
+    mount Payola::Engine => '/payola', as: :payola
   end
 
 end

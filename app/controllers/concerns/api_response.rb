@@ -101,7 +101,7 @@ module ApiResponse
     [
       CustomException::UserError, 
       CustomException::PermissionError, 
-      CustomException::UserWarning, 
+      CustomException::UserWarning,  
       ActiveRecord::RecordInvalid
     ].include? e.class
   end

@@ -21,14 +21,38 @@ module InitializeAuth0
   end
 
   def token
-    header = request.headers['Authorization']
-    token = header.split(' ').last if header
-    raise "No token found" unless token
-    token
+
+    if is_api_mode?
+
+      # Check request header for token (used for API mode).
+      header = request.headers['Authorization']
+      token = header.split(' ').last if header
+      # Return token if found
+      return token if token
+      # Break if not found
+      raise "No token found" unless token
+
+    elsif is_billing_mode?
+
+      # Check params for token
+      if params[:access_token]
+        # Set the cookie & remove param
+        cookies[:access_token] = params[:access_token]
+        render_redirect request.fullpath.split('?')[0]
+      else
+        # Return cookie token if present
+        return cookies[:access_token] if cookies[:access_token]
+        # Go back to main app if no token in billing mode.
+        render_redirect ENV['WEAVENOTE__SITE_URL']
+      end
+    else
+      raise "Neither API nor Billing mode"
+    end
   end
 
   def cache_key_for_token
     "user_info_from_token___#{token}"
   end  
+
 
 end

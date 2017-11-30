@@ -33,6 +33,7 @@ gem 'letter_avatar'
 gem 'pdfkit'
 gem 'haml-rails'
 gem 'nokogiri'
+gem 'koudoku'
 
 group :production do
   gem 'rollbar' 

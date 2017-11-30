@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+# Added by Koudoku.
+  has_one :subscription
+
 
   include UserAssociations
   include RoleMethods

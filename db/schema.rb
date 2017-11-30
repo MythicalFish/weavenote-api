@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171124145038) do
+ActiveRecord::Schema.define(version: 20171130074731) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -78,6 +78,13 @@ ActiveRecord::Schema.define(version: 20171124145038) do
     t.index ["material_id"], name: "index_components_on_material_id", using: :btree
     t.index ["project_id"], name: "index_components_on_project_id", using: :btree
     t.index ["updated_at"], name: "index_components_on_updated_at", using: :btree
+  end
+
+  create_table "coupons", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string   "code"
+    t.string   "free_trial_length"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "currencies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -236,6 +243,18 @@ ActiveRecord::Schema.define(version: 20171124145038) do
     t.index ["name"], name: "index_organizations_on_name", using: :btree
   end
 
+  create_table "plans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string   "name"
+    t.string   "stripe_id"
+    t.float    "price",         limit: 24
+    t.string   "interval"
+    t.text     "features",      limit: 65535
+    t.boolean  "highlight"
+    t.integer  "display_order"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name",                              null: false
     t.datetime "created_at",                        null: false
@@ -266,6 +285,18 @@ ActiveRecord::Schema.define(version: 20171124145038) do
     t.index ["role_type_id"], name: "index_roles_on_role_type_id", using: :btree
     t.index ["roleable_id", "roleable_type"], name: "index_roles_on_roleable_id_and_roleable_type", using: :btree
     t.index ["user_id"], name: "index_roles_on_user_id", using: :btree
+  end
+
+  create_table "subscriptions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string   "stripe_id"
+    t.integer  "plan_id"
+    t.string   "last_four"
+    t.integer  "coupon_id"
+    t.string   "card_type"
+    t.float    "current_price", limit: 24
+    t.integer  "user_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "suppliers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

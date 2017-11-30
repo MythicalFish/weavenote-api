@@ -7,7 +7,7 @@ class ApplicationController < ActionController::API
   include InitializeUser
   include CheckAbility
   include Notify
-
+  
   before_action :initialize_user!
 
   def root

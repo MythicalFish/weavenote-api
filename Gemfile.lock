@@ -51,6 +51,7 @@ GEM
     arel (7.1.4)
     auth0 (4.0.0)
       httmultiparty (~> 0.3.16)
+    bluecloth (2.2.0)
     builder (3.2.3)
     byebug (9.0.6)
     case_transform (0.2)
@@ -62,6 +63,8 @@ GEM
     crass (1.0.2)
     erubis (2.7.0)
     excon (0.55.0)
+    faraday (0.13.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     figaro (1.1.1)
       thor (~> 0.14)
@@ -234,6 +237,11 @@ GEM
     json (1.8.6)
     jsonapi-renderer (0.1.2)
     jwt (1.5.6)
+    koudoku (2.0.0)
+      bluecloth
+      rails
+      stripe
+      stripe_event
     letter_avatar (0.3.6)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -319,6 +327,11 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stripe (3.8.0)
+      faraday (~> 0.10)
+    stripe_event (1.8.0)
+      activesupport (>= 3.1)
+      stripe (>= 1.6, < 4.0)
     temple (0.8.0)
     thor (0.20.0)
     thread_safe (0.3.6)
@@ -345,6 +358,7 @@ DEPENDENCIES
   fog
   haml-rails
   jwt
+  koudoku
   letter_avatar
   listen (~> 3.0.5)
   mysql2

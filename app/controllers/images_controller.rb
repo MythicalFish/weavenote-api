@@ -1,4 +1,4 @@
-class ImagesController < ApplicationController
+class ImagesController < ApiController
 
   before_action :set_imageable
   before_action :set_image, only: [:destroy, :update]

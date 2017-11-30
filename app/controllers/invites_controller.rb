@@ -1,4 +1,4 @@
-class InvitesController < ApplicationController
+class InvitesController < ApiController
 
   include ::Invitable
   include ::AcceptInvitation

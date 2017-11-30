@@ -1,4 +1,4 @@
-class MaterialsController < ApplicationController
+class MaterialsController < ApiController
 
   before_action :set_material, only: [:update, :destroy, :duplicate]
 

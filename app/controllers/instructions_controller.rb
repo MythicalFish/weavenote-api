@@ -1,4 +1,4 @@
-class InstructionsController < ApplicationController
+class InstructionsController < ApiController
   
   before_action :set_project
   before_action :set_instruction, only: [:show, :update, :destroy]

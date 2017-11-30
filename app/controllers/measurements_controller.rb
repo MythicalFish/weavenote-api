@@ -1,4 +1,4 @@
-class MeasurementsController < ApplicationController
+class MeasurementsController < ApiController
 
   before_action :set_project
 

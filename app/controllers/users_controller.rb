@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < ApiController
   
   def show
     render json: @user

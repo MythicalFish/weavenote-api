@@ -1,4 +1,4 @@
-class ProjectsController < ApplicationController
+class ProjectsController < ApiController
 
   before_action :set_project, except: [:index, :create]
   

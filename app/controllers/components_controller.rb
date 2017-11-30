@@ -1,4 +1,4 @@
-class ComponentsController < ApplicationController
+class ComponentsController < ApiController
 
   before_action :set_project
   before_action :set_component, only: [:show, :update, :destroy]

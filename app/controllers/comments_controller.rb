@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class CommentsController < ApiController
 
   include ActionView::Helpers::TextHelper
   include SendgridInbound

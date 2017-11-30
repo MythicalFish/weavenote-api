@@ -1,4 +1,4 @@
-class RolesController < ApplicationController
+class RolesController < ApiController
 
   include ::Invitable
   before_action :set_invitable

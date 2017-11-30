@@ -1,4 +1,4 @@
-class AnnotationsController < ApplicationController
+class AnnotationsController < ApiController
 
   before_action :set_associations, except: [:index]
   before_action :set_annotation, except: [:index, :create]

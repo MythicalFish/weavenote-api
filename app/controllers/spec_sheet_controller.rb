@@ -1,4 +1,4 @@
-class SpecSheetController < ApplicationController
+class SpecSheetController < ApiController
 
   before_action :set_project, only: [:create]
   before_action :check_ability!, only: [:create]

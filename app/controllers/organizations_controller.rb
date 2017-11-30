@@ -1,4 +1,4 @@
-class OrganizationsController < ApplicationController
+class OrganizationsController < ApiController
   
   before_action :set_organization, only: [:update, :destroy]
   

@@ -1,4 +1,4 @@
-class SuppliersController < ApplicationController
+class SuppliersController < ApiController
   
   before_action :set_supplier, only: [:destroy]
   

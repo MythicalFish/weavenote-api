@@ -65,7 +65,7 @@ Rails.application.routes.draw do
     
     # Static resources:
     
-    get '/global_data', to: 'application#global_data'
+    get '/global_data', to: 'api#global_data'
     
     # PDF test page:
     

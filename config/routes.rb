@@ -20,6 +20,8 @@ end
 
 Rails.application.routes.draw do
   
+  mount Payola::Engine => '/payola', as: :payola
+
   constraints(ApiSubdomain) do
 
     root to: 'api#root'
@@ -77,7 +79,6 @@ Rails.application.routes.draw do
   constraints(BillingSubdomain) do
     root to: 'billing#dashboard'
     resources :subscriptions
-    mount Payola::Engine => '/payola', as: :payola
   end
 
 end

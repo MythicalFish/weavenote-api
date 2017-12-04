@@ -1,6 +1,6 @@
 class Organization < ApplicationRecord
   
-  belongs_to :subscription, optional: true, class_name: Payola::Subscription
+  has_and_belongs_to_many :subscriptions, class_name: Payola::Subscription, join_table: 'organizations_subscriptions'
   has_many :roles, as: :roleable
   has_many :collaborators_and_guests, source: :user, through: :roles
 
@@ -13,6 +13,12 @@ class Organization < ApplicationRecord
   has_many :invites, as: :invitable
   has_many :suppliers
   has_many :materials
+
+  def active_subscription
+    subscriptions.map { |s|
+      return s if s.active?
+    }[0]  
+  end
 
   def owner
     roles.where(role_type_id: RoleType.admin.id).first.user

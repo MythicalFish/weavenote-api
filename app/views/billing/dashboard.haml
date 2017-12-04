@@ -1,6 +1,31 @@
 %h1= "#{@organization.name} [Billing]"
-- if @subscription && @subscription.active?
-  %p Active subscription!
-  = "Expires: #{@subscription.current_period_end}"
+- if @is_active
+  %p
+    Current subscription:
+    %b= @subscription.name  
+  %p
+    Paid by:
+    %br
+    = @subscription.owner.name
+    %br
+    = "(Card ending in #{@subscription.card_last4})"
+  %h3 Auto Renewal
+  - if @will_cancel
+    %p
+      Status
+      %span.red.bold Disabled
+    %p
+      = "The subscription for this Organization will cancel on #{@end_date}"
+    - if @is_own_subscription
+      = form_tag("/subscriptions/#{@subscription.guid}/reactivate", method: :patch) do |f|
+        %button{type:'submit'} Reactivate 
+    %p
+      %a{href:new_subscription_path} New
+  - else
+    %p
+      Status
+      %span.green.bold Enabled
+    = render 'payola/subscriptions/cancel', subscription: @subscription, at_period_end: true
+  %i= "Note: you'll still be able to use Weavenote until #{@end_date} if you cancel."
 - else
   %a{href:new_subscription_path} New

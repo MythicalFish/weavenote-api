@@ -8,4 +8,8 @@ module ApplicationHelper
     request.subdomain == 'billing' || request.port == 3002
   end
 
+  def pretty_date date
+    date.strftime('%b %e, %l:%M %p')
+  end
+
 end

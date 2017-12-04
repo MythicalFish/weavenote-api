@@ -232,9 +232,13 @@ ActiveRecord::Schema.define(version: 20171130142020) do
   end
 
   create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string  "name",            null: false
-    t.integer "subscription_id"
+    t.string "name", null: false
     t.index ["name"], name: "index_organizations_on_name", using: :btree
+  end
+
+  create_table "organizations_subscriptions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.integer "organization_id", null: false
+    t.integer "subscription_id", null: false
   end
 
   create_table "payola_affiliates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

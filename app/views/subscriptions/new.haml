@@ -5,10 +5,7 @@
     'data-payola-plan-id' => @plan.id            |
   ) do |f|                                         |
   %span.payola-payment-error
-  %p
-    Email:
-    %br
-    %input{"data-payola" => "email", :name => "stripeEmail", :type => "email", :value => 'jakey.bt@gmail.com'}
+  %input{"data-payola" => "email", :name => "stripeEmail", :type => "hidden", :value => @user.email}
   %p
     Card Number
     %br

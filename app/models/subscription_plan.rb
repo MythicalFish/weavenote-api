@@ -13,7 +13,8 @@ class SubscriptionPlan < ActiveRecord::Base
     # Find currently active organization
     org = subscription.owner.organization
     # Provide subscription ID to organization
-    org.update!({subscription_id: subscription.id})
+    org.subscriptions << subscription
+    org.save!
   end
 
 end

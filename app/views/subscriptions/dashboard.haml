@@ -1,10 +1,12 @@
-%h1.mt0= "#{@organization.name} [Billing]"
-= render partial: 'current_subscription'
-- if @is_active
-  %h3 Auto Renewal
-  - if @will_cancel
-    = render partial: 'status_ending'
+.box.p3
+  .center.poiple
+    #logo
+    .h2.mt2 Billing
+  = render partial: 'current_subscription'
+  - if @is_active
+    - if @will_cancel
+      = render partial: 'status_ending'
+    - else
+      = render partial: 'status_ongoing'
   - else
-    = render partial: 'status_ongoing'
-- else
-  %a.btn{href:new_subscription_path} New
+    %a.btn.btn-cta{href:new_subscription_path} New subscription

@@ -8,6 +8,7 @@ class SubscriptionsController < ApplicationController
     if @subscription
       @end_date = pretty_date(@subscription.current_period_end)
       @will_cancel = @subscription.cancel_at_period_end?
+      @auto_renew_enabled = !@subscription.cancel_at_period_end?
       @is_active = @subscription.active?
       @is_own_subscription = @subscription.owner.email == @user.email
     end
@@ -15,6 +16,16 @@ class SubscriptionsController < ApplicationController
 
   def new
     @plan = plan
+    @form_values = {}
+    if params[:testData]
+      @form_values = {
+        name: 'Test User',
+        card: '4242424242424242',
+        month: '01',
+        year: '2020',
+        cvc: '123'
+      }
+    end
   end
 
   def create

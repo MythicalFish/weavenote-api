@@ -1,13 +1,44 @@
-%p
-  Current subscription:
-  - if @is_active
-    %b= @subscription.name  
-  - else
-    %b None
-- if @is_active
-  %p
-    Paid by:
-    %br
-    = @subscription.owner.name
-    %br
-    = "(Card ending in #{@subscription.card_last4})"
+.my3
+  %table
+    %tr
+      %td
+        Organization
+      %td
+        = @organization.name
+    %tr
+      %td
+        Current subscription
+      %td
+        - if @is_active
+          %b= @subscription.name  
+        - else
+          %b None
+    - if @is_active
+      %tr
+        %td
+          Paid by
+        %td
+          = @subscription.owner.name
+      %tr
+        %td
+          Payment method
+        %td
+          = "Card ending in #{@subscription.card_last4}"
+      %tr
+        %td
+          Auto renewal
+        %td
+          - if @auto_renew_enabled
+            %span.green.bold
+              On
+          - else
+            %span.red.bold
+              Off
+      %tr
+        %td
+          - if @auto_renew_enabled
+            Next payment date
+          - else
+            Ends on
+        %td
+          = @end_date

@@ -1,10 +1,11 @@
-%p
-  Status
-  %span.red.bold Disabled
-%p
-  = "The subscription for this Organization will cancel on #{@end_date}"
+.center
+  The subscription for this Organization will end on
+  %b= @end_date
 - if @is_own_subscription
-  = form_tag("/subscriptions/#{@subscription.guid}/reactivate", method: :patch) do |f|
-    %button.btn{type:'submit'}= "Reactivate using card ending in #{@subscription.card_last4}"
-%p
-  %a.btn{href:new_subscription_path} Start a new subscription
+  .mt3
+    = form_tag("/subscriptions/#{@subscription.guid}/reactivate", method: :patch) do |f|
+      %button.btn.btn-cta{type:'submit'}
+        Reactivate
+        %span= "Using card ending in #{@subscription.card_last4}"
+.mt2
+  %a.btn.btn-cta{href:new_subscription_path} Start a new subscription

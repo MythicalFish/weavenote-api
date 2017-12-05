@@ -1,26 +1,31 @@
-= form_tag('/subscriptions',                       |
-    class: 'payola-onestep-subscription-form',   |
-    'data-payola-base-path' => '/payola',        |
-    'data-payola-plan-type' => @plan.plan_class, |
-    'data-payola-plan-id' => @plan.id            |
-  ) do |f|                                         |
-  %span.payola-payment-error
-  %input{"data-payola" => "email", :name => "stripeEmail", :type => "text", :value => @user.email}
-  %p
-    Card Number
-    %br
-    %input{"data-stripe" => "number", :type => "text", :value => '4242424242424242' }
-  %p
-    Exp Month
-    %br
-    %input{"data-stripe" => "exp_month", :type => "text", :value => '12'}
-  %p
-    Exp Year
-    %br
-    %input{"data-stripe" => "exp_year", :type => "text", :value => '2018'}
-  %p
-    CVC
-    %br
-    %input{"data-stripe" => "cvc", :type => "text", :value => '123'}
-  %p
-    %input{:type => "submit"}
+.box.p4
+
+  .mb3.center.h5.dark3
+    %i.fa.fa-lock.mr1
+    Secure payments provided by Stripe
+
+  = form_tag('/subscriptions',                       |
+      class: 'payola-onestep-subscription-form',   |
+      'data-payola-base-path' => '/payola',        |
+      'data-payola-plan-type' => @plan.plan_class, |
+      'data-payola-plan-id' => @plan.id            |
+    ) do |f|                                         |
+    %span.payola-payment-error
+    %input{"data-payola" => "email", :name => "stripeEmail", :type => "hidden", :value => @user.email}
+    .clearfix
+      .col.col-12.mb1.name-input
+        %input{"data-stripe" => "name", :type => "text", placeholder: "Cardholder", :value => @form_values[:name], autofocus: true }
+      .col.col-12.mb1.card-input
+        %input{"data-stripe" => "number", :type => "text", placeholder: "Card number", :value => @form_values[:card] }
+      .col.col-8.date-input.pr1
+        %input{"data-stripe" => "exp_month", :type => "text", placeholder: 'mm', :value => @form_values[:month]}
+        %input{"data-stripe" => "exp_year", :type => "text", placeholder: 'yyyy', :value => @form_values[:year]}
+      .col.col-4.cvc-input
+        %input{"data-stripe" => "cvc", :type => "text", placeholder: 'cvc', :value => @form_values[:cvc]}
+    .mt2
+      %button.btn.btn-cta{:type => "submit"}
+        Subscribe
+        %span
+          = "Monthly #{@plan.currency_symbol}#{@plan.amount}".html_safe
+.mt2.center.h5
+  %a{href:'/'} Back

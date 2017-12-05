@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171130142020) do
+ActiveRecord::Schema.define(version: 20171205172854) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -371,10 +371,11 @@ ActiveRecord::Schema.define(version: 20171130142020) do
   end
 
   create_table "subscription_plans", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
-    t.integer "amount"
-    t.string  "interval"
-    t.string  "stripe_id"
-    t.string  "name"
+    t.float  "amount",          limit: 24
+    t.string "interval"
+    t.string "stripe_id"
+    t.string "name"
+    t.string "currency_symbol",            default: "&pound;"
   end
 
   create_table "suppliers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

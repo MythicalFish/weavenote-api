@@ -77,7 +77,7 @@ Rails.application.routes.draw do
   end
 
   constraints(BillingSubdomain) do
-    root to: 'billing#dashboard'
+    root to: 'subscriptions#dashboard'
     resources :subscriptions
     patch '/subscriptions/:guid/reactivate', to: 'subscriptions#reactivate'
   end

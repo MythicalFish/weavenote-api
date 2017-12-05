@@ -1,0 +1,9 @@
+%p
+  Current subscription:
+  %b= @subscription.name  
+%p
+  Paid by:
+  %br
+  = @subscription.owner.name
+  %br
+  = "(Card ending in #{@subscription.card_last4})"

@@ -15,7 +15,7 @@ class Organization < ApplicationRecord
   has_many :materials
 
   def active_subscription
-    subscriptions.map { |s|
+    subscriptions.order(id: :desc).map { |s|
       return s if s.active?
     }[0]  
   end

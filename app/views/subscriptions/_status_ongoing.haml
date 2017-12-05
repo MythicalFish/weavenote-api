@@ -1,0 +1,6 @@
+%p
+  Status
+  %span.green.bold Enabled
+- if @is_own_subscription
+  = render 'payola/subscriptions/cancel', subscription: @subscription, at_period_end: true
+  %i= "Note: you'll still be able to use Weavenote until #{@end_date} if you cancel."

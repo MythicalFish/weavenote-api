@@ -1,0 +1,10 @@
+%h1= "#{@organization.name} [Billing]"
+- if @is_active
+  = render partial: 'current_subscription'
+  %h3 Auto Renewal
+  - if @will_cancel
+    = render partial: 'status_ending'
+  - else
+    = render partial: 'status_ongoing'
+- else
+  %a{href:new_subscription_path} New

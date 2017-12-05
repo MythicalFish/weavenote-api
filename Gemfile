@@ -35,7 +35,6 @@ gem 'haml-rails'
 gem 'nokogiri'
 gem 'payola-payments'
 gem 'jquery-rails'
-gem 'tachyons-rails'
 gem 'sass-rails'
 
 group :production do

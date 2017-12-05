@@ -1,9 +1,13 @@
 %p
   Current subscription:
-  %b= @subscription.name  
-%p
-  Paid by:
-  %br
-  = @subscription.owner.name
-  %br
-  = "(Card ending in #{@subscription.card_last4})"
+  - if @is_active
+    %b= @subscription.name  
+  - else
+    %b None
+- if @is_active
+  %p
+    Paid by:
+    %br
+    = @subscription.owner.name
+    %br
+    = "(Card ending in #{@subscription.card_last4})"

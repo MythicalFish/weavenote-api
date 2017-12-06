@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def is_api_mode?
-    request.subdomain == 'api' || request.port != 3002
+    request.subdomain == 'api' || request.port == 3001
   end
 
   def is_billing_mode?

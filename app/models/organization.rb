@@ -20,6 +20,10 @@ class Organization < ApplicationRecord
     }[0]  
   end
 
+  def has_active_subscription
+    !!active_subscription || test_account
+  end
+
   def owner
     roles.where(role_type_id: RoleType.admin.id).first.user
   end

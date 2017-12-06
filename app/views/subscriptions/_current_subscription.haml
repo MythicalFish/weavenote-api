@@ -1,5 +1,11 @@
 .my3
   %table
+    - if @organization.test_account?
+      %tr
+        %td{colspan:2}
+          .bold.green
+            Test account
+          (No subscription needed)
     %tr
       %td
         Organization

@@ -3,7 +3,7 @@
 class ApiSubdomain
   def self.matches? request
     return true if request.subdomain === "api"
-    return true if request.port != 3002
+    return true if request.port == 3001
     return false
   end   
 end
@@ -13,7 +13,7 @@ end
 class BillingSubdomain
   def self.matches? request
     return true if request.subdomain === "billing"
-    return true if request.port === 3002
+    return true if request.port == 3002
     return false
   end   
 end

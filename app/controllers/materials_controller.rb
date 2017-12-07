@@ -1,6 +1,6 @@
 class MaterialsController < ApiController
 
-  before_action :set_material, only: [:update, :destroy, :duplicate]
+  before_action :set_material, except: [:index, :new, :create]
 
   before_action :check_ability!, except: [:index]
 
@@ -8,12 +8,11 @@ class MaterialsController < ApiController
     render json: material_list, each_serializer: MaterialListSerializer
   end
 
+  def new
+    render json: serialized(Material.new)
+  end
+
   def show
-    if params[:id] === 'new'
-      @material = Material.new
-    else
-      set_material
-    end
     render json: serialized(@material)
   end
 

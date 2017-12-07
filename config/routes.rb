@@ -26,11 +26,10 @@ Rails.application.routes.draw do
 
     root to: 'api#root'
     
-    resources :organizations, except: [:index]
-    resources :materials
+    resources :organizations, only: [:create, :update, :destroy] 
+    resources :materials, except: [:edit]
     post 'materials/:id', to: 'materials#duplicate'
-    resources :suppliers
-    resources :comments
+    resources :comments, except: [:show, :edit, :new]
     post '/comments/parse_email', to: 'comments#parse_email'
     resources :images, except: [:index]
     resources :invites

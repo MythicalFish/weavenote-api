@@ -52,7 +52,8 @@ class AnnotationsController < ApiController
   end
 
   def annotations_response
-    serialized(@project.annotations.active)
+    scope = params[:archived] == 'true' ? 'archived' : 'active'
+    serialized(@project.annotations.send(scope)) 
   end
 
   def is_own_annotation?

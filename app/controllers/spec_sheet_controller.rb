@@ -27,7 +27,7 @@ class SpecSheetController < ApiController
       "spec_sheet/index.haml", 
       locals: { 
         :@project => @project,
-        :@options => spec_sheet_params.merge({link_stylesheet: true})
+        :@options => spec_sheet_params.merge({cover: false, link_stylesheet: true})
       }
     )
     render html: s

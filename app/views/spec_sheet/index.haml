@@ -10,6 +10,7 @@
 
     %meta{:charset => "utf8"}/
     %title= @project.name 
+    %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no", :name => "viewport"}
     - if @options[:link_stylesheet]
       - f = File.open("#{Rails.root}/lib/css/pdf.css")
       :css
@@ -17,7 +18,8 @@
       
   %body
 
-    = render({ partial: 'spec_sheet/cover', locals: { project: @project }})
+    - if @options[:cover]
+      = render({ partial: 'spec_sheet/cover', locals: { project: @project }})
 
     - if @components.any? && @options[:materials]
       - @components.each_slice(20) do |slice|
@@ -44,3 +46,6 @@
       - @images.drop(1).each_slice(2) do |slice|
         = render partial: 'spec_sheet/page', locals: { title: 'Secondary images', project: @project, data: slice, view: 'images', pagenumber: pagenumber } 
         - pagenumber += 1
+    
+    = render partial: 'spec_sheet/script'
+    

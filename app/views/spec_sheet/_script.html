@@ -1,0 +1,24 @@
+<script>
+  setTimeout(function () {
+    // a = document.getElementsByClassName('img-container')
+    var container = document.getElementById('asd');
+    var svg = document.getElementById('svg');
+    // container.style.opacity = 0;
+    var width = container.scrollWidth;
+    var height = container.scrollHeight;
+    var theKid = document.createElement("div");
+    theKid.innerHTML = width + ':' + height;
+    container.appendChild(theKid);
+    svg.style.height = height;
+    svg.setAttribute('height', height)
+    svg.style.width = width;
+    svg.setAttribute('width', width)
+    document.body.style.background = 'fuchsia';
+  }, 1000);
+  document.addEventListener("DOMContentLoaded", function (event) {
+    var a = document.getElementsByClassName('img-container')[0];
+    if (a) {
+      // a.remove();
+    }
+  });
+</script>

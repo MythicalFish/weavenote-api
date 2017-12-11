@@ -89,6 +89,9 @@
   height: 100%;
   box-sizing: border-box; }
 
+.x-fill {
+  width: 100%; }
+
 .middle-content {
   position: relative; }
   .middle-content > * {
@@ -147,9 +150,6 @@ body {
       height: 100%; }
       .page table.main tr.body > td {
         width: 50%; }
-      .page table.main tr.body td.content {
-        padding-left: 40px;
-        vertical-align: top; }
   .page .page-number {
     display: block;
     position: absolute;
@@ -177,24 +177,43 @@ body {
   line-height: 0;
   width: auto;
   display: inline-block; }
-  .img-container.scale-fix svg {
+
+table {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+table.data > tbody > tr > td {
+  padding: 10px; }
+table.data > tbody > tr:not(:last-child) td {
+  border-bottom: 2px solid #eee; }
+
+thead {
+  font-weight: bold; }
+
+svg.annotation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+  svg.annotation #arrowhead path {
+    fill: #42ea83;
+    -webkit-transform: translateX(-7px); }
+  svg.annotation line {
+    stroke-width: 6px;
+    stroke: #42ea83;
+    stroke-dasharray: 14, 4; }
+    svg.annotation line.arrow {
+      marker-end: url(#arrowhead);
+      stroke-dasharray: none; }
+  svg.annotation.scale-fix {
     -webkit-transform: scale(0.565);
     -webkit-transform-origin: top left; }
-  .img-container svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; }
-    .img-container svg #arrowhead path {
-      fill: #42ea83; }
-    .img-container svg line {
-      stroke-width: 6px;
-      stroke: #42ea83;
-      stroke-dasharray: 14, 4; }
-      .img-container svg line.arrow {
-        marker-end: url(#arrowhead);
-        stroke-dasharray: none; }
+    svg.annotation.scale-fix line {
+      stroke-width: 12px; }
 
 .dot {
   position: absolute;
@@ -212,21 +231,6 @@ body {
     background: #42ea83;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%); }
-
-table {
-  width: 100%;
-  margin: 0;
-  border: 0;
-  border-collapse: collapse;
-  border-spacing: 0; }
-
-table.data > tbody > tr > td {
-  padding: 10px; }
-table.data > tbody > tr:not(:last-child) td {
-  border-bottom: 2px solid #eee; }
-
-thead {
-  font-weight: bold; }
 
 table.comments tr td {
   vertical-align: top; }

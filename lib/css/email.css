@@ -89,6 +89,9 @@
   height: 100%;
   box-sizing: border-box; }
 
+.x-fill {
+  width: 100%; }
+
 .middle-content {
   position: relative; }
   .middle-content > * {

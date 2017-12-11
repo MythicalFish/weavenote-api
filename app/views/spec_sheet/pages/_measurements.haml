@@ -1,16 +1,16 @@
-- groups = data.measurement_groups
-- names = data.measurement_names
-- values = data.measurement_values
-- image = project.primary_image
-%td.pt3
+- groups = @project.measurement_groups
+- names = @project.measurement_names
+- values = @project.measurement_values
+- image = @project.primary_image
+%td.pt3.vtop
   = render partial: "spec_sheet/image", locals: { src: image.file.url(:large), annotations: image.annotations.active.for_measurements }
-%td.content.pt3
+%td.pl3.pt3.vtop
   %table.measurements
     %thead
       %tr
         %td Description
         - groups.each do |group|
-          %td= group.name
+          %td.center= group.name
     %tbody
       - names.each do |name|
         %tr
@@ -18,5 +18,5 @@
             %b.pr1= name.identifier
             = name.value
           - groups.each do |group|
-            - data.measurement_values_for!({group_id:group.id, name_id: name.id}).each do |value| 
-              %td= value.value
+            - @project.measurement_values_for!({group_id:group.id, name_id: name.id}).each do |value| 
+              %td.center= value.value

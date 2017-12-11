@@ -1,7 +1,7 @@
-- klass = 'img-container'
+- klass = 'annotation'
 - unless @options[:html_version]
   - klass += ' scale-fix'
-%div{class:klass}
+.img-container
   %img{:src => src}
   .overlay
     - if defined?(annotations)
@@ -9,8 +9,8 @@
         - if a.type == 'dot'
           - anchor = a.anchors[0]
           %div{:class => "dot", :style => "top: #{o.y_percent}%; left: #{o.x_percent}%;"}
-      %svg{width:'100%',height:'100%'}
-        %marker{id:"arrowhead", viewBox:"0 0 10 10", refX:"0", refY:"5", markerUnits:"strokeWidth", markerWidth:"4", markerHeight:"3", orient:"auto"}
+      %svg{class: klass, width:'100%',height:'100%'}
+        %marker{id:"arrowhead", viewBox:"0 0 10 10", refX:"0", refY:"5", markerUnits:"strokeWidth", markerWidth:"11", markerHeight:"3", orient:"auto"}
           %path{d:"M 0 0 L 10 5 L 0 10 z"}
         - annotations.each do |a|
           - l = a.line_points 

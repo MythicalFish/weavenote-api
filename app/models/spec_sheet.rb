@@ -35,7 +35,6 @@ class SpecSheet
   def create_pdf
     filepath = "#{Rails.root}/tmp/#{@filename}"
     kit = PDFKitHeadless.new(html, self.config)
-    kit.stylesheets << "#{Rails.root}/lib/css/pdf.css"
     kit.to_file(filepath)
   end
 

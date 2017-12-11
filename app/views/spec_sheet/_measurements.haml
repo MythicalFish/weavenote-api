@@ -3,7 +3,7 @@
 - values = data.measurement_values
 - image = project.primary_image
 %td.pt3
-  = render partial: "spec_sheet/image", locals: { src: image.file.url(:large), annotations: image.annotations.active }
+  = render partial: "spec_sheet/image", locals: { src: image.file.url(:large), annotations: image.annotations.active.for_measurements }
 %td.content.pt3
   %table.measurements
     %thead

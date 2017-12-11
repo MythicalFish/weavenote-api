@@ -27,7 +27,7 @@ class SpecSheetController < ApiController
       "spec_sheet/index.haml", 
       locals: { 
         :@project => @project,
-        :@options => spec_sheet_params.merge({cover: false, link_stylesheet: true})
+        :@options => spec_sheet_params.merge({html_version: true})
       }
     )
     render html: s
@@ -54,7 +54,7 @@ class SpecSheetController < ApiController
   end
 
   def boolean_options
-    [:measurements, :instructions, :materials, :secondary_images]
+    [:cover, :measurements, :instructions, :materials, :secondary_images]
   end
 
   def pdf_name

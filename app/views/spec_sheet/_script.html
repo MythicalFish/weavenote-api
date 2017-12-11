@@ -1,24 +1,17 @@
 <script>
   setTimeout(function () {
-    // a = document.getElementsByClassName('img-container')
-    var container = document.getElementById('asd');
-    var svg = document.getElementById('svg');
-    // container.style.opacity = 0;
-    var width = container.scrollWidth;
-    var height = container.scrollHeight;
-    var theKid = document.createElement("div");
-    theKid.innerHTML = width + ':' + height;
-    container.appendChild(theKid);
-    svg.style.height = height;
-    svg.setAttribute('height', height)
-    svg.style.width = width;
-    svg.setAttribute('width', width)
-    document.body.style.background = 'fuchsia';
-  }, 1000);
-  document.addEventListener("DOMContentLoaded", function (event) {
-    var a = document.getElementsByClassName('img-container')[0];
-    if (a) {
-      // a.remove();
+    // Set width & height of SVGs used for annotations,
+    // otherwise the exported PDF won't display them correctly.
+    var containers = document.getElementsByClassName('img-container');
+    for (var i = 0, len = containers.length; i < len; i++) {
+      var container = containers[i];
+      var svg = container.querySelectorAll('svg');
+      if (svg.length > 0) {
+        svg = svg[0]
+        svg.setAttribute('height', container.scrollHeight);
+        svg.setAttribute('width', container.scrollWidth);
+      }
+      document.body.style.background = 'fuchsia';
     }
-  });
+  }, 1000);
 </script>

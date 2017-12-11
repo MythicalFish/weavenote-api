@@ -1,5 +1,7 @@
 class Project < ApplicationRecord
 
+  CACHE_OPTS = { expires_in: 30.days }
+
   has_many :roles, as: :roleable
   has_many :collaborators, source: :user, through: :roles
 
@@ -55,15 +57,28 @@ class Project < ApplicationRecord
   end
 
   def measurement_values! 
-    a = []
-    measurement_groups.each do |group|
-      measurement_names.each do |name|
-        attributes = { measurement_name_id: name.id, measurement_group_id: group.id }
-        value = measurement_values.where(attributes).last
-        a << (value || measurement_values.new(attributes))
+    key = cache_key("measurement_values!")
+    Rails.cache.fetch(key, CACHE_OPTS) do
+      a = []
+      measurement_groups.each do |group|
+        measurement_names.each do |name|
+          attributes = { measurement_name_id: name.id, measurement_group_id: group.id }
+          value = measurement_values.where(attributes).last
+          a << (value || measurement_values.new(attributes))
+        end
       end
+      a
     end
-    a
+  end
+
+  def measurement_values_for! constraint
+    key = cache_key("measurement_values_for!/#{constraint.to_s}")
+    Rails.cache.fetch(key, CACHE_OPTS) do
+      measurement_values!.select { |v| 
+        v.group.id == constraint[:group_id] && 
+        v.name.id == constraint[:name_id] 
+      }
+    end
   end
 
   def all_collaborators
@@ -79,5 +94,9 @@ class Project < ApplicationRecord
   end
 
   private
+
+  def cache_key method
+    "project/#{id}/#{method}/#{updated_at}"
+  end
 
 end

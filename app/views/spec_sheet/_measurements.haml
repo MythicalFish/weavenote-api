@@ -18,7 +18,5 @@
             %b.pr1= name.identifier
             = name.value
           - groups.each do |group|
-            - data.measurement_values!.each do |value|
-              - next unless value.group.id == group.id
-              - next unless value.name.id == name.id
+            - data.measurement_values_for!({group_id:group.id, name_id: name.id}).each do |value| 
               %td= value.value

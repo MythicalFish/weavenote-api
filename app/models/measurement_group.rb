@@ -1,6 +1,6 @@
 class MeasurementGroup < ApplicationRecord
   
-  belongs_to :project
+  belongs_to :project, touch: true
   has_many :measurement_names, through: :project
   has_many :measurement_values, dependent: :delete_all
 

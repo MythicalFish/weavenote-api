@@ -29,7 +29,10 @@ class AnnotationsController < ApiController
   def create_annotation_params
     p = params[:annotation]
     p[:user_id] = @user.id
+    p[:anchors_attributes] = p[:anchors]
+    p.delete(:anchors)
     p.permit(
+      :label,
       :user_id, :image_id, :annotation_type, 
       :annotatable_id, :annotatable_type,
       anchors_attributes: [:x, :y]
@@ -37,8 +40,11 @@ class AnnotationsController < ApiController
   end
 
   def update_annotation_params
+    p = params[:annotation]
+    p[:anchors_attributes] = p[:anchors]
+    p.delete(:anchors)
     params.require(:annotation).permit(
-      anchors_attributes: [:id, :x, :y]
+      :label, anchors_attributes: [:id, :x, :y]
     )
   end
 

@@ -9,7 +9,7 @@ class Annotation < ApplicationRecord
 
   scope :active, -> { where(archived: false)} 
   scope :archived, -> { where(archived: true)} 
-  scope :for_measurements, -> { where(annotation_type: ['line', 'arrow']) }
+  scope :for_measurements, -> { where(annotation_type: ['line']) }
 
   after_update :update_annotatable
 

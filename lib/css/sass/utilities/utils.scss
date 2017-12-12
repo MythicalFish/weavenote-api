@@ -104,6 +104,9 @@ $b3: 2px solid #ccc;
 .x-fill {
   width: 100%;
 }
+.clear {
+  clear: both;
+}
 .middle-content {
   position: relative;
   > * {

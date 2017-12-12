@@ -92,6 +92,9 @@
 .x-fill {
   width: 100%; }
 
+.clear {
+  clear: both; }
+
 .middle-content {
   position: relative; }
   .middle-content > * {
@@ -208,7 +211,7 @@ svg.annotation {
     stroke-dasharray: 14, 4; }
     svg.annotation line.arrow {
       marker-end: url(#arrowhead);
-      stroke-dasharray: none; }
+      stroke-dasharray: 999; }
   svg.annotation.scale-fix {
     -webkit-transform: scale(0.565);
     -webkit-transform-origin: top left; }
@@ -262,27 +265,22 @@ ul.project-info {
   ul.project-info li {
     margin-bottom: 8px; }
 
-table.instructions {
-  width: 100%;
-  height: 100%; }
-  table.instructions > tbody > tr:not(:last-child) > td {
-    padding-bottom: 40px; }
-  table.instructions > tbody > tr > td {
-    padding-top: 40px;
-    vertical-align: top; }
-    table.instructions > tbody > tr > td table.instruction {
-      height: 100%;
-      width: 100%; }
-      table.instructions > tbody > tr > td table.instruction > tbody tr td.instruction-text {
-        vertical-align: top; }
-      table.instructions > tbody > tr > td table.instruction > tbody tr.instruction-images {
-        height: 100%; }
-        table.instructions > tbody > tr > td table.instruction > tbody tr.instruction-images td:not(:last-child) {
-          padding-right: 20px; }
-    table.instructions > tbody > tr > td:first-child {
-      padding-right: 40px; }
-    table.instructions > tbody > tr > td:last-child {
-      padding-left: 40px; }
+.instruction {
+  padding: 20px;
+  border: 2px solid #eee;
+  margin-bottom: 20px;
+  float: left;
+  width: 49%;
+  margin-right: 20px; }
+  .instruction > table {
+    height: 100%;
+    width: 100%; }
+    .instruction > table > tbody tr td.instruction-text {
+      vertical-align: top; }
+    .instruction > table > tbody tr.instruction-images {
+      height: 100%; }
+      .instruction > table > tbody tr.instruction-images td:not(:last-child) {
+        padding-right: 20px; }
 
 table.measurements {
   width: auto;

@@ -23,7 +23,6 @@
     - if @components.any? && @options[:materials]
       - @components.each_slice(20) do |slice|
         = render partial: 'spec_sheet/page', locals: { title: 'Materials', data: slice, view: 'pages/materials' } 
-                                                                                                            
         - @pagenumber += 1
 
     - if @measurements.any? && @options[:measurements]

@@ -16,7 +16,7 @@ svg.annotation {
     stroke-dasharray: 14, 4;
     &.arrow {
       marker-end: url(#arrowhead);
-      stroke-dasharray: none;
+      stroke-dasharray: 999;
     }
   }
   &.scale-fix {

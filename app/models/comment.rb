@@ -53,7 +53,9 @@ class Comment < ApplicationRecord
     lines = 0 unless lines > 0
     count = lines + (breaks * 2)
     count = count > 0 ? count : 1
-    count + 4
+    count += 4
+    replies.each { |r| count += r.estimated_line_count }
+    count
   end
 
 

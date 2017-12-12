@@ -4,7 +4,7 @@
 - max_lines = 35
 - comments.each do |c|
   - p = pages.last
-  - if (p[:linecount] + c.estimated_line_count) > max_lines
+  - if p[:linecount] > 0 && (p[:linecount] + c.estimated_line_count) > max_lines
     - pages.push({linecount: c.estimated_line_count, comments: [c], annotations: [c.annotation]})
   - else
     - pages.last[:linecount] += c.estimated_line_count

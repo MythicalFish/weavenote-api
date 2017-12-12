@@ -236,21 +236,40 @@ svg.annotation {
     -webkit-transform: translate(-50%, -50%); }
 
 .comment {
-  border: 2px solid #ccc;
-  padding: 20px; }
+  border: 2px solid #eee;
+  padding: 40px;
+  font-size: 0.9em;
+  max-width: 800px; }
   .comment:not(:first-child) {
     margin-top: 20px; }
   .comment .author {
     margin-bottom: 20px;
-    color: #555; }
+    color: #555;
+    font-size: 0.8em; }
     .comment .author .date {
       opacity: 0.8;
       float: right;
       font-size: 0.9em;
       text-align: right;
       min-width: 200px; }
-  .comment .replies .comment {
+  .comment .comment-body:not(:last-child) {
+    padding-bottom: 40px; }
+  .comment .comment-body p:last-of-type {
+    margin-bottom: 0; }
+  .comment .replies {
     border: 2px solid #eee; }
+    .comment .replies .comment {
+      border: 0;
+      margin-top: 0;
+      padding: 20px 40px; }
+      .comment .replies .comment .comment-body {
+        padding-bottom: 0; }
+      .comment .replies .comment:first-child {
+        padding-top: 40px; }
+      .comment .replies .comment:last-child {
+        padding-bottom: 40px; }
+      .comment .replies .comment:not(:last-child) {
+        border-bottom: 1px solid #eee; }
   .comment .comment-images {
     height: 150px; }
 

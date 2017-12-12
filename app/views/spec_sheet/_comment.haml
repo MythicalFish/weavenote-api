@@ -1,7 +1,10 @@
 - images = comment.images
 - img_count = images.length
 - img_colwidth = img_count > 0 ? (100 / img_count) : nil
-.comment
+- klass = 'comment'
+- if comment.is_reply
+  - klass += ' reply'
+%div{class:klass}
   .author
     - if comment.is_reply
       %b= comment.user.name
@@ -11,7 +14,8 @@
         = comment.created_at.strftime('%H:%M (%b %d)')
       %b= comment.user.name
       said:
-  .pb2= comment.text.html_safe
+  .comment-body
+    = comment.text.html_safe
   - if images.any?
     %table.comment-images
       %colspan
@@ -21,6 +25,7 @@
         - images.each do |img|
           %td
             .img.img-left{:style => "background-image:url('#{img.file.url(:small)}');"}
-  .replies
-    - comment.replies.each do |r|
-      = render partial: "spec_sheet/comment", locals: { comment: r }
+  - if comment.replies.size > 0
+    .replies
+      - comment.replies.each do |r|
+        = render partial: "spec_sheet/comment", locals: { comment: r }

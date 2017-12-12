@@ -1,12 +1,15 @@
 .comment {
-  border: $b3;
-  padding: $p2;
+  border: $b1;
+  padding: $p3;
+  font-size: 0.9em;
+  max-width: 800px;
   &:not(:first-child) {
     margin-top: $p2;
   }
   .author {
     margin-bottom: $p2;
     color: #555;
+    font-size: 0.8em;
     .date {
       opacity: 0.8;
       float: right;
@@ -15,9 +18,32 @@
       min-width: 200px;
     }
   }
+  .comment-body {
+    &:not(:last-child) {
+      padding-bottom: $p3;
+    }
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+  }
   .replies {
+    border: $b1;
     .comment {
-      border: $b1;
+      border: 0;
+      margin-top: 0;
+      padding: $p2 $p3;
+      .comment-body {
+        padding-bottom: 0;
+      }
+      &:first-child {
+        padding-top: $p3;
+      }
+      &:last-child {
+        padding-bottom: $p3;
+      }
+      &:not(:last-child) {
+        border-bottom: 1px solid #eee;
+      }
     }
   }
   .comment-images {

@@ -8,7 +8,7 @@
       - annotations.each do |a|
         - if a.type == 'dot'
           - anchor = a.anchors[0]
-          %div{:class => "dot", :style => "top: #{o.y_percent}%; left: #{o.x_percent}%;"}
+          %div{:class => "dot", :style => "top: #{anchor.y_percent}%; left: #{anchor.x_percent}%;"}
       %svg{class: klass, width:'100%',height:'100%'}
         %marker{id:"arrowhead", viewBox:"0 0 10 10", refX:"0", refY:"5", markerUnits:"strokeWidth", markerWidth:"11", markerHeight:"3", orient:"auto"}
           %path{d:"M 0 0 L 10 5 L 0 10 z"}

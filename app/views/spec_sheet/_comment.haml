@@ -11,7 +11,7 @@
         = comment.created_at.strftime('%H:%M (%b %d)')
       %b= comment.user.name
       said:
-  .pb2= comment.text
+  .pb2= comment.text.html_safe
   - if images.any?
     %table.comment-images
       %colspan

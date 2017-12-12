@@ -50,18 +50,10 @@ class CommentsController < ApiController
     archived = params[:archived] == "true" ? true : false
     { 
       commentable: { id: @parent_model.id, type: @parent_model.class.name },
-      comments: serialized(@parent_model.comments.where(archived: archived).order(created_at: :desc))
+      comments: serialized(@parent_model.comments.where(archived: archived))
     }
   end
-
-  def comments
-    c = @commentable
-    if c.class.name == 'Comment'
-      c = c.commentable
-    end
-    serialized(c.comments.order(created_at: :desc))
-  end
-
+  
   def set_commentable
     commentable_class = Object.const_get(params[:commentable][:type])
     @commentable = commentable_class.find(params[:commentable][:id])

@@ -4,6 +4,6 @@
       %td.header{:colspan => "2"}
         = render partial: 'spec_sheet/header', locals: { title: title }
     %tr.body
-      = render partial: "spec_sheet/#{view}", locals: { data: defined?(data) ? data : nil }
+      = render partial: "spec_sheet/pages/#{view}", locals: { data: defined?(data) ? data : nil }
   .page-number
     = "Page #{@pagenumber}"

@@ -31,7 +31,7 @@ class Image < ApplicationRecord
   
   default_scope { order(primary: :desc)}
   scope :annotated, -> { joins(:annotation) }
-  scope :with_comment_annotations, -> { joins(:annotations).where( annotations: { annotatable_type: 'Comment' }) }
+  scope :with_comment_annotations, -> { joins(:annotations).where( annotations: { annotatable_type: 'Comment' }).uniq }
 
   def urls
     {

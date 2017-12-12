@@ -1,41 +1,26 @@
-table.comments {
-  tr {
-    td {
-      vertical-align: top;
-      .comment {
-        border: $b3;
-        padding: $p2;
-        margin-top: $p2;
-        .author {
-          margin-bottom: $p2;
-          color: #555;
-          .date {
-            opacity: 0.8;
-            float: right;
-            font-size: 0.9em;
-            text-align: right;
-            min-width: 200px;
-          }
-        }
-        .replies {
-          .comment {
-            border: $b1;
-          }
-        }
-        .comment-images {
-          height: 150px;
-        }
-      }
-      &:first-child {
-        .comment {
-          margin-right: $p1;
-        }
-      }
-      &:last-child {
-        .comment {
-          margin-left: $p1;
-        }
-      }
+.comment {
+  border: $b3;
+  padding: $p2;
+  &:not(:first-child) {
+    margin-top: $p2;
+  }
+  .author {
+    margin-bottom: $p2;
+    color: #555;
+    .date {
+      opacity: 0.8;
+      float: right;
+      font-size: 0.9em;
+      text-align: right;
+      min-width: 200px;
     }
+  }
+  .replies {
+    .comment {
+      border: $b1;
+    }
+  }
+  .comment-images {
+    height: 150px;
   }
 }

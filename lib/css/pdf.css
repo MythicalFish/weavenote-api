@@ -235,29 +235,24 @@ svg.annotation {
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%); }
 
-table.comments tr td {
-  vertical-align: top; }
-  table.comments tr td .comment {
-    border: 2px solid #ccc;
-    padding: 20px;
+.comment {
+  border: 2px solid #ccc;
+  padding: 20px; }
+  .comment:not(:first-child) {
     margin-top: 20px; }
-    table.comments tr td .comment .author {
-      margin-bottom: 20px;
-      color: #555; }
-      table.comments tr td .comment .author .date {
-        opacity: 0.8;
-        float: right;
-        font-size: 0.9em;
-        text-align: right;
-        min-width: 200px; }
-    table.comments tr td .comment .replies .comment {
-      border: 2px solid #eee; }
-    table.comments tr td .comment .comment-images {
-      height: 150px; }
-  table.comments tr td:first-child .comment {
-    margin-right: 10px; }
-  table.comments tr td:last-child .comment {
-    margin-left: 10px; }
+  .comment .author {
+    margin-bottom: 20px;
+    color: #555; }
+    .comment .author .date {
+      opacity: 0.8;
+      float: right;
+      font-size: 0.9em;
+      text-align: right;
+      min-width: 200px; }
+  .comment .replies .comment {
+    border: 2px solid #eee; }
+  .comment .comment-images {
+    height: 150px; }
 
 ul.project-info {
   list-style: none;

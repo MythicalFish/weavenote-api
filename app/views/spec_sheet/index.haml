@@ -2,8 +2,8 @@
 - @components = @project.components
 - @measurements = @project.measurement_values
 - @instructions = @project.instructions
-- @comments = @project.comments
 - @images = @project.images
+- def render_page(title, view, data = nil) render({ partial: 'spec_sheet/page', locals: { title: title, view: view, data: data }}) end
 !!!
 %html
   %head
@@ -22,27 +22,26 @@
 
     - if @components.any? && @options[:materials]
       - @components.each_slice(20) do |slice|
-        = render partial: 'spec_sheet/page', locals: { title: 'Materials', data: slice, view: 'pages/materials' } 
+        = render_page 'Materials', 'materials', slice
         - @pagenumber += 1
 
     - if @measurements.any? && @options[:measurements]
-      = render partial: 'spec_sheet/page', locals: { title: 'Measurements', view: 'pages/measurements' } 
+      = render_page 'Measurements', 'measurements'
       - @pagenumber += 1
 
     - if @instructions.any? && @options[:instructions]
       - @instructions.each_slice(4) do |slice|
-        = render partial: 'spec_sheet/page', locals: { title: 'Instructions', data: slice, view: 'pages/instructions' } 
+        = render_page 'Instructions', 'instructions', slice
         - @pagenumber += 1
         
     - if @options[:comments]
       - if @options[:comments] == 'Annotated'
         - @images.with_comment_annotations.each do |i|
-          = render partial: 'spec_sheet/page', locals: { title: 'Comments', data: i, view: 'pages/comments' }
-          - @pagenumber += 1
+          = render partial: 'spec_sheet/pages/comments', locals: { image: i }
           
     - if @images.length > 1 && @options[:secondary_images]
       - @images.drop(1).each_slice(2) do |slice|
-        = render partial: 'spec_sheet/page', locals: { title: 'Secondary images', data: slice, view: 'pages/images' } 
+        = render_page 'Secondary images', 'images', slice
         - @pagenumber += 1
     
     = render partial: 'spec_sheet/script'

@@ -1,8 +1,27 @@
-- image = data
 - annotations = image.annotations.where(annotatable_type:'Comment')
-- comments = annotations.map { |a| a.annotatable }
-%td
-  = render partial: "spec_sheet/image", locals: { src: image.file.url(:large), annotations: annotations }
-%td
-  - comments.each do |comment|
-    = render partial: "spec_sheet/comment", locals: { comment: comment }
+- comments = annotations.map { |a| a.annotatable }.sort { |a,b| b.created_at <=> a.created_at }
+- pages = [{linecount: 0, comments: [], annotations: []}]
+- max_lines = 35
+- comments.each do |c|
+  - p = pages.last
+  - if (p[:linecount] + c.estimated_line_count) > max_lines
+    - pages.push({linecount: c.estimated_line_count, comments: [c], annotations: [c.annotation]})
+  - else
+    - pages.last[:linecount] += c.estimated_line_count
+    - pages.last[:comments].push c
+    - pages.last[:annotations].push c.annotation
+- pages.each do |p|
+  .page
+    %table.main
+      %tr
+        %td.header{:colspan => "2"}
+          = render partial: 'spec_sheet/header', locals: { title: 'Comments' }
+      %tr.body
+        %td.pt3.vtop
+          = render partial: "spec_sheet/image", locals: { src: image.file.url(:large), annotations: p[:annotations] }
+        %td.pt3.pl3.vtop.x-fill
+          - p[:comments].each do |comment|
+            = render partial: "spec_sheet/comment", locals: { comment: comment }
+    .page-number
+      = "Page #{@pagenumber}"
+  - @pagenumber += 1

@@ -9,6 +9,7 @@ class Comment < ApplicationRecord
 
   validates :text, length: { minimum: 2 }
 
+  default_scope { order(created_at: :desc) }
   scope :active, -> { where(archived: false)} 
   scope :archived, -> { where(archived: true)} 
   scope :annotated, -> { joins(:annotation) }
@@ -45,6 +46,16 @@ class Comment < ApplicationRecord
   def archived
     attributes['archived'] || is_reply && commentable.attributes['archived']
   end
+
+  def estimated_line_count
+    breaks = text.scan(/\<p\>/).length
+    lines = (text.length / 60) - breaks
+    lines = 0 unless lines > 0
+    count = lines + (breaks * 2)
+    count = count > 0 ? count : 1
+    count + 4
+  end
+
 
   private
 

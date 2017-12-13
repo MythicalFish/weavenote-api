@@ -13,7 +13,7 @@ class ProjectsController < ApiController
       project: serialized(@project),
       images: serialized(@project.images),
       annotations: serialized(@project.annotations.active),
-      user_role: @user.project_role_type(@project).name,
+      user_role: @user.project_role_type(@project).attributes,
       abilities: Ability.new(@user, @project).list
     }
   end

@@ -38,35 +38,35 @@ class Ability
     # Deny all if model is undefined
     a['Undefined'] = deny_all
 
-    # Controller determines abilities for these:
-    a['Comment'] = grant_all_only [:index, :show, :create]
-    a['Annotation'] = grant_all_only [:index, :show, :create]
-    a['Comment'][ADMIN] = [:index, :show, :create, :destroy]
-    a['Annotation'][ADMIN] = [:index, :show, :create, :destroy]
-    a['Comment'][MEMBER] = [:index, :show, :create, :destroy]
-    a['Annotation'][MEMBER] = [:index, :show, :create, :destroy]
-
     # User actions always on self, so grant all
     a['User'] = grant_all ALL_ACTIONS
-
-    # Invite fetch based on key
-    # a['Invite'] = grant_all [:show] # not needed?
 
     # Any user can create an Organization
     a['Organization'] = grant_all_only [:create]
 
-    # Any user see list of Projects
-    a['Project'] = grant_all [:index]
-
     # Only Admin can manage Organization:
     a['Organization'][ADMIN] = ALL_ACTIONS
 
+    # Loosen restrictions for these models, since their
+    # controllers determines abilities for these:
+    a['Comment'] = grant_all ALL_ACTIONS
+    a['Annotation'] = grant_all ALL_ACTIONS
+    #a['Comment'] = grant_all_only [:index, :show, :create]
+    #a['Annotation'] = grant_all_only [:index, :show, :create]
+    #a['Comment'][ADMIN] = [:index, :show, :create, :destroy]
+    #a['Annotation'][ADMIN] = [:index, :show, :create, :destroy]
+    #a['Comment'][MEMBER] = [:index, :show, :create, :destroy]
+    #a['Annotation'][MEMBER] = [:index, :show, :create, :destroy]
+
+    # Any user see list of Projects
+    a['Project'] = grant_all [:index]
+
     # Permit certain model actions for Team Member:
     a['Image'][MEMBER] = ALL_ACTIONS
+    a['Component'][MEMBER] = ALL_ACTIONS
     a['Measurement'][MEMBER] = ALL_ACTIONS
     a['Instruction'][MEMBER] = ALL_ACTIONS
     a['SpecSheet'][MEMBER] = ALL_ACTIONS
-    #a['Invite'][MEMBER] = [:show] # not needed?
     a['Role'][MEMBER] = [:show]
     
     a
@@ -98,11 +98,9 @@ class Ability
   def grant_all new_abilities
     DEFAULT_ABILITIES.dup.map { |role_id, defaults|
       abilities = defaults.dup
-      unless role_id == NONE
-        new_abilities.each do |a|
-          unless defaults.include? a
-            abilities << a
-          end
+      new_abilities.each do |a|
+        unless defaults.include? a
+          abilities << a
         end
       end
       [role_id, abilities]

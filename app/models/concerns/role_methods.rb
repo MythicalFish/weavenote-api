@@ -22,8 +22,8 @@ module RoleMethods
       return r.type if r
     end
 
-    def role
-      organization_role_type.try(:name)
+    def role_type
+      organization_role_type.try(:attributes)
     end
 
     def project_role project

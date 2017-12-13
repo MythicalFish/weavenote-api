@@ -28,6 +28,11 @@ class Material < ApplicationRecord
     t || 0
   end
 
+  def cost_total_in iso_code
+    return cost_total if currency.iso_code == iso_code
+    return CurrencyConversion.do(cost_total, currency.iso_code, iso_code)
+  end
+
   private
 
   def configure_supplier

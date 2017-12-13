@@ -14,7 +14,8 @@ class ProjectsController < ApiController
       images: serialized(@project.images),
       annotations: serialized(@project.annotations.active),
       user_role: @user.project_role_type(@project).attributes,
-      abilities: Ability.new(@user, @project).list
+      abilities: Ability.new(@user, @project).list,
+      material_cost: get_material_cost
     }
   end
 
@@ -42,7 +43,7 @@ class ProjectsController < ApiController
   end
 
   def material_cost
-    render json: @project.material_cost
+    render json: get_material_cost
   end
 
   private
@@ -63,6 +64,14 @@ class ProjectsController < ApiController
       :name, :ref_number, :archived, :images, :notes,
       :development_stage, :collection, :color_code, :target_fob
     )
+  end
+
+  def selected_currency
+    Currency.find(params[:currency] || 1)
+  end
+
+  def get_material_cost
+    @project.material_cost_in(selected_currency.iso_code)
   end
 
 end

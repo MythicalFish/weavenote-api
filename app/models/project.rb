@@ -48,10 +48,10 @@ class Project < ApplicationRecord
     image_url :tiny
   end
 
-  def material_cost
+  def material_cost_in currency
     cost = 0.00
     components.each do |c|
-      cost += c.material_cost
+      cost += c.material_cost_in(currency)
     end
     cost.round(2)
   end

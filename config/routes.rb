@@ -39,7 +39,6 @@ Rails.application.routes.draw do
     resources :projects do
       get '/export', to: 'spec_sheet#create'
       get '/material_cost', to: 'projects#material_cost'
-      get '/material_cost', to: 'projects#material_cost'
       get '/measurements', to: 'measurements#index'
       patch '/measurements', to: 'measurements#update'
       post '/measurement_groups', to: 'measurements#create_group'

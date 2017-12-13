@@ -61,6 +61,9 @@ class Ability
     # Any user see list of Projects
     a['Project'] = grant_all [:index]
 
+    # Permit guests to export PDF
+    a['SpecSheet'][GUEST] = ALL_ACTION
+
     # Permit certain model actions for Team Member:
     a['Image'][MEMBER] = ALL_ACTIONS
     a['Component'][MEMBER] = ALL_ACTIONS

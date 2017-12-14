@@ -43,7 +43,7 @@ class ProjectsController < ApiController
   end
 
   def material_cost
-    render json: get_material_cost
+    render json: { cost: get_material_cost }
   end
 
   private

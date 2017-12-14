@@ -8,9 +8,8 @@ class User < ApplicationRecord
   include LetterAvatar::HasAvatar
   validates_uniqueness_of :email
   validates :name, length: { minimum: 2 }
-  validate :username_is_valid
-
   before_create :set_username
+  validate :username_is_valid, on: :update
 
   def abilities
     abilities = Ability.new(self,organization)
@@ -37,9 +36,10 @@ class User < ApplicationRecord
   end
 
   def username_is_valid
+    # set_username unless username
     if username.length < 2
       errors.add(:username, ' must be at least 2 chars')
-    elsif username_exists?(username)
+    elsif username_changed? && username_exists?(username)
       errors.add(:username, ' is taken')
     end
   end

@@ -5,7 +5,8 @@ class MaterialsController < ApiController
   before_action :check_ability!, except: [:index]
 
   def index
-    render json: material_list, each_serializer: MaterialListSerializer
+    archived = params[:archived] == 'true'
+    render_material_list archived
   end
 
   def new
@@ -31,20 +32,24 @@ class MaterialsController < ApiController
 
   def update
     @material.update!(material_params)
-    index
   end
 
   def destroy
     @material.destroy!
-    index
+    render_material_list true
+  end
+
+  def categorize
+    archived = params[:archived] || false
+    @material.update!(archived:archived)
+    render_material_list !archived
   end
 
   private
   
-  def material_list
-    list = @organization.materials
-    return list.archived if params[:archived] == "true"
-    return list.active
+  def render_material_list archived = false
+    list = @organization.materials.where(archived:archived)
+    render json: list, each_serializer: MaterialListSerializer
   end
 
   def set_material

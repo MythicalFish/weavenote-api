@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     resources :organizations, only: [:create, :update, :destroy] 
     resources :materials, except: [:edit]
     post 'materials/:id', to: 'materials#duplicate'
+    patch 'materials/:id/categorize', to: 'materials#categorize'
     resources :comments, except: [:show, :edit, :new]
     post '/comments/parse_email', to: 'comments#parse_email'
     resources :images, except: [:index]

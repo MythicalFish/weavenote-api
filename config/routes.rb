@@ -51,6 +51,7 @@ Rails.application.routes.draw do
         post '/images', to: 'instructions#create_image'
         delete '/images/:id', to: 'instructions#destroy_image'
       end
+      patch '/categorize', to: 'projects#categorize'
     end
     post '/projects/:id', to: 'projects#duplicate'
 

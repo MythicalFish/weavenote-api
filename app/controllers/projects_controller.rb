@@ -5,7 +5,8 @@ class ProjectsController < ApiController
   before_action :check_ability!
 
   def index
-    render json: project_list, each_serializer: ProjectListSerializer
+    archived = params[:archived] == 'true'
+    render_project_list archived
   end
 
   def show
@@ -27,12 +28,11 @@ class ProjectsController < ApiController
 
   def update
     @project.update!(project_params)
-    index
   end
 
   def destroy
     @project.destroy!
-    index
+    render_project_list true
   end
 
   def duplicate
@@ -42,16 +42,21 @@ class ProjectsController < ApiController
     index
   end
 
+  def categorize
+    archived = params[:archived] || false
+    @project.update!(archived:archived)
+    render_project_list !archived
+  end
+
   def material_cost
     render json: { cost: get_material_cost }
   end
 
   private
 
-  def project_list
-    list = @user.projects
-    return list.archived if params[:archived] == "true"
-    return list.active
+  def render_project_list archived = false
+    list = @user.projects.where(archived:archived)
+    render json: list, each_serializer: ProjectListSerializer
   end
 
   def set_project

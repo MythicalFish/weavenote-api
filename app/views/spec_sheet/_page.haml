@@ -1,9 +1,10 @@
-.page
+%div{class:"page #{view}"}
   %table.main
-    %tr
-      %td.header{:colspan => "2"}
-        = render partial: 'spec_sheet/header', locals: { title: title }
-    %tr.body
-      = render partial: "spec_sheet/pages/#{view}", locals: { data: defined?(data) ? data : nil }
+    %tbody
+      %tr
+        %td.header{:colspan => "2"}
+          = render partial: 'spec_sheet/header', locals: { title: title }
+      %tr.body
+        = render partial: "spec_sheet/pages/#{view}", locals: { data: defined?(data) ? data : nil }
   .page-number
     = "Page #{@pagenumber}"

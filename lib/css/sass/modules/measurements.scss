@@ -1,20 +1,47 @@
+$d1: #eee;
+$d2: #ccc;
 table.measurements {
   width: auto;
-  border-collapse: separate;
-  border-spacing: 8px 0;
+  border-collapse: collapse;
+  font-size: 0.8em;
+  td {
+    padding: $p1 12px;
+  }
   thead {
+    color: $dark5;
+    td {
+      border-bottom: 3px solid $d2;
+    }
     td:first-child {
-      color: rgba(0, 0, 0, 0.5);
+      color: transparent;
+      border-bottom: none;
     }
   }
-  tr {
-    td {
-      border: 2px solid #ccc;
-      padding: $p2;
-    }
-    &:not(:last-child) {
+  tbody {
+    tr {
       td {
-        border-bottom: none;
+        border: 2px solid $d1;
+        border-top: none;
+        &:first-child {
+          color: $dark5;
+          text-align: right;
+          border: none;
+        }
+        &:not(:first-child) {
+          border-left: none;
+        }
+        &:nth-child(2) {
+          border-left: 3px solid $d2;
+        }
+      }
+    }
+  }
+}
+.page.measurements {
+  table.main {
+    tr.body {
+      > td {
+        width: 40%;
       }
     }
   }

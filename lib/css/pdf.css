@@ -298,15 +298,31 @@ ul.project-info {
 
 table.measurements {
   width: auto;
-  border-collapse: separate;
-  border-spacing: 8px 0; }
-  table.measurements thead td:first-child {
+  border-collapse: collapse;
+  font-size: 0.8em; }
+  table.measurements td {
+    padding: 10px 12px; }
+  table.measurements thead {
     color: rgba(0, 0, 0, 0.5); }
-  table.measurements tr td {
-    border: 2px solid #ccc;
-    padding: 20px; }
-  table.measurements tr:not(:last-child) td {
-    border-bottom: none; }
+    table.measurements thead td {
+      border-bottom: 3px solid #ccc; }
+    table.measurements thead td:first-child {
+      color: transparent;
+      border-bottom: none; }
+  table.measurements tbody tr td {
+    border: 2px solid #eee;
+    border-top: none; }
+    table.measurements tbody tr td:first-child {
+      color: rgba(0, 0, 0, 0.5);
+      text-align: right;
+      border: none; }
+    table.measurements tbody tr td:not(:first-child) {
+      border-left: none; }
+    table.measurements tbody tr td:nth-child(2) {
+      border-left: 3px solid #ccc; }
+
+.page.measurements table.main tr.body > td {
+  width: 40%; }
 
 table.materials thead tr td {
   padding-bottom: 20px; }

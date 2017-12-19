@@ -15,8 +15,8 @@
       - names.each do |name|
         %tr
           %td
-            %b.pr1= name.identifier
             = name.value
+            %b.pl1= name.identifier
           - groups.each do |group|
             - @project.measurement_values_for!({group_id:group.id, name_id: name.id}).each do |value| 
               %td.center= value.value

@@ -1,139 +1,76 @@
-.p1 {
-  padding: 10px; }
+/*
+Error: Undefined variable: "$p1".
+        on line 2 of sass/utilities/utils.scss
+        from line 1 of sass/email.scss
 
-.pt1 {
-  padding-top: 10px; }
+1: @import 'utilities/utils';
+2: @import 'base/base';
+3: @import 'modules/email';
 
-.pr1 {
-  padding-right: 10px; }
-
-.pb1 {
-  padding-bottom: 10px; }
-
-.pl1 {
-  padding-left: 10px; }
-
-.p2 {
-  padding: 20px; }
-
-.pt2 {
-  padding-top: 20px; }
-
-.pr2 {
-  padding-right: 20px; }
-
-.pb2 {
-  padding-bottom: 20px; }
-
-.pl2 {
-  padding-left: 20px; }
-
-.p3 {
-  padding: 40px; }
-
-.pt3 {
-  padding-top: 40px; }
-
-.pr3 {
-  padding-right: 40px; }
-
-.pb3 {
-  padding-bottom: 40px; }
-
-.pl3 {
-  padding-left: 40px; }
-
-.b1 {
-  border: 2px solid #eee; }
-
-.bt1 {
-  border-top: 2px solid #eee; }
-
-.br1 {
-  border-right: 2px solid #eee; }
-
-.bb1 {
-  border-bottom: 2px solid #eee; }
-
-.bl1 {
-  border-left: 2px solid #eee; }
-
-.b2 {
-  border: 4px solid #eee; }
-
-.bt2 {
-  border-top: 4px solid #eee; }
-
-.br2 {
-  border-right: 4px solid #eee; }
-
-.bb2 {
-  border-bottom: 4px solid #eee; }
-
-.bl2 {
-  border-left: 4px solid #eee; }
-
-.vtop {
-  vertical-align: top !important; }
-
-.vbottom {
-  vertical-align: bottom !important; }
-
-.vcenter {
-  vertical-align: center !important; }
-
-.center {
-  text-align: center; }
-
-.y-fill {
-  height: 100%;
-  box-sizing: border-box; }
-
-.x-fill {
-  width: 100%; }
-
-.clear {
-  clear: both; }
-
-.middle-content {
-  position: relative; }
-  .middle-content > * {
-    display: inline-block;
-    text-align: center;
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%); }
-
-.pink {
-  background: rgba(255, 0, 255, 0.6); }
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2; }
-
-h1,
-h2,
-h3 {
-  margin: 0; }
-
-body {
-  color: #444;
-  font-size: 25px;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0; }
-  body * {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box; }
-
-.container {
-  max-width: 542px;
-  background-color: #FFF;
-  margin: 0 auto;
-  padding: 20px; }
+Backtrace:
+sass/utilities/utils.scss:2
+sass/email.scss:1
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/script/tree/variable.rb:49:in `_perform'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/script/tree/node.rb:50:in `perform'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:402:in `visit_prop'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/stack.rb:79:in `block in with_base'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/stack.rb:135:in `with_frame'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/stack.rb:79:in `with_base'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:162:in `visit'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:444:in `block (2 levels) in visit_rule'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:444:in `map'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:444:in `block in visit_rule'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:442:in `visit_rule'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/stack.rb:79:in `block in with_base'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/stack.rb:135:in `with_frame'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/stack.rb:79:in `with_base'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:162:in `visit'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:329:in `block (2 levels) in visit_import'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:329:in `map'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:329:in `block in visit_import'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/stack.rb:88:in `block in with_import'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/stack.rb:135:in `with_frame'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/stack.rb:88:in `with_import'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:326:in `visit_import'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/stack.rb:79:in `block in with_base'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/stack.rb:135:in `with_frame'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/stack.rb:79:in `with_base'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:162:in `visit'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/base.rb:52:in `map'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:171:in `block in visit_children'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:170:in `visit_children'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:190:in `visit_root'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:161:in `visit'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:10:in `visit'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/root_node.rb:36:in `css_tree'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/tree/root_node.rb:20:in `render'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/engine.rb:290:in `render'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/plugin/compiler.rb:464:in `update_stylesheet'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/plugin/compiler.rb:209:in `each'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/plugin.rb:82:in `update_stylesheets'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/exec/sass_scss.rb:340:in `watch_or_update'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/exec/sass_scss.rb:51:in `process_result'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/exec/base.rb:52:in `parse'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/lib/sass/exec/base.rb:19:in `parse!'
+/Users/jake/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.5.3/bin/sass:13:in `<top (required)>'
+/Users/jake/.rbenv/versions/2.3.4/bin/sass:22:in `load'
+/Users/jake/.rbenv/versions/2.3.4/bin/sass:22:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Undefined variable: \"$p1\".\A         on line 2 of sass/utilities/utils.scss\A         from line 1 of sass/email.scss\A \A 1: @import 'utilities/utils';\A 2: @import 'base/base';\A 3: @import 'modules/email';"; }

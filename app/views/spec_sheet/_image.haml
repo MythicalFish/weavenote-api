@@ -5,14 +5,30 @@
   %img{:src => src}
   .overlay
     - if defined?(annotations)
-      - annotations.each do |a|
-        - if a.type == 'dot'
-          - anchor = a.anchors[0]
-          %div{:class => "dot", :style => "top: #{anchor.y_percent}%; left: #{anchor.x_percent}%;"}
+
+      // Lines & arrows made using SVG
+
       %svg{class: klass, width:'100%',height:'100%'}
+        %defs
+          %filter#solid{:height => "1", :width => "1", :x => "0", :y => "0"}
+            %feflood{"flood-color" => "rgba(0,0,0,0.5)"}
+            %fecomposite{:in => "SourceGraphic"}
         %marker{id:"arrowhead", viewBox:"0 0 10 10", refX:"0", refY:"5", markerUnits:"strokeWidth", markerWidth:"11", markerHeight:"3", orient:"auto"}
           %path{d:"M 0 0 L 10 5 L 0 10 z"}
         - annotations.each do |a|
           - l = a.line_points 
           - if l
             %line{ class: a.type, x1:l[0], y1: l[1], x2:l[2], y2: l[3] }
+
+      // Dots & labels with just HTML
+
+      - annotations.each do |a|
+        - if ['dot', 'arrow'].include? a.type
+          - anchor = a.anchors[0]
+          - pos = "top: #{anchor.y_percent}%; left: #{anchor.x_percent}%;"
+          %div{:class => "dot", :style => pos} 
+            - if aa = a.annotatable
+              = aa.identifier
+        - elsif a.label
+          .label{style: "top:#{a.midpoint[:y]}; left:#{a.midpoint[:x]};"}
+            = a.label

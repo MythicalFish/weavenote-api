@@ -5,15 +5,19 @@
 - if comment.is_reply
   - klass += ' reply'
 %div{class:klass}
+  - unless comment.is_reply
+    .identifier
+      = comment.identifier
   .author
     - if comment.is_reply
       %b= comment.user.name
       replied:
     - else
-      %span.date
-        = comment.created_at.strftime('%H:%M (%b %d)')
       %b= comment.user.name
       said:
+  %span.date
+    = comment.created_at.strftime('%H:%M (%b %d)')
+  .clear
   .comment-body
     = comment.text.html_safe
   - if images.any?

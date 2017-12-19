@@ -32,17 +32,25 @@ svg.annotation {
   top: 0;
   left: 0;
   border-radius: 999px;
-  width: 30px;
-  height: 30px;
   background: $blue;
-  border: 4px solid white;
-  &.line-anchor,
-  &.arrow-anchor {
-    border-radius: 999px;
-    height: 15px;
-    width: 15px;
-    background: $green;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-  }
+  border: 3px solid white;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  color: #fff;
+  line-height: 1;
+  padding: 10px 0;
+  font-size: 16px;
+  width: 42px;
+  text-align: center;
+}
+.label {
+  position: absolute;
+  background: $dark5;
+  color: #fff;
+  padding: 8px;
+  line-height: 1;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
 }

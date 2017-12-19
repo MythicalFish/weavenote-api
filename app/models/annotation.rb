@@ -22,6 +22,16 @@ class Annotation < ApplicationRecord
     }
   end
 
+  def midpoint
+    x = 0
+    y = 0
+    anchors.each do |a|
+      x += a.x_percent
+      y += a.y_percent
+    end
+    { x: "#{x/2}%", y: "#{y/2}%" }
+  end
+
   private
 
   def update_annotatable

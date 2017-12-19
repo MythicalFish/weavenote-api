@@ -13,7 +13,7 @@ module CheckAbility
   end
 
   def deny!
-    msg = "You don't have permission to #{@action} this #{@target}"
+    msg = "Permission error: unable to #{@action} this #{@target.downcase}"
     render_denied(msg)
   end
   

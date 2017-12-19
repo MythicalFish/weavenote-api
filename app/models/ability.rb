@@ -72,6 +72,9 @@ class Ability
     a['SpecSheet'][MEMBER] = ALL_ACTIONS
     a['Role'][MEMBER] = [:show]
     
+    # Temporary fix for showing a material to project guests
+    a['Material'] = grant_all [:show]
+    
     a
   end
 

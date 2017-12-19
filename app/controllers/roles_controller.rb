@@ -22,6 +22,11 @@ class RolesController < ApiController
       @role.user.roles.where({roleable_id: @organization.projects.ids, roleable_type: 'Project'}).destroy_all
     end
     @role.destroy!
+    org_role = @role.user.role_for(@organization)
+    if org_role.role_type_name == 'None' && @role.user.projects.length == 0
+      # Destroy org role if type is "None" and has no assigned projects
+      org_role.destroy!
+    end
     render_success "Collaborator removed from #{@invitable.class.name}", roles
   end
 

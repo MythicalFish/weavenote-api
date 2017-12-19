@@ -1,25 +1,26 @@
-.instruction {
-  padding: $p2;
-  border: 2px solid #eee;
-  margin-bottom: $p2;
-  float: left;
-  width: 49%;
-  > table {
-    height: 100%;
-    width: 100%;
-    > tbody {
-      tr {
-        td.instruction-text {
-          vertical-align: top;
-        }
-        &.instruction-images {
-          height: 100%;
-          td:not(:last-child) {
-            padding-right: $p2;
-          }
-        }
+table.instructions {
+  tr.asd {
+    td:first-child {
+      padding-right: $p1;
+    }
+    td:last-child {
+      padding-left: $p1;
+    }
+  }
+  .instruction {
+    padding: $p2;
+    border: 2px solid #eee;
+    &:not(:last-child) {
+      margin-bottom: $p2;
+    }
+    .instruction-images {
+      height: 300px;
+      td {
+        padding: 0 !important;
+      }
+      .img {
+        background-position: 0 0;
       }
     }
   }
-  margin-right: $p2;
 }

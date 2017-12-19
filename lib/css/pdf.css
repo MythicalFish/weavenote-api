@@ -168,8 +168,7 @@ body {
   background-size: contain;
   background-position: center top;
   background-repeat: no-repeat;
-  position: relative;
-  background-color: fuchsia; }
+  position: relative; }
   .img .img-left {
     background-position: left top; }
   .img .img-right {
@@ -279,29 +278,28 @@ ul.project-info {
   ul.project-info li {
     margin-bottom: 8px; }
 
-.instruction {
+table.instructions tr.asd td:first-child {
+  padding-right: 10px; }
+table.instructions tr.asd td:last-child {
+  padding-left: 10px; }
+table.instructions .instruction {
   padding: 20px;
-  border: 2px solid #eee;
-  margin-bottom: 20px;
-  float: left;
-  width: 49%;
-  margin-right: 20px; }
-  .instruction > table {
-    height: 100%;
-    width: 100%; }
-    .instruction > table > tbody tr td.instruction-text {
-      vertical-align: top; }
-    .instruction > table > tbody tr.instruction-images {
-      height: 100%; }
-      .instruction > table > tbody tr.instruction-images td:not(:last-child) {
-        padding-right: 20px; }
+  border: 2px solid #eee; }
+  table.instructions .instruction:not(:last-child) {
+    margin-bottom: 20px; }
+  table.instructions .instruction .instruction-images {
+    height: 300px; }
+    table.instructions .instruction .instruction-images td {
+      padding: 0 !important; }
+    table.instructions .instruction .instruction-images .img {
+      background-position: 0 0; }
 
 table.measurements {
   width: auto;
   border-collapse: collapse;
   font-size: 0.8em; }
   table.measurements td {
-    padding: 10px 12px; }
+    padding: 12px 14px; }
   table.measurements thead {
     color: rgba(0, 0, 0, 0.5); }
     table.measurements thead td {
@@ -310,7 +308,7 @@ table.measurements {
       color: transparent;
       border-bottom: none; }
   table.measurements tbody tr td {
-    border: 2px solid #eee;
+    border: 3px solid #eee;
     border-top: none; }
     table.measurements tbody tr td:first-child {
       color: rgba(0, 0, 0, 0.5);
@@ -321,7 +319,7 @@ table.measurements {
     table.measurements tbody tr td:nth-child(2) {
       border-left: 3px solid #ccc; }
 
-.page.measurements table.main tr.body > td {
+.page.measurements td.img-col {
   width: 40%; }
 
 table.materials thead tr td {

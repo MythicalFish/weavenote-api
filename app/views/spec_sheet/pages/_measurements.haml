@@ -2,7 +2,7 @@
 - names = @project.measurement_names
 - values = @project.measurement_values
 - image = @project.primary_image
-%td.pt3.vtop
+%td.pt3.vtop.img-col
   = render partial: "spec_sheet/image", locals: { src: image.file.url(:large), annotations: image.annotations.active.for_measurements }
 %td.pl3.pt3.vtop
   %table.measurements

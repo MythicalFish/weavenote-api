@@ -1,8 +1,9 @@
 - instructions = data
 %td.vtop.pt3{:colspan => "2"}
-  - instructions.each_slice(2) do |slice|
-    - slice.each do |instruction|
-      = render partial: "spec_sheet/instruction", locals: { instruction: instruction }
-      - if slice.size < 2
-        .instruction
-    .clear
+  %table.instructions
+    %tbody
+      %tr.asd.vtop
+        - instructions.each_slice(2) do |slice|
+          %td
+            - slice.each do |instruction|
+              = render partial: "spec_sheet/instruction", locals: { instruction: instruction }

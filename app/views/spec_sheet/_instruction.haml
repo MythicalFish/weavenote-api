@@ -13,5 +13,6 @@
           - instruction.images.each do |image|
             %td
               .img.img-left{:style => "background-image: url('#{image.file.url(:small)}');"}
-  .instruction-text.pt2
-    = instruction.description.html_safe
+  - if instruction.description
+    .instruction-text.pt2
+      = instruction.description.html_safe

@@ -63,6 +63,8 @@ Rails.application.routes.draw do
     get '/user', to: 'users#show'
     patch '/user', to: 'users#update'
     get '/reset_password', to: 'users#reset_password'
+    get '/verify_email_change', to: 'users#verify_email_change'
+    get '/change_email', to: 'users#change_email'
     get '/stats', to: 'organizations#stats'
     
     # Static resources:

@@ -60,6 +60,7 @@ class MaterialsController < ApiController
     sanitized_params.permit(
       :color, :material_type_id, :currency_id, :archived,
       :name, :reference, :composition, :size, :length, :opening_type, :identifier, :subtype,
+      :yarn_count, :other, :weight, :width,
       :cost_base, :cost_delivery, :cost_extra1 , :cost_extra2 , :supplier_name, :supplier_email, :unit_type_id, 
       :care_label_ids => [], 
     )

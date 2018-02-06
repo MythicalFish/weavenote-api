@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171212115718) do
+ActiveRecord::Schema.define(version: 20180206024421) do
 
   create_table "annotation_anchors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "annotation_id"
@@ -170,6 +170,7 @@ ActiveRecord::Schema.define(version: 20171212115718) do
     t.string   "supplier_name"
     t.string   "supplier_email"
     t.boolean  "archived",                                  default: false
+    t.string   "other"
     t.index ["archived"], name: "index_materials_on_archived", using: :btree
     t.index ["material_type_id"], name: "index_materials_on_material_type_id", using: :btree
     t.index ["name"], name: "index_materials_on_name", using: :btree

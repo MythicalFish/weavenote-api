@@ -45,7 +45,7 @@ task care_labels: :environment do
   CareLabel.destroy_all
   ActiveRecord::Base.connection.execute('ALTER TABLE care_labels AUTO_INCREMENT = 1')
   labels.each do |a|
-    CareLabel.create({name: a[0], icon: a[1]})
+    CareLabel.create({name: a[0], icon: a[1].split('.')[0]})
     puts "Created \"#{a[0]}\""
   end
 end

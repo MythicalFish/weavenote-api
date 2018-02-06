@@ -33,6 +33,23 @@ class Material < ApplicationRecord
     return CurrencyConversion.do(cost_total, currency.iso_code, iso_code)
   end
 
+  def display_name
+    a = [name]
+    n = type.name
+    if n == "Yarn"
+      a << yarn_count if yarn_count
+    elsif ["Zip", "Button", "Other"].include? n
+      a << size if size
+    elsif n == "Other"
+      a << other if other
+    end
+    if n == "Zip"
+      a << length if length
+      a << opening_type if opening_type
+    end
+    a.join(', ')
+  end
+
   private
 
   def configure_supplier

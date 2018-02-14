@@ -17,7 +17,7 @@ class User < ApplicationRecord
   end
 
   def avatar
-    "#{ENV['WEAVENOTE__API_URL']}#{self.avatar_url}"
+    "#{ENV['API_URL']}#{self.avatar_url}"
   end
 
   private

@@ -1,5 +1,5 @@
-if defined?(Rollbar) && ENV['WEAVENOTE__ROLLBAR_TOKEN']
+if defined?(Rollbar) && ENV['ROLLBAR_TOKEN']
   Rollbar.configure do |config|
-    config.access_token = ENV['WEAVENOTE__ROLLBAR_TOKEN']
+    config.access_token = ENV['ROLLBAR_TOKEN']
   end
 end

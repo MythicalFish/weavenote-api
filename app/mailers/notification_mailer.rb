@@ -27,7 +27,7 @@ class NotificationMailer < ApplicationMailer
 
   def from_address
     if @concern.class.name == 'Comment'
-      e = "comment-#{@concern.key}@#{ENV['WEAVENOTE__MAILER_DOMAIN']}"
+      e = "comment-#{@concern.key}@#{ENV['MAILER_DOMAIN']}"
       return "\"#{FROM_NAME}\" <#{e}>"
     end
   end

@@ -12,8 +12,8 @@ class Image < ApplicationRecord
   :path => "weavenote/uploads/organization-:organization_id/image-:id/:style/:basename.:extension",
   :storage => :fog,
   :fog_credentials =>  Rails.application.config.fog,
-  :fog_directory => ENV['WEAVENOTE__AWS_S3_BUCKET'],
-  :fog_host => "https://s3-#{ENV['WEAVENOTE__AWS_REGION']}.amazonaws.com/#{ENV['WEAVENOTE__AWS_S3_BUCKET']}",
+  :fog_directory => ENV['AWS_S3_BUCKET'],
+  :fog_host => "https://s3-#{ENV['AWS_REGION']}.amazonaws.com/#{ENV['AWS_S3_BUCKET']}",
   :styles => {
     :tiny =>     { :format => 'jpg', :time => 10, :geometry => "100x100#" },
     :small =>   { :format => 'jpg', :time => 10, :geometry => "400x400>"  },

@@ -8,7 +8,7 @@ class SpecSheetController < ApiController
     file = SpecSheet.new(pdf_name, @project, spec_sheet_params).create_pdf
     storage = Fog::Storage.new( Rails.configuration.fog )
     headers = { "Content-Type" => 'application/pdf', "x-amz-acl" => "public-read" }
-    s = storage.put_object(ENV['WEAVENOTE__AWS_S3_BUCKET'], "#{pdf_path}#{pdf_name}", file, headers )
+    s = storage.put_object(ENV['AWS_S3_BUCKET'], "#{pdf_path}#{pdf_name}", file, headers )
     url = "https://#{s.host}#{s.path}"
     render json: { url: url }
   end

@@ -12,7 +12,7 @@ class Notification < ApplicationRecord
   end
   
   def url
-    domain = ENV['WEAVENOTE__SITE_URL']
+    domain = ENV['SITE_URL']
     if concern.class.name == 'Comment'
       "#{domain}/projects/#{concern.project.id}"
     end

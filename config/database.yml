@@ -15,7 +15,7 @@ test:
 
 production:
   <<: *default
-  database: weavenote
+  database: <%= ENV['DB_NAME'] %>
   username: root
-  password: Boobies!111
+  password: <%= ENV['DB_PASS'] %>
   socket: /run/mysqld/mysqld.sock

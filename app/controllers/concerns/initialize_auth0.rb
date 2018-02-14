@@ -11,16 +11,15 @@ module InitializeAuth0
   end
 
   def auth0
-    secrets = Rails.application.secrets
     Auth0Client.new(
-      :client_id => secrets.auth0_client_id,
-      :token => token,
-      :domain => secrets.auth0_domain,
+      :client_id => ENV['AUTH0_CLIENT_ID'],
+      :domain => ENV['AUTH0_DOMAIN'],
+      :token => auth0_token,
       :api_version => 2
     )
   end
 
-  def token
+  def auth0_token
 
     if is_api_mode?
 
@@ -51,7 +50,7 @@ module InitializeAuth0
   end
 
   def cache_key_for_token
-    "user_info_from_token___#{token}"
+    "user_info_from_token___#{auth0_token}"
   end  
 
 

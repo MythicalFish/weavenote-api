@@ -2,7 +2,7 @@
 # port number is 3001.
 class ApiSubdomain
   def self.matches? request
-    return true if request.subdomain === "api"
+    return true if [ "api", "api-dev" ].include? request.subdomain 
     return true if request.port == 3001
     return false
   end   
@@ -12,7 +12,7 @@ end
 # or when the port is 3002.
 class BillingSubdomain
   def self.matches? request
-    return true if request.subdomain === "billing"
+    return true if [ "billing", "billing-dev" ].include? request.subdomain 
     return true if request.port == 3002
     return false
   end   

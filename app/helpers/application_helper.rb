@@ -1,11 +1,11 @@
 module ApplicationHelper
 
   def is_api_mode?
-    request.subdomain == 'api' || request.port == 3001
+    [ "api", "api-dev" ].include?(request.subdomain) || request.port == 3001 
   end
 
   def is_billing_mode?
-    request.subdomain == 'billing' || request.port == 3002
+    [ "billing", "billing-dev" ].include?(request.subdomain) || request.port == 3002 
   end
 
   def pretty_date date

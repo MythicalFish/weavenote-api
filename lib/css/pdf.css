@@ -117,6 +117,9 @@
   bottom: 0;
   z-index: 2; }
 
+.right-align {
+  text-align: right; }
+
 h1,
 h2,
 h3 {
@@ -153,14 +156,19 @@ body {
       height: 100%; }
       .page table.main tr.body > td {
         width: 50%; }
-  .page .page-number {
+  .page .page-number,
+  .page .footer {
     display: block;
     position: absolute;
     bottom: 80px;
     right: 80px;
     opacity: 0.6;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     z-index: 2; }
+  .page .footer {
+    right: auto;
+    left: 80px;
+    opacity: 0.3; }
 
 .img {
   width: 100%;
@@ -352,6 +360,9 @@ table.measurements {
 
 table.materials thead tr td {
   padding-bottom: 20px; }
+table.materials tbody tr td {
+  padding-bottom: 140px;
+  padding-top: 0; }
 
 td.material-img {
   position: relative;

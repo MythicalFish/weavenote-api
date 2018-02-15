@@ -6,6 +6,14 @@ table.materials {
       }
     }
   }
+  tbody {
+    tr {
+      td {
+        padding-bottom: 140px;
+        padding-top: 0;
+      }
+    }
+  }
 }
 td.material-img {
   position: relative;

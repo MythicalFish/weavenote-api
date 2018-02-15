@@ -5,6 +5,21 @@
       %col{:width => "60%"}/
     %tr
       %td
-        .app-title= @project.name
+        .app-title
+          - if @project.ref_number
+            = "#{@project.ref_number} - "
+          = @project.name
+          - if @project.color_code
+            = " - #{@project.code_code}"
         %h1.page-title= title
-      %td
+      %td.right-align.vbottom
+        - if @project.collection
+          .pb1
+            %b Collection:
+            = @project.collection
+        .pb1
+          %b Organization:
+          = @project.organization.name
+        %b Contact:
+        = @project.organization.owner.email
+        

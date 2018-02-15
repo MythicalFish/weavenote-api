@@ -31,13 +31,19 @@
       }
     }
   }
-  .page-number {
+  .page-number,
+  .footer {
     display: block;
     position: absolute;
     bottom: $p3 * 2;
     right: $p3 * 2;
     opacity: 0.6;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     z-index: 2;
+  }
+  .footer {
+    right: auto;
+    left: $p3 * 2;
+    opacity: 0.3;
   }
 }

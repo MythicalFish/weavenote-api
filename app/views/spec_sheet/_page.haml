@@ -7,4 +7,6 @@
       %tr.body
         = render partial: "spec_sheet/pages/#{view}", locals: { data: defined?(data) ? data : nil }
   .page-number
-    = "Page #{@pagenumber}"
+    = "page #{@pagenumber}"
+  .footer
+    made with Weavenote

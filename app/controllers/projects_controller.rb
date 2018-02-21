@@ -32,7 +32,7 @@ class ProjectsController < ApiController
 
   def destroy
     @project.destroy!
-    render_project_list true
+    render_project_list
   end
 
   def duplicate

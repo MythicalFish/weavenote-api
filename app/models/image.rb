@@ -9,7 +9,7 @@ class Image < ApplicationRecord
   has_many :annotations, dependent: :destroy
 
   has_attached_file :file,
-  :path => "weavenote/uploads/organization-:organization_id/image-:id/:style/:basename.:extension",
+  :path => "uploads/organization-:organization_id/image-:id/:style/:basename.:extension",
   :storage => :fog,
   :fog_credentials =>  Rails.application.config.fog,
   :fog_directory => ENV['AWS_S3_BUCKET'],

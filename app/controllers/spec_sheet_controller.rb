@@ -63,7 +63,7 @@ class SpecSheetController < ApiController
   end
 
   def pdf_path
-    'weavenote/exports/'
+    'exports/'
   end
 
   def set_project

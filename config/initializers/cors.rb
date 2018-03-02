@@ -6,8 +6,13 @@
 # Read more: https://github.com/cyu/rack-cors
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  origins = [ ENV['DOMAIN'] ]
+  # Add localhost unless on live domain
+  if ENV['TESTING_MODE']
+    origins << 'http://localhost:3000'
+  end
   allow do
-    origins 'http://localhost:3000', ENV['DOMAIN']
+    origins origins
     resource '*',
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head]

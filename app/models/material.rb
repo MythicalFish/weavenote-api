@@ -35,7 +35,7 @@ class Material < ApplicationRecord
 
   def display_name
     a = [name]
-    n = type.name
+    n = type.try(:name)
     if n == "Yarn"
       a << yarn_count if yarn_count
     elsif ["Zip", "Button", "Other"].include? n
